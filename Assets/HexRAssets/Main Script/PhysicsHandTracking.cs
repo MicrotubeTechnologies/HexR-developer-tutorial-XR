@@ -1,4 +1,4 @@
-#define Meta_OVR
+#define OPEN_XR
 
 #if OPEN_XR
 using System;
@@ -22,7 +22,7 @@ public class PhysicsHandTracking : MonoBehaviour
     private string hand;
     private string hand_Short;
     private Transform[] targetJoints = new Transform[26];
-    public Transform handRoot;
+    public Transform handRoot, HexRHandRoot;
     private Transform[] followingJoints = new Transform[26];
 
     private Vector3 targePosition = new Vector3();
@@ -54,72 +54,72 @@ public class PhysicsHandTracking : MonoBehaviour
         }
         rb = GetComponent<Rigidbody>();
 
-        targetJoints[0] = handRoot.Find(hand_Short + "_Wrist/" + hand_Short + "_ThumbMetacarpal");
+        targetJoints[0] = handRoot.Find(hand_Short + "_ThumbMetacarpal");
         targetJoints[1] = targetJoints[0].GetChild(0);
         targetJoints[2] = targetJoints[1].GetChild(0);
         targetJoints[3] = targetJoints[2].GetChild(0);
 
-        targetJoints[4] = handRoot.Find(hand_Short + "_Wrist/" + hand_Short + "_IndexMetacarpal");
+        targetJoints[4] = handRoot.Find(hand_Short + "_IndexMetacarpal");
         targetJoints[5] = targetJoints[4].GetChild(0);
         targetJoints[6] = targetJoints[5].GetChild(0);
         targetJoints[7] = targetJoints[6].GetChild(0);
         targetJoints[8] = targetJoints[7].GetChild(0);
 
-        targetJoints[9] = handRoot.Find(hand_Short + "_Wrist/" + hand_Short + "_MiddleMetacarpal");
+        targetJoints[9] = handRoot.Find(hand_Short + "_MiddleMetacarpal");
         targetJoints[10] = targetJoints[9].GetChild(0);
         targetJoints[11] = targetJoints[10].GetChild(0);
         targetJoints[12] = targetJoints[11].GetChild(0);
         targetJoints[13] = targetJoints[12].GetChild(0);
 
-        targetJoints[14] = handRoot.Find(hand_Short + "_Wrist/" + hand_Short + "_RingMetacarpal");
+        targetJoints[14] = handRoot.Find(hand_Short + "_RingMetacarpal");
         targetJoints[15] = targetJoints[14].GetChild(0);
         targetJoints[16] = targetJoints[15].GetChild(0);
         targetJoints[17] = targetJoints[16].GetChild(0);
         targetJoints[18] = targetJoints[17].GetChild(0);
 
-        targetJoints[19] = handRoot.Find(hand_Short + "_Wrist/" + hand_Short + "_LittleMetacarpal");
+        targetJoints[19] = handRoot.Find(hand_Short + "_LittleMetacarpal");
         targetJoints[20] = targetJoints[19].GetChild(0);
         targetJoints[21] = targetJoints[20].GetChild(0);
         targetJoints[22] = targetJoints[21].GetChild(0);
         targetJoints[23] = targetJoints[22].GetChild(0);
 
-        targetJoints[24] = handRoot.Find(hand_Short + "_Wrist/" + hand_Short + "_Palm");
-        targetJoints[25] = handRoot.Find(hand_Short + "_Wrist/");
+        targetJoints[24] = handRoot.Find(hand_Short + "_Palm");
+        targetJoints[25] = handRoot;
 
 
 
 
-        followingJoints[0] = transform.Find(hand_Short + "_Wrist/" + hand_Short + "_ThumbMetacarpal");
+        followingJoints[0] = HexRHandRoot.Find(hand_Short + "_ThumbMetacarpal");
         followingJoints[1] = followingJoints[0].GetChild(0);
         followingJoints[2] = followingJoints[1].GetChild(0);
         followingJoints[3] = followingJoints[2].GetChild(0);
 
-        followingJoints[4] = transform.Find(hand_Short + "_Wrist/" + hand_Short + "_IndexMetacarpal");
+        followingJoints[4] = HexRHandRoot.Find(hand_Short + "_IndexMetacarpal");
         followingJoints[5] = followingJoints[4].GetChild(0);
         followingJoints[6] = followingJoints[5].GetChild(0);
         followingJoints[7] = followingJoints[6].GetChild(0);
         followingJoints[8] = followingJoints[7].GetChild(0);
 
-        followingJoints[9] = transform.Find(hand_Short + "_Wrist/" + hand_Short + "_MiddleMetacarpal");
+        followingJoints[9] = HexRHandRoot.Find(hand_Short + "_MiddleMetacarpal");
         followingJoints[10] = followingJoints[9].GetChild(0);
         followingJoints[11] = followingJoints[10].GetChild(0);
         followingJoints[12] = followingJoints[11].GetChild(0);
         followingJoints[13] = followingJoints[12].GetChild(0);
 
-        followingJoints[14] = transform.Find(hand_Short + "_Wrist/" + hand_Short + "_RingMetacarpal");
+        followingJoints[14] = HexRHandRoot.Find(hand_Short + "_RingMetacarpal");
         followingJoints[15] = followingJoints[14].GetChild(0);
         followingJoints[16] = followingJoints[15].GetChild(0);
         followingJoints[17] = followingJoints[16].GetChild(0);
         followingJoints[18] = followingJoints[17].GetChild(0);
 
-        followingJoints[19] = transform.Find(hand_Short + "_Wrist/" + hand_Short + "_LittleMetacarpal");
+        followingJoints[19] = HexRHandRoot.Find(hand_Short + "_LittleMetacarpal");
         followingJoints[20] = followingJoints[19].GetChild(0);
         followingJoints[21] = followingJoints[20].GetChild(0);
         followingJoints[22] = followingJoints[21].GetChild(0);
         followingJoints[23] = followingJoints[22].GetChild(0);
 
-        followingJoints[24] = transform.Find(hand_Short + "_Wrist/" + hand_Short + "_Palm");
-        followingJoints[25] = transform.Find(hand_Short + "_Wrist/");
+        followingJoints[24] = HexRHandRoot.Find(hand_Short + "_Palm");
+        followingJoints[25] = HexRHandRoot;
     }
 
 
@@ -142,6 +142,7 @@ public class PhysicsHandTracking : MonoBehaviour
         }
         catch (Exception e)
         {
+            Debug.Log(e);
             //logText2.text += "\n" + e.ToString();
         }
     }
@@ -156,6 +157,7 @@ public class PhysicsHandTracking : MonoBehaviour
 
             for (int i = 0; i < 23; i++)
             {
+                Debug.Log("Here" + i);
                 followingJoints[i].localPosition = targetJoints[i].localPosition;
                 followingJoints[i].localRotation = targetJoints[i].localRotation * Quaternion.Euler(rotOffsetFinger);
             }
@@ -180,6 +182,7 @@ public class PhysicsHandTracking : MonoBehaviour
         }
         catch (Exception e)
         {
+            Debug.Log(e);
             //logText2.text += "\n" + e.ToString();
         }
 
