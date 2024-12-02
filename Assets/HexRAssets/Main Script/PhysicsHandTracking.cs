@@ -157,7 +157,6 @@ public class PhysicsHandTracking : MonoBehaviour
 
             for (int i = 0; i < 23; i++)
             {
-                Debug.Log("Here" + i);
                 followingJoints[i].localPosition = targetJoints[i].localPosition;
                 followingJoints[i].localRotation = targetJoints[i].localRotation * Quaternion.Euler(rotOffsetFinger);
             }
