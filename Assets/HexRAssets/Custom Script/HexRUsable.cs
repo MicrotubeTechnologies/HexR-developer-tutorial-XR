@@ -11,7 +11,7 @@ public class HexRUsable : MonoBehaviour
 
     public Options Thumb, IndexFinger, MiddleFinger, RingFinger, LittleFinger;
 
-    [Tooltip("0 is when finger is fully curled, 100 is when finger is fully extended")]
+    [Tooltip("0 is when finger is fully curled, 1 is when finger is fully extended")]
     [Range(0f, 1f)] // Creates a slider from 0 to 100
     public float UseThreshold = 0.3f;
 
@@ -24,21 +24,26 @@ public class HexRUsable : MonoBehaviour
     void Start()
     {
         FingerUseTrackingSetUp();
+        Currentfingerusetracking = null;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (beinguse == false)
+        if (Currentfingerusetracking != null)
         {
-            beinguse = true;
-            UseChecker();
+            if (beinguse == false)
+            {
+                beinguse = true;
+                UseChecker();
+            }
+            else
+            {
+                beinguse = false;
+                NotUseChecker();
+            }
         }
-        else
-        {
-            beinguse = false;
-            NotUseChecker();
-        }
+
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -128,6 +133,7 @@ public class HexRUsable : MonoBehaviour
         if(Check ==true)
         {
             WhenUseTriggerEvents?.Invoke();
+            Currentfingerusetracking = null;
         }
         NotUseChecker();
     }
@@ -197,6 +203,7 @@ public class HexRUsable : MonoBehaviour
         if (Check == true)
         {
             WhenStopUsingTriggerEvents?.Invoke();
+            Currentfingerusetracking = null;
         }
     }
     private void FingerUseTrackingSetUp()
@@ -210,4 +217,5 @@ public class HexRUsable : MonoBehaviour
         if (LeftHand != null) { LfingeruseTracking = LeftHand.GetComponent<FingerUseTracking>(); }
         else { Debug.Log("Left hand is not found"); }
     }
+    
 }

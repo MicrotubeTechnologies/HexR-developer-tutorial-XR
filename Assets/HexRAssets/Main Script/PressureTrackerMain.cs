@@ -111,7 +111,7 @@ namespace HexR
         #region Basic Haptics Function For Multiple Trigger
         public void TriggerAllHapticsIncrease(int TargetPressure)
         {
-            if (HandGrabbing == true || PokeHovering == true || CollisionNearHand ==true)
+            if (HandGrabbing == true || PokeHovering == true || CollisionNearHand == true)
             {
                 TargetPressure = PressureChecker(TargetPressure);
                 // ClutchState affecting all indenters
