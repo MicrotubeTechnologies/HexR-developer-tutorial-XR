@@ -229,8 +229,12 @@ namespace HexR
                 {
                     GameObject LeftXR = GameObject.Find("Left Hand Interaction Visual");
                     GameObject RightXR = GameObject.Find("Right Hand Interaction Visual");
-                    controller.leftHand.gameObject.GetComponent<PhysicsHandTracking>().handRoot = LeftXR.transform.Find("L_Wrist");
-                    controller.rightHand.gameObject.GetComponent<PhysicsHandTracking>().handRoot = RightXR.transform.Find("R_Wrist");
+                    PhysicsHandTracking LeftP = controller.leftHand.gameObject.GetComponent<PhysicsHandTracking>();
+                    PhysicsHandTracking RightP = controller.rightHand.gameObject.GetComponent<PhysicsHandTracking>();
+                    LeftP.handRoot = LeftXR.transform.Find("L_Wrist");
+                    RightP.handRoot = RightXR.transform.Find("R_Wrist");
+                    EditorUtility.SetDirty(LeftP); // Mark as dirty to save changes
+                    EditorUtility.SetDirty(RightP); // Mark as dirty to save changes
 
                 }
                 catch

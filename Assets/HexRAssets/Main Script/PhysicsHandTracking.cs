@@ -49,6 +49,7 @@ public class PhysicsHandTracking : MonoBehaviour
         //handRoot = GameObject.Find(hand + " Hand Tracking").GetComponent<Transform>();
         if (handRoot== null)
         {
+            
             Debug.LogError("Hand root in " + gameObject.name + "is not assigned.");
             return;
         }
