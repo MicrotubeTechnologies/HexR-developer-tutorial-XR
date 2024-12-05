@@ -17641,7 +17641,7 @@ GameObject:
   - component: {fileID: 6394090215004151070}
   - component: {fileID: 6394090215002303690}
   m_Layer: 0
-  m_Name: Fountain10
+  m_Name: Fountain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

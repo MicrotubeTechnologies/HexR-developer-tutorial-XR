@@ -5,21 +5,21 @@ using HaptGlove;
 using UnityEditor;
 using UnityEngine;
 using TMPro;
-
+using UnityEngine.XR.Interaction.Toolkit.UI.BodyUI;
+using System.Linq;
+using UnityEngine.UI;
+using Unity.VisualScripting;
 namespace HexR
 {
     public class HaptGloveManager : MonoBehaviour
     {
         public bool isQuest;
 
-        [Header("Hand Physics Components")]
-
-        [Tooltip("Located in Left Hand Physics ")]
         public HaptGloveHandler leftHand;
-        [Tooltip("Located in Right Hand Physics ")]
         public HaptGloveHandler rightHand;
+        public GameObject HandMenu;
+        public GameObject NewHandMenu;
 
-        [Header("Panel Components")]
         public GameObject btIndicator_L;
         public GameObject btIndicator_R, pumpIndicator_L, pumpIndicator_R, HexRPanel;
         private string bluetoothLog;
@@ -152,4 +152,100 @@ namespace HexR
             return layerNames;
         }
     }
+
+#if UNITY_EDITOR
+    [CustomEditor(typeof(HaptGloveManager))]
+    public class HexRSettingEditorGUI : Editor
+    {
+        public override void OnInspectorGUI()
+        {
+
+            // Get reference to the target script
+            HaptGloveManager controller = (HaptGloveManager)target;
+
+            controller.rightHand = (HaptGloveHandler)EditorGUILayout.ObjectField("Right Hand Physics",controller.rightHand,
+                typeof(HaptGloveHandler), // Corrected type
+                true
+            );
+
+            controller.leftHand = (HaptGloveHandler)EditorGUILayout.ObjectField("Left Hand Physics",controller.leftHand,
+                typeof(HaptGloveHandler), // Corrected type
+                true
+            );
+
+            controller.HandMenu = (GameObject)EditorGUILayout.ObjectField("HexR Hand Menu",controller.HandMenu, typeof(GameObject), true);
+
+            // Add vertical spacing
+            GUILayout.Space(15); // Adds 10 pixels of space
+
+            controller.btIndicator_L = (GameObject)EditorGUILayout.ObjectField("btIndicator_L", controller.btIndicator_L, typeof(GameObject), true);
+            controller.btIndicator_R = (GameObject)EditorGUILayout.ObjectField("btIndicator_R", controller.btIndicator_R, typeof(GameObject), true);
+            controller.pumpIndicator_L = (GameObject)EditorGUILayout.ObjectField("pumpIndicator_L", controller.pumpIndicator_L, typeof(GameObject), true);
+            controller.pumpIndicator_R = (GameObject)EditorGUILayout.ObjectField("pumpIndicator_R", controller.pumpIndicator_R, typeof(GameObject), true);
+            controller.LeftBtText = (TextMeshProUGUI)EditorGUILayout.ObjectField("LeftBtText", controller.LeftBtText, typeof(TextMeshProUGUI), true);
+            controller.RightBtText = (TextMeshProUGUI)EditorGUILayout.ObjectField("RightBtText", controller.RightBtText, typeof(TextMeshProUGUI), true);
+
+
+            // Add vertical spacing
+            GUILayout.Space(15); // Adds 10 pixels of space
+
+            if (GUILayout.Button("Auto Set Up HexR"))
+            {
+                try
+                {
+                    controller.rightHand = GameObject.Find("Right Hand Physics").GetComponent<HaptGloveHandler>(); // Replace with the name of your target object
+                    controller.leftHand = GameObject.Find("Left Hand Physics").GetComponent<HaptGloveHandler>(); // Replace with the name of your target object
+                    Debug.Log("Right Hand Physics Found And Assigned.");
+                }
+                catch
+                {
+                    Debug.Log("HaptGloveHandler Not Found Remember to assign them.");
+                }
+
+                try
+                {
+                    controller.NewHandMenu = Instantiate(controller.HandMenu);
+                    DestroyImmediate(controller.HandMenu );
+                    controller.NewHandMenu.transform.SetParent(GameObject.Find("Camera Offset").transform);
+                    controller.NewHandMenu.transform.localPosition = Vector3.zero;
+                    controller.HandMenu = controller.NewHandMenu;
+                    // Directly find inactive GameObjects
+                    controller.btIndicator_L = GameObject.FindObjectsOfType<GameObject>(true).FirstOrDefault(obj => obj.name == "Bluetooth Indicator L");
+                    controller.pumpIndicator_L = GameObject.FindObjectsOfType<GameObject>(true).FirstOrDefault(obj => obj.name == "Pump Indicator L");
+                    controller.btIndicator_R = GameObject.FindObjectsOfType<GameObject>(true).FirstOrDefault(obj => obj.name == "Bluetooth Indicator R");
+                    controller.pumpIndicator_R = GameObject.FindObjectsOfType<GameObject>(true).FirstOrDefault(obj => obj.name == "Pump Indicator R");
+                    controller.LeftBtText = GameObject.FindObjectsOfType<TextMeshProUGUI>(true).FirstOrDefault(obj => obj.name == "Left HexR Text");
+                    controller.RightBtText = GameObject.FindObjectsOfType<TextMeshProUGUI>(true).FirstOrDefault(obj => obj.name == "Right HexR Text");
+
+                    Debug.Log("HexR Hand Menu Set Up Complete");
+                }
+                catch
+                {
+                    Debug.Log("HexR panel is not set up, Manual Set up needed");
+
+                }
+
+                try
+                {
+                    GameObject LeftXR = GameObject.Find("Left Hand Interaction Visual");
+                    GameObject RightXR = GameObject.Find("Right Hand Interaction Visual");
+                    controller.leftHand.gameObject.GetComponent<PhysicsHandTracking>().handRoot = LeftXR.transform.Find("L_Wrist");
+                    controller.rightHand.gameObject.GetComponent<PhysicsHandTracking>().handRoot = RightXR.transform.Find("R_Wrist");
+
+                }
+                catch
+                {
+                    Debug.Log("XR hand is linked not linked to Physics hand tracking, manual link needed, Drag the hand root of your vr hand to the left and right physicshandtracking script");
+                }
+                EditorUtility.SetDirty(controller); // Mark as dirty to save changes
+            }
+            // Save changes
+            if (GUI.changed)
+            {
+                EditorUtility.SetDirty(target);
+            }
+        }
+    }
+
+#endif
 }

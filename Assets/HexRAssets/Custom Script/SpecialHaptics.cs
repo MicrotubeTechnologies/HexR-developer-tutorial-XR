@@ -1,6 +1,7 @@
 using HaptGlove;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -244,7 +245,7 @@ namespace HexR
 
         #endregion
 
-        #region HeartBeat Pulse Haptics
+        #region HeartBeat Pulse (Fingers Only) Haptics
         private void HeartBeatHapticTriggerEnter(Collider other)
         {
             if (PressureIn == true)
@@ -376,6 +377,9 @@ namespace HexR
                 true // Allow scene objects
             );
 
+            // Add vertical spacing
+            GUILayout.Space(10); // Adds 10 pixels of space
+
             // Draw default fields
             controller.TypeOfHaptics = (SpecialHaptics.Options)EditorGUILayout.EnumPopup("Type of Haptics", controller.TypeOfHaptics);
 
@@ -390,6 +394,24 @@ namespace HexR
 
             }
 
+            // Add vertical spacing
+            GUILayout.Space(15); // Adds 10 pixels of space
+
+            if (GUILayout.Button("Auto Find Hand Physics"))
+            {
+                try
+                {
+                    controller.RightHandPhysics = GameObject.Find("Right Hand Physics").GetComponent<PressureTrackerMain>(); // Replace with the name of your target object
+                    controller.LeftHandPhysics = GameObject.Find("Left Hand Physics").GetComponent<PressureTrackerMain>(); // Replace with the name of your target object
+
+                }
+                catch
+                {
+                    Debug.Log("Pressure Tracker Main Not Found Remember to assign them.");
+                }
+
+                EditorUtility.SetDirty(controller); // Mark as dirty to save changes
+            }
             // Save changes
             if (GUI.changed)
             {
@@ -397,5 +419,6 @@ namespace HexR
             }
         }
     }
-    #endif
+
+#endif
 }
