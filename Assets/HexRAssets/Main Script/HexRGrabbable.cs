@@ -9,7 +9,8 @@ public class HexRGrabbable : MonoBehaviour
 {
     public enum Options { PinchGrab, PalmGrab }
     public Options TypeOfGrab;
-
+    public enum Option { On, Off }
+    public Option Gravity;
     public UnityEvent OnGrab, OnRelease;
 
 
@@ -21,7 +22,7 @@ public class HexRGrabbable : MonoBehaviour
     private Rigidbody objectRigidbody;
 
     [HideInInspector]
-    public bool isGrab = false;
+    public bool isGrab = false, InvokeReady = true;
     // Start is called before the first frame update
     void Start()
     {
@@ -319,7 +320,7 @@ public class HexRGrabbable : MonoBehaviour
         objectRigidbody.useGravity = false;
         objectRigidbody.interpolation = RigidbodyInterpolation.None;
         gameObject.transform.SetParent(HandParent.transform);
-        if (isGrab) { OnGrab?.Invoke(); }
+        if (isGrab && InvokeReady) { OnGrab?.Invoke(); InvokeReady = false; }
 
         if (fingerUseTracking.isHandOpen() == true)
         {
@@ -331,9 +332,9 @@ public class HexRGrabbable : MonoBehaviour
     {
         isGrab = false;
         objectRigidbody.isKinematic = false;
-        objectRigidbody.useGravity = true;
+        if (Gravity == Option.On) { objectRigidbody.useGravity = true; }
         objectRigidbody.interpolation = RigidbodyInterpolation.Extrapolate;
         gameObject.transform.SetParent(OriginalParent.transform);
-        OnRelease?.Invoke();
+        if (!InvokeReady) { OnRelease?.Invoke(); InvokeReady = true; }
     }
 }

@@ -351,7 +351,7 @@ namespace HexR
         #endregion
     }
 
-
+    #if UNITY_EDITOR
     [CustomEditor(typeof(SpecialHaptics))]
     public class HapticEffectControllerEditor : Editor
     {
@@ -397,4 +397,5 @@ namespace HexR
             }
         }
     }
+    #endif
 }
