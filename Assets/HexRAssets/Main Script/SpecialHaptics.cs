@@ -13,18 +13,39 @@ namespace HexR
     public class SpecialHaptics : MonoBehaviour
     {
         public PressureTrackerMain RightHandPhysics, LeftHandPhysics;
-        public enum Options { FountainEffect, RainDropEffect, HeartBeatEffect }
+        public enum Options { CustomVibrations, FountainEffect, RainDropEffect, HeartBeatEffect }
         public Options TypeOfHaptics;
-        private bool RemoveIt = false, IsTriggered = false, ReadyToDrop = true, PressureIn = true;
+        private bool RemoveIt = false, IsTriggered = false, ReadyToDrop = true;
+        private float timer = 0.2f;
 
+        #region Custom Vibrations Fields
+
+        [Range(10f, 60f)]
+        public float VibrationsFrequencyValue = 10f;
+        [Range(10f, 60f)]
+        public float HapticStrenngthValue = 10f;
+        private bool RemoveCustomVibrationCheck = false;
+        #endregion
+
+        #region Heart Beat Fields
         public float InTimer = 0.4f, OutTimer = 0f;
         public HeartBeat heartbeat;
+        private bool PressureIn = true;
         public enum HeartBeat { Regular, Irregular };
+        #endregion
+
         private List<byte[]> fingerAffected = new List<byte[]>();
         private byte[][] totalFingerAffected;
         void Start()
         {
 
+        }
+        private void Update()
+        {
+            if (timer > 0)
+            {
+                timer -= Time.deltaTime;
+            }
         }
         private void OnTriggerEnter(Collider other)
         {
@@ -39,6 +60,10 @@ namespace HexR
             else if(TypeOfHaptics == Options.HeartBeatEffect)
             {
                 HeartBeatHapticTriggerEnter(other);
+            }
+            else if(TypeOfHaptics == Options.CustomVibrations)
+            {
+                CustomVibrationsTriggerEnter(other);
             }
         }
         private void OnTriggerStay(Collider other)
@@ -55,6 +80,10 @@ namespace HexR
             {
                 HeartBeatHapticTriggerEnter(other);
             }
+            else if (TypeOfHaptics == Options.CustomVibrations)
+            {
+                CustomVibrationsBool(other,false);
+            }
         }
         private void OnTriggerExit(Collider other)
         {
@@ -70,9 +99,47 @@ namespace HexR
             {
                 return;
             }
+            else if (TypeOfHaptics == Options.CustomVibrations)
+            {
+                CustomVibrationsBool(other, true);
+            }
         }
 
 
+        #region Custom Vibrations
+        public void CustomVibrationsTriggerEnter(Collider collider)
+        {
+            if (collider.gameObject.TryGetComponent(out HapticFingerTrigger hapticFingerTrigger) && timer <= 0)
+            {
+                RemoveCustomVibrationCheck = false;
+                hapticFingerTrigger.TriggerVibrationPressure((byte)VibrationsFrequencyValue, (byte)HapticStrenngthValue);
+                timer = 0.1f;
+                StartCoroutine(RemoveCustomVibrations(hapticFingerTrigger));
+            }
+        }
+        private void CustomVibrationsBool(Collider collider, bool Choice)
+        {
+            if (collider.gameObject.TryGetComponent(out HapticFingerTrigger hapticFingerTrigger))
+            {
+                RemoveCustomVibrationCheck = Choice;
+            }
+        }
+        IEnumerator RemoveCustomVibrations(HapticFingerTrigger hapticFingerTrigger)
+        {
+            // Wait for the specified delay time
+            yield return new WaitForSeconds(0.2f);
+
+            if (RemoveCustomVibrationCheck == true)
+            {
+                hapticFingerTrigger.RemoveVibration((byte)VibrationsFrequencyValue);
+            }
+            else
+            {
+                StartCoroutine(RemoveCustomVibrations(hapticFingerTrigger));
+                RemoveCustomVibrationCheck = true;
+            }
+        }
+        #endregion
         #region Fountain Haptics
         private void FountainHapticTriggerEnter(Collider other)
         {
@@ -394,6 +461,28 @@ namespace HexR
 
             }
 
+            // Conditional fields for Custom Vibrations
+            if(controller.TypeOfHaptics == SpecialHaptics.Options.CustomVibrations)
+            {
+                // Create a tooltip for the slider
+                GUIContent sliderContent = new GUIContent(
+                    "Frequency Speed",
+                    "Set the vibration frequency speed between 10 and 60. 10 = Slowest, 60 = fastest"
+                );
+                controller.VibrationsFrequencyValue = EditorGUILayout.Slider(sliderContent, controller.VibrationsFrequencyValue,10f,60f);
+
+                // Create a tooltip for the slider
+                GUIContent sliderContent2 = new GUIContent(
+                    "Haptic Strength",
+                    "Set the Haptic strength between 10 and 60. 10 = Weakest, 60 = Strongest"
+                );
+                controller.HapticStrenngthValue = EditorGUILayout.Slider(sliderContent2, controller.HapticStrenngthValue, 10f, 60f);
+
+                // Round to nearest increment of 10
+                controller.VibrationsFrequencyValue = Mathf.Round(controller.VibrationsFrequencyValue / 10) *10;
+                // Round to nearest increment of 10
+                controller.HapticStrenngthValue = Mathf.Round(controller.HapticStrenngthValue / 10) *10;
+            }
             // Add vertical spacing
             GUILayout.Space(15); // Adds 10 pixels of space
 

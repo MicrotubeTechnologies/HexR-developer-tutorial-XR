@@ -83,30 +83,6 @@ namespace HexR
         // Update is called once per frame
         void Update()
         {
-            if (fingertype == FingerType.Thumb)
-            {
-                Pressure = pressureTrackerMain.ThumbPressure;
-            }
-            else if (fingertype == FingerType.Index)
-            {
-                Pressure = pressureTrackerMain.IndexPressure;
-            }
-            else if (fingertype == FingerType.Middle)
-            {
-                Pressure = pressureTrackerMain.MiddlePressure;
-            }
-            else if (fingertype == FingerType.Ring)
-            {
-                Pressure = pressureTrackerMain.RingPressure;
-            }
-            else if (fingertype == FingerType.Little)
-            {
-                Pressure = pressureTrackerMain.LittlePressure;
-            }
-            else if (fingertype == FingerType.Palm)
-            {
-                Pressure = pressureTrackerMain.PalmPressure;
-            }
 
         }
         public void TriggerFixPressure(byte TargetPressure)
@@ -120,13 +96,15 @@ namespace HexR
             }
 
         }
-        public void TriggerVibrationPressure(byte VibrationStrength)
+        public void TriggerVibrationPressure(byte VibrationStrength, byte HapticStrength)
         {
-            pressureTrackerMain.TriggerSingleVibrations(clutchStateIn, VibrationStrength,true);
+            byte[] btData = gloveHandler.haptics.ApplyHaptics(VibrationStrength, clutchStateIn, HapticStrength, false);
+            gloveHandler.BTSend(btData);
         }
         public void RemoveVibration(byte VibrationStrength)
         {
-            pressureTrackerMain.RemoveSingleVibration(clutchStateOut, VibrationStrength);
+            byte[] btData = gloveHandler.haptics.ApplyHaptics(VibrationStrength, clutchStateOut, 60, false);
+            gloveHandler.BTSend(btData);
         }
         public void RemoveHaptics()
         {

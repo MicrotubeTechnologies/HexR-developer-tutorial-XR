@@ -89,20 +89,20 @@ namespace HexR
                 ResetSinglePressure(FingerTypeString);
             }
         }
-        public void TriggerSingleVibrations(byte[] FingerTypeByte, byte VibrationStrength, bool ByPassHandInteractionCheck)
+        public void TriggerSingleVibrations(byte[] FingerTypeByte, byte Frequency, byte HapticStrength, bool ByPassHandInteractionCheck)
         {
             if (HandGrabbing == true || PokeHovering == true || ByPassHandInteractionCheck == true)
             {
 
-                byte[] btData = gloveHandler.haptics.ApplyHaptics(VibrationStrength, FingerTypeByte, (byte)(30), false);
+                byte[] btData = gloveHandler.haptics.ApplyHaptics(Frequency, FingerTypeByte, HapticStrength, false);
                 gloveHandler.BTSend(btData);
 
             }
         }
-        public void RemoveSingleVibration(byte[] FingerTypeByte, byte VibrationStrength)
+        public void RemoveSingleVibration(byte[] FingerTypeByte, byte Frequency)
         {
 
-            byte[] btData = gloveHandler.haptics.ApplyHaptics(VibrationStrength, FingerTypeByte, 60, false);
+            byte[] btData = gloveHandler.haptics.ApplyHaptics(Frequency, FingerTypeByte, 60, false);
             gloveHandler.BTSend(btData);
         }
 
