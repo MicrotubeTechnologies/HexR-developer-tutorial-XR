@@ -5,12 +5,26 @@ using UnityEngine;
 using HexR;
 using TMPro;
 using UnityEngine.Events;
+using static HexR.MetaHapMaterial;
+using UnityEngine.EventSystems;
+using System;
+using HaptGlove;
+using UnityEditor;
 public class HexRGrabbable : MonoBehaviour
 {
+
     public enum Options { PinchGrab, PalmGrab }
+    [Header("General Settings")]
+    [Space(10)]
     public Options TypeOfGrab;
     public enum Option { On, Off }
     public Option Gravity;
+
+    [Range(0f, 60f)]
+    public float HapticStrength = 10f;
+
+    [Header("HexR Events Triggers")]
+    [Space(10)]
     public UnityEvent OnGrab, OnRelease;
 
 
@@ -21,7 +35,7 @@ public class HexRGrabbable : MonoBehaviour
     private FingerUseTracking RfingerUseTracking,LfingeruseTracking;
     private PressureTrackerMain RightPressureTracker, LeftPressureTracker;
     private Rigidbody objectRigidbody;
-
+    private bool HapticIsTriggered = false;
     [HideInInspector]
     public bool isGrab = false, InvokeReady = true;
     // Start is called before the first frame update
@@ -63,7 +77,7 @@ public class HexRGrabbable : MonoBehaviour
             {
                 if (RIndex || RMiddle || RRing || RLittle)
                 {
-                    IsGrab(RHandParent, RfingerUseTracking,RightPressureTracker);
+                    IsGrab(RHandParent, RfingerUseTracking,RightPressureTracker,false);
                 }
                 else
                 {
@@ -75,7 +89,7 @@ public class HexRGrabbable : MonoBehaviour
                 if (LIndex || LMiddle || LRing || LLittle)
                 {
 
-                    IsGrab(LHandParent, LfingeruseTracking,LeftPressureTracker);
+                    IsGrab(LHandParent, LfingeruseTracking,LeftPressureTracker, true);
                 }
                 else
                 {
@@ -89,7 +103,7 @@ public class HexRGrabbable : MonoBehaviour
             {
                 if (RIndex || RMiddle || RRing || RLittle)
                 {
-                    IsGrab(RHandParent, RfingerUseTracking, RightPressureTracker);
+                    IsGrab(RHandParent, RfingerUseTracking, RightPressureTracker, false);
                 }
                 else
                 {
@@ -101,7 +115,7 @@ public class HexRGrabbable : MonoBehaviour
                 if (LIndex || LMiddle || LRing || LLittle)
                 {
 
-                    IsGrab(LHandParent, LfingeruseTracking, LeftPressureTracker);
+                    IsGrab(LHandParent, LfingeruseTracking, LeftPressureTracker, true);
                 }
                 else
                 {
@@ -333,23 +347,33 @@ public class HexRGrabbable : MonoBehaviour
             LPalm = false;
         }
     }
-    private void IsGrab(GameObject HandParent, FingerUseTracking fingerUseTracking, PressureTrackerMain ThePressureTracker)
+    private void IsGrab(GameObject HandParent, FingerUseTracking fingerUseTracking, PressureTrackerMain ThePressureTracker, bool IsLeftHand)
     {
+        ThePressureTracker?.HandGrabbingCheck(true);
         isGrab = true;
+        gameObject.transform.SetParent(HandParent.transform);
+
+        #region Rigidbody Settings
         objectRigidbody.isKinematic = true;
         objectRigidbody.useGravity = false;
         objectRigidbody.interpolation = RigidbodyInterpolation.None;
-        gameObject.transform.SetParent(HandParent.transform);
+        #endregion
+
+        //Trigger Events
         if (isGrab && InvokeReady) { OnGrab?.Invoke(); InvokeReady = false; }
-        ThePressureTracker?.HandGrabbingCheck(true);
+        //Trigger Haptics
+        TriggerHaptics(ThePressureTracker, IsLeftHand);
+
         if (fingerUseTracking.isHandOpen() == true)
         {
+            // If hand is open, release grab
             NotGrab(ThePressureTracker);
         }
 
     }
     private void NotGrab(PressureTrackerMain ThePressureTracker)
     {
+        ThePressureTracker?.HandGrabbingCheck(false);
         isGrab = false;
         objectRigidbody.isKinematic = false;
         if (Gravity == Option.On) { objectRigidbody.useGravity = true; }
@@ -357,7 +381,59 @@ public class HexRGrabbable : MonoBehaviour
 
         gameObject.transform.SetParent(OriginalParent.transform);
         if (!InvokeReady) { OnRelease?.Invoke(); InvokeReady = true; }
-        ThePressureTracker?.HandGrabbingCheck(false);
+        RemoveHaptics(ThePressureTracker);
+    }
+    private void TriggerHaptics(PressureTrackerMain pressureTrackerMain, bool IsLeftHand)
+    {
+        if(HapticStrength != 0 && !HapticIsTriggered)
+        {
+            HapticIsTriggered = true;
+            // Boolean states for right hand and left hand
+            byte[][] ClutchState = new byte[0][]; // Start with an empty array
+            if (IsLeftHand)
+            {
+                bool[] fingerStates = { LThumb, LIndex, LMiddle, LRing, LLittle, LPalm };
+                // Check each boolean and add its clutch state if true
+                for (int i = 0; i < fingerStates.Length; i++)
+                {
+                    if (fingerStates[i])
+                    {
+                        // Expand the ClutchState array and add the new byte[]
+                        Array.Resize(ref ClutchState, ClutchState.Length + 1);
+                        ClutchState[ClutchState.Length - 1] = new byte[] { (byte)i, 0 };
+                    }
+                }
+            }
+            else
+            {
+                bool[] fingerStates = { RThumb, RIndex, RMiddle, RRing, RLittle, RPalm };
+                // Check each boolean and add its clutch state if true
+                for (int i = 0; i < fingerStates.Length; i++)
+                {
+                    if (fingerStates[i])
+                    {
+                        // Expand the ClutchState array and add the new byte[]
+                        Array.Resize(ref ClutchState, ClutchState.Length + 1);
+                        ClutchState[ClutchState.Length - 1] = new byte[] { (byte)i, 0 };
+                    }
+                }
+            }
+
+            // Send haptics data if there are any clutch states
+            if (ClutchState.Length > 0)
+            {
+                pressureTrackerMain.TriggerCustomHapticsIncrease(ClutchState, (byte)HapticStrength);
+            }
+        }
+
+    }
+    private void RemoveHaptics(PressureTrackerMain pressureTrackerMain)
+    {
+        if (HapticStrength != 0 && HapticIsTriggered)
+        {
+            HapticIsTriggered = false;
+            pressureTrackerMain.RemoveAllHaptics();
+        }
     }
     IEnumerator ResetFinger(bool whichbool)
     {
@@ -366,4 +442,11 @@ public class HexRGrabbable : MonoBehaviour
         whichbool = false;
 
     }
+
+    private void OnValidate()
+    {
+        // Snap HapticStrength to the nearest increment of 10
+        HapticStrength = Mathf.Round(HapticStrength / 10) * 10;
+    }
+
 }
