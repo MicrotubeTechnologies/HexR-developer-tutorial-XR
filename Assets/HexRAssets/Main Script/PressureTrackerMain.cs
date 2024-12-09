@@ -41,8 +41,6 @@ namespace HexR
         // Update is called once per frame
         void Update()
         {
-            HandGrabbing = true;
-            PokeHovering = true;
             int[] AirPressure = gloveHandler?.GetAirPressure();
             if(AirPressure!= null)
             {
@@ -57,7 +55,11 @@ namespace HexR
         }
 
         #region Hand Proximity Test
-
+            
+        public void HandGrabbingCheck(bool IsHandGrabbing)
+        {
+            HandGrabbing = IsHandGrabbing;
+        }
         public bool IsPhysicsCollisionNear(bool CollisionNearHand)
         {
             return CollisionNearHand;

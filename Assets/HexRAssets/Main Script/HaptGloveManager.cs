@@ -163,6 +163,8 @@ namespace HexR
             // Get reference to the target script
             HaptGloveManager controller = (HaptGloveManager)target;
 
+            EditorGUILayout.LabelField("Hand Physics Components", EditorStyles.boldLabel);
+
             controller.rightHand = (HaptGloveHandler)EditorGUILayout.ObjectField("Right Hand Physics",controller.rightHand,
                 typeof(HaptGloveHandler), // Corrected type
                 true
@@ -178,13 +180,47 @@ namespace HexR
             // Add vertical spacing
             GUILayout.Space(15); // Adds 10 pixels of space
 
-            controller.btIndicator_L = (GameObject)EditorGUILayout.ObjectField("btIndicator_L", controller.btIndicator_L, typeof(GameObject), true);
-            controller.btIndicator_R = (GameObject)EditorGUILayout.ObjectField("btIndicator_R", controller.btIndicator_R, typeof(GameObject), true);
-            controller.pumpIndicator_L = (GameObject)EditorGUILayout.ObjectField("pumpIndicator_L", controller.pumpIndicator_L, typeof(GameObject), true);
-            controller.pumpIndicator_R = (GameObject)EditorGUILayout.ObjectField("pumpIndicator_R", controller.pumpIndicator_R, typeof(GameObject), true);
-            controller.LeftBtText = (TextMeshProUGUI)EditorGUILayout.ObjectField("LeftBtText", controller.LeftBtText, typeof(TextMeshProUGUI), true);
-            controller.RightBtText = (TextMeshProUGUI)EditorGUILayout.ObjectField("RightBtText", controller.RightBtText, typeof(TextMeshProUGUI), true);
+            EditorGUILayout.LabelField("HexR Panel Components", EditorStyles.boldLabel);
 
+            #region Editor GUI for hexr panel
+            // Create a tooltip for the slider
+            GUIContent btIndicator_LTool = new GUIContent(
+                "btIndicator_L",
+                "The Visual Indicator for Left Bluetooth Connections"
+            );
+            // Create a tooltip for the slider
+            GUIContent btIndicator_RTool = new GUIContent(
+                "btIndicator_R",
+                "The Visual Indicator for Right Bluetooth Connections"
+            );
+            // Create a tooltip for the slider
+            GUIContent pumpIndicator_LTool = new GUIContent(
+                "pumpIndicator_L",
+                "The Visual Indicator for Left Pump Status"
+            );
+            // Create a tooltip for the slider
+            GUIContent pumpIndicator_RTool = new GUIContent(
+                "pumpIndicator_R",
+                "The Visual Indicator for Right Pump Status"
+            );
+            // Create a tooltip for the slider
+            GUIContent LeftBtTextTool = new GUIContent(
+                "LeftBtText",
+                "Text to indicate Left HexR Connection Status"
+            );
+            // Create a tooltip for the slider
+            GUIContent RightBtTextTool = new GUIContent(
+                "RightBtText",
+                "Text to indicate Right HexR Connection Status"
+            );
+
+            controller.btIndicator_L = (GameObject)EditorGUILayout.ObjectField(btIndicator_LTool, controller.btIndicator_L, typeof(GameObject), true);
+            controller.btIndicator_R = (GameObject)EditorGUILayout.ObjectField(btIndicator_RTool, controller.btIndicator_R, typeof(GameObject), true);
+            controller.pumpIndicator_L = (GameObject)EditorGUILayout.ObjectField(pumpIndicator_LTool, controller.pumpIndicator_L, typeof(GameObject), true);
+            controller.pumpIndicator_R = (GameObject)EditorGUILayout.ObjectField(pumpIndicator_RTool, controller.pumpIndicator_R, typeof(GameObject), true);
+            controller.LeftBtText = (TextMeshProUGUI)EditorGUILayout.ObjectField(LeftBtTextTool, controller.LeftBtText, typeof(TextMeshProUGUI), true);
+            controller.RightBtText = (TextMeshProUGUI)EditorGUILayout.ObjectField(RightBtTextTool, controller.RightBtText, typeof(TextMeshProUGUI), true);
+            #endregion
 
             // Add vertical spacing
             GUILayout.Space(15); // Adds 10 pixels of space

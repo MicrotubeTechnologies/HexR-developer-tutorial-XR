@@ -19,6 +19,7 @@ public class HexRGrabbable : MonoBehaviour
     bool RThumb, RIndex, RLittle, RMiddle, RRing, RPalm;
     bool LThumb, LIndex, LLittle, LMiddle, LRing, LPalm;
     private FingerUseTracking RfingerUseTracking,LfingeruseTracking;
+    private PressureTrackerMain RightPressureTracker, LeftPressureTracker;
     private Rigidbody objectRigidbody;
 
     [HideInInspector]
@@ -35,9 +36,12 @@ public class HexRGrabbable : MonoBehaviour
 
         if (RightHand != null) { RfingerUseTracking = RightHand.GetComponent<FingerUseTracking>(); }
         else { Debug.Log("Right hand is not found"); }
-
+        if (RightHand != null) { RightPressureTracker = RightHand.GetComponent<PressureTrackerMain>(); }
+        else { Debug.Log("Right pressuretracker is not found"); }
         if (LeftHand != null) { LfingeruseTracking = LeftHand.GetComponent<FingerUseTracking>(); }
         else { Debug.Log("Left hand is not found"); }
+        if (LeftHand != null) { LeftPressureTracker = RightHand.GetComponent<PressureTrackerMain>(); }
+        else { Debug.Log("Left pressuretracker is not found"); }
 
         objectRigidbody = gameObject.GetComponent<Rigidbody>();
         OriginalParent = gameObject.transform.parent.gameObject;
@@ -59,11 +63,11 @@ public class HexRGrabbable : MonoBehaviour
             {
                 if (RIndex || RMiddle || RRing || RLittle)
                 {
-                    IsGrab(RHandParent, RfingerUseTracking);
+                    IsGrab(RHandParent, RfingerUseTracking,RightPressureTracker);
                 }
                 else
                 {
-                    NotGrab();
+                    NotGrab(RightPressureTracker);
                 }
             }
             if (LThumb)
@@ -71,11 +75,11 @@ public class HexRGrabbable : MonoBehaviour
                 if (LIndex || LMiddle || LRing || LLittle)
                 {
 
-                    IsGrab(LHandParent, LfingeruseTracking);
+                    IsGrab(LHandParent, LfingeruseTracking,LeftPressureTracker);
                 }
                 else
                 {
-                    NotGrab();
+                    NotGrab(LeftPressureTracker);
                 }
             }
         }
@@ -85,11 +89,11 @@ public class HexRGrabbable : MonoBehaviour
             {
                 if (RIndex || RMiddle || RRing || RLittle)
                 {
-                    IsGrab(RHandParent, RfingerUseTracking);
+                    IsGrab(RHandParent, RfingerUseTracking, RightPressureTracker);
                 }
                 else
                 {
-                    NotGrab();
+                    NotGrab(RightPressureTracker);
                 }
             }
             if (LPalm)
@@ -97,11 +101,11 @@ public class HexRGrabbable : MonoBehaviour
                 if (LIndex || LMiddle || LRing || LLittle)
                 {
 
-                    IsGrab(LHandParent, LfingeruseTracking);
+                    IsGrab(LHandParent, LfingeruseTracking, LeftPressureTracker);
                 }
                 else
                 {
-                    NotGrab();
+                    NotGrab(LeftPressureTracker);
                 }
             }
         }
@@ -313,7 +317,7 @@ public class HexRGrabbable : MonoBehaviour
             LPalm = false;
         }
     }
-    private void IsGrab(GameObject HandParent, FingerUseTracking fingerUseTracking)
+    private void IsGrab(GameObject HandParent, FingerUseTracking fingerUseTracking, PressureTrackerMain ThePressureTracker)
     {
         isGrab = true;
         objectRigidbody.isKinematic = true;
@@ -321,14 +325,14 @@ public class HexRGrabbable : MonoBehaviour
         objectRigidbody.interpolation = RigidbodyInterpolation.None;
         gameObject.transform.SetParent(HandParent.transform);
         if (isGrab && InvokeReady) { OnGrab?.Invoke(); InvokeReady = false; }
-
+        ThePressureTracker?.HandGrabbingCheck(true);
         if (fingerUseTracking.isHandOpen() == true)
         {
-            NotGrab();
+            NotGrab(ThePressureTracker);
         }
 
     }
-    private void NotGrab()
+    private void NotGrab(PressureTrackerMain ThePressureTracker)
     {
         isGrab = false;
         objectRigidbody.isKinematic = false;
@@ -336,5 +340,6 @@ public class HexRGrabbable : MonoBehaviour
         objectRigidbody.interpolation = RigidbodyInterpolation.Extrapolate;
         gameObject.transform.SetParent(OriginalParent.transform);
         if (!InvokeReady) { OnRelease?.Invoke(); InvokeReady = true; }
+        ThePressureTracker?.HandGrabbingCheck(false);
     }
 }
