@@ -140,6 +140,7 @@ namespace HexR
             }
         }
         #endregion
+
         #region Fountain Haptics
         private void FountainHapticTriggerEnter(Collider other)
         {

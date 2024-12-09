@@ -118,18 +118,22 @@ public class HexRGrabbable : MonoBehaviour
         if (collision.transform.parent.name == "R_IndexTip")
         {
             RIndex = true;
+            StartCoroutine(ResetFinger(RIndex));
         }
         if (collision.transform.parent.name == "R_LittleTip")
         {
             RLittle = true;
+            StartCoroutine(ResetFinger(RLittle));
         }
         if (collision.transform.parent.name == "R_MiddleTip")
         {
             RMiddle = true;
+            StartCoroutine(ResetFinger(RMiddle));
         }
         if (collision.transform.parent.name == "R_RingTip")
         {
             RRing = true;
+            StartCoroutine(ResetFinger(RRing));
         }
         if (collision.transform.parent.name == "R_ThumbTip")
         {
@@ -155,18 +159,22 @@ public class HexRGrabbable : MonoBehaviour
         if (collision.transform.parent.name == "L_IndexTip")
         {
             LIndex = true;
+            StartCoroutine(ResetFinger(LIndex));
         }
         if (collision.transform.parent.name == "L_LittleTip")
         {
             LLittle = true;
+            StartCoroutine(ResetFinger(LLittle));
         }
         if (collision.transform.parent.name == "L_MiddleTip")
         {
             LMiddle = true;
+            StartCoroutine(ResetFinger(LMiddle));
         }
         if (collision.transform.parent.name == "L_RingTip")
         {
             LRing = true;
+            StartCoroutine(ResetFinger(LRing));
         }
         if (collision.transform.parent.name == "L_ThumbTip")
         {
@@ -194,18 +202,22 @@ public class HexRGrabbable : MonoBehaviour
         if (collision.transform.parent.name == "R_IndexTip")
         {
             RIndex = true;
+            StartCoroutine(ResetFinger(RIndex));
         }
         if (collision.transform.parent.name == "R_LittleTip")
         {
             RLittle = true;
+            StartCoroutine(ResetFinger(RLittle));
         }
         if (collision.transform.parent.name == "R_MiddleTip")
         {
             RMiddle = true;
+            StartCoroutine(ResetFinger(RMiddle));
         }
         if (collision.transform.parent.name == "R_RingTip")
         {
             RRing = true;
+            StartCoroutine(ResetFinger(RRing));
         }
         if (collision.transform.parent.name == "R_ThumbTip")
         {
@@ -231,18 +243,22 @@ public class HexRGrabbable : MonoBehaviour
         if (collision.transform.parent.name == "L_IndexTip")
         {
             LIndex = true;
+            StartCoroutine(ResetFinger(LIndex));
         }
         if (collision.transform.parent.name == "L_LittleTip")
         {
             LLittle = true;
+            StartCoroutine(ResetFinger(LLittle));
         }
         if (collision.transform.parent.name == "L_MiddleTip")
         {
             LMiddle = true;
+            StartCoroutine(ResetFinger(LMiddle));
         }
         if (collision.transform.parent.name == "L_RingTip")
         {
             LRing = true;
+            StartCoroutine(ResetFinger(LRing));
         }
         if (collision.transform.parent.name == "L_ThumbTip")
         {
@@ -338,8 +354,16 @@ public class HexRGrabbable : MonoBehaviour
         objectRigidbody.isKinematic = false;
         if (Gravity == Option.On) { objectRigidbody.useGravity = true; }
         objectRigidbody.interpolation = RigidbodyInterpolation.Extrapolate;
+
         gameObject.transform.SetParent(OriginalParent.transform);
         if (!InvokeReady) { OnRelease?.Invoke(); InvokeReady = true; }
         ThePressureTracker?.HandGrabbingCheck(false);
+    }
+    IEnumerator ResetFinger(bool whichbool)
+    {
+        // Wait for the specified delay time
+        yield return new WaitForSeconds(0.2f);
+        whichbool = false;
+
     }
 }
