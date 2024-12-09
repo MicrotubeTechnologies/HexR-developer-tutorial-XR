@@ -32,6 +32,8 @@ public class HexRGrabbable : MonoBehaviour
     private GameObject OriginalParent;
     bool RThumb, RIndex, RLittle, RMiddle, RRing, RPalm;
     bool LThumb, LIndex, LLittle, LMiddle, LRing, LPalm;
+    bool RThumbHaptics, RIndexHaptics, RLittleHaptics, RMiddleHaptics, RRingHaptics, RPalmHaptics;
+    bool LThumbHaptics, LIndexHaptics, LLittleHaptics, LMiddleHaptics, LRingHaptics, LPalmHaptics;
     private FingerUseTracking RfingerUseTracking,LfingeruseTracking;
     private PressureTrackerMain RightPressureTracker, LeftPressureTracker;
     private Rigidbody objectRigidbody;
@@ -64,6 +66,11 @@ public class HexRGrabbable : MonoBehaviour
         RMiddle = false; LMiddle = false;
         RRing = false; LRing = false;
         RLittle = false; LLittle = false;
+        RThumbHaptics = false; LThumbHaptics = false;
+        RIndexHaptics = false; LIndexHaptics = false;
+        RMiddleHaptics = false; LMiddleHaptics = false;
+        RRingHaptics = false; LRingHaptics = false;
+        RLittleHaptics = false; LLittleHaptics = false;
 
     }
 
@@ -392,29 +399,47 @@ public class HexRGrabbable : MonoBehaviour
             byte[][] ClutchState = new byte[0][]; // Start with an empty array
             if (IsLeftHand)
             {
-                bool[] fingerStates = { LThumb, LIndex, LMiddle, LRing, LLittle, LPalm };
+                bool[] fingerStates = { LThumb, LIndex, LMiddle, LRing, LLittle, LPalm }; // array of fingers touching object
+                bool[] HapticStates = { LThumbHaptics, LIndexHaptics, LMiddleHaptics, LRingHaptics, LLittleHaptics, LPalmHaptics }; // array of which haptic is triggered
                 // Check each boolean and add its clutch state if true
                 for (int i = 0; i < fingerStates.Length; i++)
                 {
-                    if (fingerStates[i])
+                    if (fingerStates[i] && !HapticStates[i])
                     {
+                        HapticStates[i] = true;
                         // Expand the ClutchState array and add the new byte[]
                         Array.Resize(ref ClutchState, ClutchState.Length + 1);
                         ClutchState[ClutchState.Length - 1] = new byte[] { (byte)i, 0 };
+                    }
+                    else if (!fingerStates[i] && HapticStates[i])
+                    {
+                        HapticStates[i] = false;
+                        // Expand the ClutchState array and add the new byte[]
+                        Array.Resize(ref ClutchState, ClutchState.Length + 1);
+                        ClutchState[ClutchState.Length - 1] = new byte[] { (byte)i, 2 };
                     }
                 }
             }
             else
             {
                 bool[] fingerStates = { RThumb, RIndex, RMiddle, RRing, RLittle, RPalm };
+                bool[] HapticStates = { RThumbHaptics, RIndexHaptics, RMiddleHaptics, RRingHaptics, RLittleHaptics, RPalmHaptics };
                 // Check each boolean and add its clutch state if true
                 for (int i = 0; i < fingerStates.Length; i++)
                 {
-                    if (fingerStates[i])
+                    if (fingerStates[i] && !HapticStates[i])
                     {
+                        HapticStates[i] = true;
                         // Expand the ClutchState array and add the new byte[]
                         Array.Resize(ref ClutchState, ClutchState.Length + 1);
                         ClutchState[ClutchState.Length - 1] = new byte[] { (byte)i, 0 };
+                    }
+                    else if(!fingerStates[i] && HapticStates[i])
+                    {
+                        HapticStates[i] = false;
+                        // Expand the ClutchState array and add the new byte[]
+                        Array.Resize(ref ClutchState, ClutchState.Length + 1);
+                        ClutchState[ClutchState.Length - 1] = new byte[] { (byte)i, 2 };
                     }
                 }
             }
@@ -433,6 +458,11 @@ public class HexRGrabbable : MonoBehaviour
         {
             HapticIsTriggered = false;
             pressureTrackerMain.RemoveAllHaptics();
+            bool[] HapticStates = { LThumbHaptics, LIndexHaptics, LMiddleHaptics, LRingHaptics, LLittleHaptics, LPalmHaptics, RThumbHaptics, RIndexHaptics, RMiddleHaptics, RRingHaptics, RLittleHaptics, RPalmHaptics };
+            for (int i = 0; i < HapticStates.Length; i++)
+            {
+                HapticStates[i] = false;
+            }
         }
     }
     IEnumerator ResetFinger(bool whichbool)

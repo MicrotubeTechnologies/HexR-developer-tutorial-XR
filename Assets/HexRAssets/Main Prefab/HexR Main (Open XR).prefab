@@ -183,6 +183,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8885190446656026045}
   - component: {fileID: 5708704574369333181}
+  - component: {fileID: 7871261245552486110}
   m_Layer: 0
   m_Name: R_Palm
   m_TagString: Untagged
@@ -224,8 +225,23 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.06, y: 0.035540685, z: 0.055}
-  m_Center: {x: 0, y: -0.012710191, z: -0.0010000002}
+  m_Size: {x: 0.06, y: 0.021889247, z: 0.06130247}
+  m_Center: {x: 0, y: -0.01953591, z: -0.0041512363}
+--- !u!114 &7871261245552486110
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 278190207950594106}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b6d8e72d05410a40af07681a0390928, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HexrLeftOrRight: {fileID: 6272262293412561958}
+  handType: 1
+  fingertype: 5
 --- !u!1 &453332854026111299
 GameObject:
   m_ObjectHideFlags: 0
@@ -2148,6 +2164,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2960952910535843685}
   - component: {fileID: 8638872241612268462}
+  - component: {fileID: 2826425675568921693}
   m_Layer: 0
   m_Name: L_Palm
   m_TagString: Untagged
@@ -2189,8 +2206,23 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.064045385, y: 0.03066995, z: 0.055}
-  m_Center: {x: 0.0020226948, y: -0.013133794, z: -0.0010000002}
+  m_Size: {x: 0.064045385, y: 0.018807411, z: 0.05973572}
+  m_Center: {x: 0.0020226948, y: -0.019065063, z: -0.003367858}
+--- !u!114 &2826425675568921693
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4677362825550136366}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b6d8e72d05410a40af07681a0390928, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HexrLeftOrRight: {fileID: 7096849065168890517}
+  handType: 0
+  fingertype: 5
 --- !u!1 &4724410986005975886
 GameObject:
   m_ObjectHideFlags: 0
@@ -2349,7 +2381,7 @@ Transform:
   m_Children:
   - {fileID: 2848049908656253380}
   - {fileID: 8845797560069470184}
-  - {fileID: 881814433967046063}
+  - {fileID: 8803427354524897843}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3596971877594727963
@@ -2367,7 +2399,7 @@ MonoBehaviour:
   isQuest: 1
   leftHand: {fileID: 1162483658235158602}
   rightHand: {fileID: 4100039038910364776}
-  HandMenu: {fileID: 4807749261444416357}
+  HandMenu: {fileID: 3794376679263677689}
   NewHandMenu: {fileID: 0}
   btIndicator_L: {fileID: 0}
   btIndicator_R: {fileID: 0}
@@ -4006,7 +4038,7 @@ CapsuleCollider:
   m_Height: 0.036
   m_Direction: 2
   m_Center: {x: 0, y: 0, z: 0.01}
---- !u!1001 &64215329322663067
+--- !u!1001 &8571749249957122823
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -4110,10 +4142,6 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
-    - target: {fileID: 4333820501194415851, guid: 6c6ca1063a8b20d49b3fe8a5a9314082, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4781888199601684478, guid: 6c6ca1063a8b20d49b3fe8a5a9314082, type: 3}
       propertyPath: m_Name
       value: Hand Menu With Button Activation
@@ -4123,13 +4151,13 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6c6ca1063a8b20d49b3fe8a5a9314082, type: 3}
---- !u!4 &881814433967046063 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 925760264673132852, guid: 6c6ca1063a8b20d49b3fe8a5a9314082, type: 3}
-  m_PrefabInstance: {fileID: 64215329322663067}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &4807749261444416357 stripped
+--- !u!1 &3794376679263677689 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4781888199601684478, guid: 6c6ca1063a8b20d49b3fe8a5a9314082, type: 3}
-  m_PrefabInstance: {fileID: 64215329322663067}
+  m_PrefabInstance: {fileID: 8571749249957122823}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &8803427354524897843 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 925760264673132852, guid: 6c6ca1063a8b20d49b3fe8a5a9314082, type: 3}
+  m_PrefabInstance: {fileID: 8571749249957122823}
   m_PrefabAsset: {fileID: 0}

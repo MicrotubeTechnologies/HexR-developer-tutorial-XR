@@ -263,6 +263,20 @@ namespace HexR
 
                 try
                 {
+                    Button RightBluetoothButton = GameObject.FindObjectsOfType<GameObject>(true).FirstOrDefault(obj => obj.name == "Right Bluetooth Button").GetComponent<Button>();
+                    Button LeftBluetoothButton = GameObject.FindObjectsOfType<GameObject>(true).FirstOrDefault(obj => obj.name == "Left Bluetooth Button").GetComponent<Button>();
+
+                    HaptGloveUIOpenXR haptGloveUIOpenXR = controller.gameObject.GetComponent<HaptGloveUIOpenXR>();
+                    RightBluetoothButton.onClick.AddListener(haptGloveUIOpenXR.ConnectRightBT);
+                    LeftBluetoothButton.onClick.AddListener(haptGloveUIOpenXR.ConnectLeftBT);
+                    Debug.Log("HexR panel button is set up.");
+                }
+                catch
+                {
+                    Debug.Log("HexR panel button is not set up, Manual Set up needed");
+                }
+                try
+                {
                     GameObject LeftXR = GameObject.Find("Left Hand Interaction Visual");
                     GameObject RightXR = GameObject.Find("Right Hand Interaction Visual");
                     PhysicsHandTracking LeftP = controller.leftHand.gameObject.GetComponent<PhysicsHandTracking>();

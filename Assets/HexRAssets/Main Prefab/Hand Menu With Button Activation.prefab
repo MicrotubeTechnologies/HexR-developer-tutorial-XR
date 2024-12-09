@@ -1046,7 +1046,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1070895499739297621
 Transform:
   m_ObjectHideFlags: 0
@@ -1140,7 +1140,7 @@ GameObject:
   - component: {fileID: 4413185243561042426}
   - component: {fileID: 2981925882596688558}
   m_Layer: 5
-  m_Name: 'Left Bluetooth '
+  m_Name: Left Bluetooth Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2404,7 +2404,7 @@ GameObject:
   - component: {fileID: 2094995133384776580}
   - component: {fileID: 3534522637687618102}
   m_Layer: 5
-  m_Name: Right Bluetooth
+  m_Name: Right Bluetooth Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
