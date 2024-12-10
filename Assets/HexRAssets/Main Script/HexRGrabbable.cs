@@ -91,6 +91,10 @@ public class HexRGrabbable : MonoBehaviour
                     NotGrab(RightPressureTracker);
                 }
             }
+            else
+            {
+                NotGrab(RightPressureTracker);
+            }
             if (LThumb)
             {
                 if (LIndex || LMiddle || LRing || LLittle)
@@ -102,6 +106,10 @@ public class HexRGrabbable : MonoBehaviour
                 {
                     NotGrab(LeftPressureTracker);
                 }
+            }
+            else
+            {
+                NotGrab(LeftPressureTracker);
             }
         }
         else if(TypeOfGrab == Options.PalmGrab)
