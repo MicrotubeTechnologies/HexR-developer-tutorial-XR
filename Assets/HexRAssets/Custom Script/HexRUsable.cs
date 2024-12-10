@@ -34,12 +34,10 @@ public class HexRUsable : MonoBehaviour
         {
             if (beinguse == false)
             {
-                beinguse = true;
                 UseChecker();
             }
             else
             {
-                beinguse = false;
                 NotUseChecker();
             }
         }
@@ -132,6 +130,7 @@ public class HexRUsable : MonoBehaviour
 
         if(Check ==true)
         {
+            beinguse = true;
             WhenUseTriggerEvents?.Invoke();
             Currentfingerusetracking = null;
         }
@@ -202,6 +201,7 @@ public class HexRUsable : MonoBehaviour
 
         if (Check == true)
         {
+            beinguse = false;
             WhenStopUsingTriggerEvents?.Invoke();
             Currentfingerusetracking = null;
         }

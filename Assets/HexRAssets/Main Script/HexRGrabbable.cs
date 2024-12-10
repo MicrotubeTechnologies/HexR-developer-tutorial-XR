@@ -39,7 +39,7 @@ public class HexRGrabbable : MonoBehaviour
     private Rigidbody objectRigidbody;
     private bool HapticIsTriggered = false;
     [HideInInspector]
-    public bool isGrab = false, InvokeReady = true;
+    public bool LeftisGrab = false, RightisGrab = false, InvokeReady = true;
     // Start is called before the first frame update
     void Start()
     {
@@ -56,7 +56,7 @@ public class HexRGrabbable : MonoBehaviour
         else { Debug.Log("Right pressuretracker is not found"); }
         if (LeftHand != null) { LfingeruseTracking = LeftHand.GetComponent<FingerUseTracking>(); }
         else { Debug.Log("Left hand is not found"); }
-        if (LeftHand != null) { LeftPressureTracker = RightHand.GetComponent<PressureTrackerMain>(); }
+        if (LeftHand != null) { LeftPressureTracker = LeftHand.GetComponent<PressureTrackerMain>(); }
         else { Debug.Log("Left pressuretracker is not found"); }
 
         objectRigidbody = gameObject.GetComponent<Rigidbody>();
@@ -84,31 +84,36 @@ public class HexRGrabbable : MonoBehaviour
             {
                 if (RIndex || RMiddle || RRing || RLittle)
                 {
-                    IsGrab(RHandParent, RfingerUseTracking,RightPressureTracker,false);
+                    RightisGrab = true;
+                    IsGrab(RHandParent, RfingerUseTracking,RightPressureTracker);
                 }
                 else
                 {
+                    RightisGrab = false;
                     NotGrab(RightPressureTracker);
                 }
             }
-            else
+            else if(!RThumb && RightisGrab)
             {
+                RightisGrab = false;
                 NotGrab(RightPressureTracker);
             }
             if (LThumb)
             {
                 if (LIndex || LMiddle || LRing || LLittle)
                 {
-
-                    IsGrab(LHandParent, LfingeruseTracking,LeftPressureTracker, true);
+                    LeftisGrab = true;
+                    IsGrab(LHandParent, LfingeruseTracking,LeftPressureTracker);
                 }
                 else
                 {
+                    LeftisGrab= false;
                     NotGrab(LeftPressureTracker);
                 }
             }
-            else
+            else if (!LThumb && LeftisGrab)
             {
+                LeftisGrab = false;
                 NotGrab(LeftPressureTracker);
             }
         }
@@ -118,24 +123,37 @@ public class HexRGrabbable : MonoBehaviour
             {
                 if (RIndex || RMiddle || RRing || RLittle)
                 {
-                    IsGrab(RHandParent, RfingerUseTracking, RightPressureTracker, false);
+                    RightisGrab= true;
+                    IsGrab(RHandParent, RfingerUseTracking, RightPressureTracker);
                 }
                 else
                 {
+                    RightisGrab= false;
                     NotGrab(RightPressureTracker);
                 }
+            }
+            else if (!RPalm && RightisGrab)
+            {
+                RightisGrab = false;
+                NotGrab(RightPressureTracker);
             }
             if (LPalm)
             {
                 if (LIndex || LMiddle || LRing || LLittle)
                 {
-
-                    IsGrab(LHandParent, LfingeruseTracking, LeftPressureTracker, true);
+                    LeftisGrab = true;
+                    IsGrab(LHandParent, LfingeruseTracking, LeftPressureTracker);
                 }
                 else
                 {
+                    LeftisGrab= false;
                     NotGrab(LeftPressureTracker);
                 }
+            }
+            else if (!LPalm && LeftisGrab)
+            {
+                LeftisGrab = false;
+                NotGrab(LeftPressureTracker);
             }
         }
 
@@ -362,10 +380,9 @@ public class HexRGrabbable : MonoBehaviour
             LPalm = false;
         }
     }
-    private void IsGrab(GameObject HandParent, FingerUseTracking fingerUseTracking, PressureTrackerMain ThePressureTracker, bool IsLeftHand)
+    private void IsGrab(GameObject HandParent, FingerUseTracking fingerUseTracking, PressureTrackerMain ThePressureTracker)
     {
         ThePressureTracker?.HandGrabbingCheck(true);
-        isGrab = true;
         gameObject.transform.SetParent(HandParent.transform);
 
         #region Rigidbody Settings
@@ -375,9 +392,9 @@ public class HexRGrabbable : MonoBehaviour
         #endregion
 
         //Trigger Events
-        if (isGrab && InvokeReady) { OnGrab?.Invoke(); InvokeReady = false; }
+        if (RightisGrab||LeftisGrab && InvokeReady) { OnGrab?.Invoke(); InvokeReady = false; }
         //Trigger Haptics
-        TriggerHaptics(ThePressureTracker, IsLeftHand);
+        TriggerHaptics(ThePressureTracker);
 
         if (fingerUseTracking.isHandOpen() == true)
         {
@@ -389,7 +406,6 @@ public class HexRGrabbable : MonoBehaviour
     private void NotGrab(PressureTrackerMain ThePressureTracker)
     {
         ThePressureTracker?.HandGrabbingCheck(false);
-        isGrab = false;
         objectRigidbody.isKinematic = false;
         if (Gravity == Option.On) { objectRigidbody.useGravity = true; }
         objectRigidbody.interpolation = RigidbodyInterpolation.Extrapolate;
@@ -398,14 +414,14 @@ public class HexRGrabbable : MonoBehaviour
         if (!InvokeReady) { OnRelease?.Invoke(); InvokeReady = true; }
         RemoveHaptics(ThePressureTracker);
     }
-    private void TriggerHaptics(PressureTrackerMain pressureTrackerMain, bool IsLeftHand)
+    private void TriggerHaptics(PressureTrackerMain pressureTrackerMain)
     {
         if(HapticStrength != 0 && !HapticIsTriggered)
         {
             HapticIsTriggered = true;
             // Boolean states for right hand and left hand
             byte[][] ClutchState = new byte[0][]; // Start with an empty array
-            if (IsLeftHand)
+            if (LeftisGrab)
             {
                 bool[] fingerStates = { LThumb, LIndex, LMiddle, LRing, LLittle, LPalm }; // array of fingers touching object
                 bool[] HapticStates = { LThumbHaptics, LIndexHaptics, LMiddleHaptics, LRingHaptics, LLittleHaptics, LPalmHaptics }; // array of which haptic is triggered
@@ -428,7 +444,7 @@ public class HexRGrabbable : MonoBehaviour
                     }
                 }
             }
-            else
+            else if(RightisGrab)
             {
                 bool[] fingerStates = { RThumb, RIndex, RMiddle, RRing, RLittle, RPalm };
                 bool[] HapticStates = { RThumbHaptics, RIndexHaptics, RMiddleHaptics, RRingHaptics, RLittleHaptics, RPalmHaptics };
