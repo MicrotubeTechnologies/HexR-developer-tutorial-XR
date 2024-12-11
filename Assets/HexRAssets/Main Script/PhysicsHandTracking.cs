@@ -53,7 +53,8 @@ namespace HexR
 
         void Start()
         {
-            if(GloveManager.XRFramework == HaptGloveManager.Options.OpenXR)
+            GloveManager = gameObject.GetComponentInParent<HaptGloveManager>();
+            if (GloveManager.XRFramework == HaptGloveManager.Options.OpenXR)
             {
                 OpenXRStart();
             }
