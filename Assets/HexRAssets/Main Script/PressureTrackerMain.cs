@@ -6,7 +6,6 @@ using HaptGlove;
 using UnityEngine.UI;
 using TMPro;
 using System;
-using Unity.VisualScripting;
 namespace HexR
 {
     public class PressureTrackerMain : MonoBehaviour
@@ -36,6 +35,8 @@ namespace HexR
             PalmPressure = 0;
             TankPressure = 0;
             CollisionNearHand = false;
+            HandGrabbing =false;
+            PokeHovering = false;
         }
 
         // Update is called once per frame
