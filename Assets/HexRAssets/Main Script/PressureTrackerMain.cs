@@ -51,6 +51,7 @@ namespace HexR
                 LittlePressure = ((int)Math.Round(AirPressure[4] / 100000.0) * 100000) - 100000;
                 PalmPressure = ((int)Math.Round(AirPressure[5] / 100000.0) * 100000) - 100000;
                 TankPressure = ((int)Math.Round(AirPressure[6] / 100000.0) * 100000) - 100000;
+                PressureSafetyNet();
             }
         }
 
@@ -376,6 +377,15 @@ namespace HexR
                 Input = 60;
             }
             return Input;
+        }
+
+        private void PressureSafetyNet()
+        {
+            if(ThumbPressure > 65|| IndexPressure >65 || MiddlePressure >65
+                || RingPressure >65 || LittlePressure >65 |PalmPressure >65)
+            {
+                RemoveAllHaptics();
+            }
         }
         #endregion
 

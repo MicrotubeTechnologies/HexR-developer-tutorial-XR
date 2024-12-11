@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7791636569250463836}
   m_Layer: 0
-  m_Name: Audio
+  m_Name: Grab Audio
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

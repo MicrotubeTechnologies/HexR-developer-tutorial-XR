@@ -13,6 +13,8 @@ namespace HexR
 {
     public class HaptGloveManager : MonoBehaviour
     {
+        public enum Options { OpenXR, MetaOVR } //MRTK not included yet
+        public Options XRFramework;
         public bool isQuest;
 
         public HaptGloveHandler leftHand;
@@ -20,8 +22,7 @@ namespace HexR
         public GameObject HandMenu;
         public GameObject NewHandMenu;
 
-        public GameObject btIndicator_L;
-        public GameObject btIndicator_R, pumpIndicator_L, pumpIndicator_R, HexRPanel;
+        public GameObject BluetoothIndicatorL, BluetoothIndicatorR, pumpIndicator_L, pumpIndicator_R, HexRPanel;
         private string bluetoothLog;
         public TextMeshProUGUI RightBtText, LeftBtText;
         void Start()
@@ -56,14 +57,14 @@ namespace HexR
         {
             if (hand == HaptGloveHandler.HandType.Left)
             {
-                btIndicator_L.SetActive(true);
+                BluetoothIndicatorL.SetActive(true);
                 LeftBtText.text = "Left Glove Connected";
                 bluetoothLog = "Left glove connected: " + "HaptGLove " + hand.ToString();
                 StartCoroutine(Pump(leftHand.GetComponent<HaptGloveHandler>()));
             }
             else if (hand == HaptGloveHandler.HandType.Right)
             {
-                btIndicator_R.SetActive(true);
+                BluetoothIndicatorR.SetActive(true);
                 RightBtText.text = "Right Glove Connected";
                 bluetoothLog = "Right glove connected: " + "HaptGLove " + hand.ToString();
                 StartCoroutine(Pump(rightHand.GetComponent<HaptGloveHandler>()));
@@ -83,13 +84,13 @@ namespace HexR
         {
             if (hand == HaptGloveHandler.HandType.Left)
             {
-                btIndicator_L.SetActive(false);
+                BluetoothIndicatorL.SetActive(false);
                 LeftBtText.text = "Connection failed, try again";
                 bluetoothLog = "Left glove connection failed: " + "HaptGlove " + hand.ToString();
             }
             else if (hand == HaptGloveHandler.HandType.Right)
             {
-                btIndicator_R.SetActive(false);
+                BluetoothIndicatorR.SetActive(false);
                 RightBtText.text = "Connection failed, try again";
                 bluetoothLog = "Right glove connection failed: " + "HaptGlove " + hand.ToString();
             }
@@ -100,13 +101,13 @@ namespace HexR
         {
             if (hand == HaptGloveHandler.HandType.Left)
             {
-                btIndicator_L.SetActive(false);
+                BluetoothIndicatorL.SetActive(false);
                 LeftBtText.text = "HexR Left Disconnected";
                 bluetoothLog = "Left glove disconnected: " + "HaptGlove " + hand.ToString();
             }
             else if (hand == HaptGloveHandler.HandType.Right)
             {
-                btIndicator_R.SetActive(false);
+                BluetoothIndicatorR.SetActive(false);
                 RightBtText.text = "HexR Right Disconnected";
                 bluetoothLog = "Right glove disconnected: " + "HaptGlove " + hand.ToString();
             }
@@ -151,155 +152,205 @@ namespace HexR
 
             return layerNames;
         }
-    }
+
 
 #if UNITY_EDITOR
-    [CustomEditor(typeof(HaptGloveManager))]
-    public class HexRSettingEditorGUI : Editor
-    {
-        public override void OnInspectorGUI()
+        [CustomEditor(typeof(HaptGloveManager))]
+        public class HexRSettingEditorGUI : Editor
         {
-
-            // Get reference to the target script
-            HaptGloveManager controller = (HaptGloveManager)target;
-
-            EditorGUILayout.LabelField("Hand Physics Components", EditorStyles.boldLabel);
-
-            controller.rightHand = (HaptGloveHandler)EditorGUILayout.ObjectField("Right Hand Physics",controller.rightHand,
-                typeof(HaptGloveHandler), // Corrected type
-                true
-            );
-
-            controller.leftHand = (HaptGloveHandler)EditorGUILayout.ObjectField("Left Hand Physics",controller.leftHand,
-                typeof(HaptGloveHandler), // Corrected type
-                true
-            );
-
-            controller.HandMenu = (GameObject)EditorGUILayout.ObjectField("HexR Hand Menu",controller.HandMenu, typeof(GameObject), true);
-
-            // Add vertical spacing
-            GUILayout.Space(15); // Adds 10 pixels of space
-
-            EditorGUILayout.LabelField("HexR Panel Components", EditorStyles.boldLabel);
-
-            #region Editor GUI for hexr panel
-            // Create a tooltip for the slider
-            GUIContent btIndicator_LTool = new GUIContent(
-                "btIndicator_L",
-                "The Visual Indicator for Left Bluetooth Connections"
-            );
-            // Create a tooltip for the slider
-            GUIContent btIndicator_RTool = new GUIContent(
-                "btIndicator_R",
-                "The Visual Indicator for Right Bluetooth Connections"
-            );
-            // Create a tooltip for the slider
-            GUIContent pumpIndicator_LTool = new GUIContent(
-                "pumpIndicator_L",
-                "The Visual Indicator for Left Pump Status"
-            );
-            // Create a tooltip for the slider
-            GUIContent pumpIndicator_RTool = new GUIContent(
-                "pumpIndicator_R",
-                "The Visual Indicator for Right Pump Status"
-            );
-            // Create a tooltip for the slider
-            GUIContent LeftBtTextTool = new GUIContent(
-                "LeftBtText",
-                "Text to indicate Left HexR Connection Status"
-            );
-            // Create a tooltip for the slider
-            GUIContent RightBtTextTool = new GUIContent(
-                "RightBtText",
-                "Text to indicate Right HexR Connection Status"
-            );
-
-            controller.btIndicator_L = (GameObject)EditorGUILayout.ObjectField(btIndicator_LTool, controller.btIndicator_L, typeof(GameObject), true);
-            controller.btIndicator_R = (GameObject)EditorGUILayout.ObjectField(btIndicator_RTool, controller.btIndicator_R, typeof(GameObject), true);
-            controller.pumpIndicator_L = (GameObject)EditorGUILayout.ObjectField(pumpIndicator_LTool, controller.pumpIndicator_L, typeof(GameObject), true);
-            controller.pumpIndicator_R = (GameObject)EditorGUILayout.ObjectField(pumpIndicator_RTool, controller.pumpIndicator_R, typeof(GameObject), true);
-            controller.LeftBtText = (TextMeshProUGUI)EditorGUILayout.ObjectField(LeftBtTextTool, controller.LeftBtText, typeof(TextMeshProUGUI), true);
-            controller.RightBtText = (TextMeshProUGUI)EditorGUILayout.ObjectField(RightBtTextTool, controller.RightBtText, typeof(TextMeshProUGUI), true);
-            #endregion
-
-            // Add vertical spacing
-            GUILayout.Space(15); // Adds 10 pixels of space
-
-            if (GUILayout.Button("Auto Set Up HexR"))
+            public override void OnInspectorGUI()
             {
-                try
-                {
-                    controller.rightHand = GameObject.Find("Right Hand Physics").GetComponent<HaptGloveHandler>(); // Replace with the name of your target object
-                    controller.leftHand = GameObject.Find("Left Hand Physics").GetComponent<HaptGloveHandler>(); // Replace with the name of your target object
-                    Debug.Log("Right Hand Physics Found And Assigned.");
-                }
-                catch
-                {
-                    Debug.Log("HaptGloveHandler Not Found Remember to assign them.");
-                }
 
-                try
-                {
-                    controller.NewHandMenu = Instantiate(controller.HandMenu);
-                    DestroyImmediate(controller.HandMenu );
-                    controller.NewHandMenu.transform.SetParent(GameObject.Find("Camera Offset").transform);
-                    controller.NewHandMenu.transform.localPosition = Vector3.zero;
-                    controller.HandMenu = controller.NewHandMenu;
-                    // Directly find inactive GameObjects
-                    controller.btIndicator_L = GameObject.FindObjectsOfType<GameObject>(true).FirstOrDefault(obj => obj.name == "Bluetooth Indicator L");
-                    controller.pumpIndicator_L = GameObject.FindObjectsOfType<GameObject>(true).FirstOrDefault(obj => obj.name == "Pump Indicator L");
-                    controller.btIndicator_R = GameObject.FindObjectsOfType<GameObject>(true).FirstOrDefault(obj => obj.name == "Bluetooth Indicator R");
-                    controller.pumpIndicator_R = GameObject.FindObjectsOfType<GameObject>(true).FirstOrDefault(obj => obj.name == "Pump Indicator R");
-                    controller.LeftBtText = GameObject.FindObjectsOfType<TextMeshProUGUI>(true).FirstOrDefault(obj => obj.name == "Left HexR Text");
-                    controller.RightBtText = GameObject.FindObjectsOfType<TextMeshProUGUI>(true).FirstOrDefault(obj => obj.name == "Right HexR Text");
+                // Get reference to the target script
+                HaptGloveManager controller = (HaptGloveManager)target;
 
-                    Debug.Log("HexR Hand Menu Set Up Complete");
-                }
-                catch
-                {
-                    Debug.Log("HexR panel is not set up, Manual Set up needed");
+                // Draw default fields
+                controller.XRFramework = (HaptGloveManager.Options)EditorGUILayout.EnumPopup("XR Framework", controller.XRFramework);
 
-                }
+                EditorGUILayout.LabelField("Hand Physics Components", EditorStyles.boldLabel);
 
-                try
-                {
-                    Button RightBluetoothButton = GameObject.FindObjectsOfType<GameObject>(true).FirstOrDefault(obj => obj.name == "Right Bluetooth Button").GetComponent<Button>();
-                    Button LeftBluetoothButton = GameObject.FindObjectsOfType<GameObject>(true).FirstOrDefault(obj => obj.name == "Left Bluetooth Button").GetComponent<Button>();
+                controller.rightHand = (HaptGloveHandler)EditorGUILayout.ObjectField("Right Hand Physics", controller.rightHand,
+                    typeof(HaptGloveHandler), // Corrected type
+                    true
+                );
 
-                    HaptGloveUIOpenXR haptGloveUIOpenXR = controller.gameObject.GetComponent<HaptGloveUIOpenXR>();
-                    RightBluetoothButton.onClick.AddListener(haptGloveUIOpenXR.ConnectRightBT);
-                    LeftBluetoothButton.onClick.AddListener(haptGloveUIOpenXR.ConnectLeftBT);
-                    Debug.Log("HexR panel button is set up.");
-                }
-                catch
+                controller.leftHand = (HaptGloveHandler)EditorGUILayout.ObjectField("Left Hand Physics", controller.leftHand,
+                    typeof(HaptGloveHandler), // Corrected type
+                    true
+                );
+                if (controller.XRFramework == Options.OpenXR)
                 {
-                    Debug.Log("HexR panel button is not set up, Manual Set up needed");
+                    controller.HandMenu = (GameObject)EditorGUILayout.ObjectField("HexR Hand Menu", controller.HandMenu, typeof(GameObject), true);
                 }
-                try
-                {
-                    GameObject LeftXR = GameObject.Find("Left Hand Interaction Visual");
-                    GameObject RightXR = GameObject.Find("Right Hand Interaction Visual");
-                    PhysicsHandTracking LeftP = controller.leftHand.gameObject.GetComponent<PhysicsHandTracking>();
-                    PhysicsHandTracking RightP = controller.rightHand.gameObject.GetComponent<PhysicsHandTracking>();
-                    LeftP.handRoot = LeftXR.transform.Find("L_Wrist");
-                    RightP.handRoot = RightXR.transform.Find("R_Wrist");
-                    EditorUtility.SetDirty(LeftP); // Mark as dirty to save changes
-                    EditorUtility.SetDirty(RightP); // Mark as dirty to save changes
+                // Add vertical spacing
+                GUILayout.Space(15); // Adds 10 pixels of space
 
-                }
-                catch
+                EditorGUILayout.LabelField("HexR Panel Components", EditorStyles.boldLabel);
+
+                #region Editor GUI for hexr panel
+                // Create a tooltip for the slider
+                GUIContent btIndicator_LTool = new GUIContent(
+                    "Bluetooth Indicator L",
+                    "The Visual Indicator for Left Bluetooth Connections"
+                );
+                // Create a tooltip for the slider
+                GUIContent btIndicator_RTool = new GUIContent(
+                    "Bluetooth Indicator R",
+                    "The Visual Indicator for Right Bluetooth Connections"
+                );
+                // Create a tooltip for the slider
+                GUIContent pumpIndicator_LTool = new GUIContent(
+                    "Pump Indicator L",
+                    "The Visual Indicator for Left Pump Status"
+                );
+                // Create a tooltip for the slider
+                GUIContent pumpIndicator_RTool = new GUIContent(
+                    "Pump Indicator R",
+                    "The Visual Indicator for Right Pump Status"
+                );
+                // Create a tooltip for the slider
+                GUIContent LeftBtTextTool = new GUIContent(
+                    "Left Bluetooth Text",
+                    "Text to indicate Left HexR Connection Status"
+                );
+                // Create a tooltip for the slider
+                GUIContent RightBtTextTool = new GUIContent(
+                    "Right Bluetooth Text",
+                    "Text to indicate Right HexR Connection Status"
+                );
+
+                controller.BluetoothIndicatorL = (GameObject)EditorGUILayout.ObjectField(btIndicator_LTool, controller.BluetoothIndicatorL, typeof(GameObject), true);
+                controller.BluetoothIndicatorR = (GameObject)EditorGUILayout.ObjectField(btIndicator_RTool, controller.BluetoothIndicatorR, typeof(GameObject), true);
+                controller.pumpIndicator_L = (GameObject)EditorGUILayout.ObjectField(pumpIndicator_LTool, controller.pumpIndicator_L, typeof(GameObject), true);
+                controller.pumpIndicator_R = (GameObject)EditorGUILayout.ObjectField(pumpIndicator_RTool, controller.pumpIndicator_R, typeof(GameObject), true);
+                controller.LeftBtText = (TextMeshProUGUI)EditorGUILayout.ObjectField(LeftBtTextTool, controller.LeftBtText, typeof(TextMeshProUGUI), true);
+                controller.RightBtText = (TextMeshProUGUI)EditorGUILayout.ObjectField(RightBtTextTool, controller.RightBtText, typeof(TextMeshProUGUI), true);
+                #endregion
+
+                // Add vertical spacing
+                GUILayout.Space(15); // Adds 10 pixels of space
+
+                if (GUILayout.Button("Auto Set Up HexR"))
                 {
-                    Debug.Log("XR hand is linked not linked to Physics hand tracking, manual link needed, Drag the hand root of your vr hand to the left and right physicshandtracking script");
+                    try
+                    {
+                        controller.rightHand = GameObject.Find("Right Hand Physics").GetComponent<HaptGloveHandler>(); // Replace with the name of your target object
+                        controller.leftHand = GameObject.Find("Left Hand Physics").GetComponent<HaptGloveHandler>(); // Replace with the name of your target object
+                        Debug.Log("Right Hand Physics Found And Assigned.");
+                    }
+                    catch
+                    {
+                        Debug.Log("HaptGloveHandler Not Found Remember to assign them.");
+                    }
+
+
+
+                    if(controller.XRFramework == Options.OpenXR)
+                    {
+                        //Set up hand menu
+                        try
+                        {
+                            controller.NewHandMenu = Instantiate(controller.HandMenu);
+                            DestroyImmediate(controller.HandMenu);
+                            controller.NewHandMenu.transform.SetParent(GameObject.Find("Camera Offset").transform);
+                            controller.NewHandMenu.transform.localPosition = Vector3.zero;
+                            controller.HandMenu = controller.NewHandMenu;
+                            // Directly find inactive GameObjects
+                            controller.BluetoothIndicatorL = GameObject.FindObjectsOfType<GameObject>(true).FirstOrDefault(obj => obj.name == "Bluetooth Indicator L");
+                            controller.pumpIndicator_L = GameObject.FindObjectsOfType<GameObject>(true).FirstOrDefault(obj => obj.name == "Pump Indicator L");
+                            controller.BluetoothIndicatorR = GameObject.FindObjectsOfType<GameObject>(true).FirstOrDefault(obj => obj.name == "Bluetooth Indicator R");
+                            controller.pumpIndicator_R = GameObject.FindObjectsOfType<GameObject>(true).FirstOrDefault(obj => obj.name == "Pump Indicator R");
+                            controller.LeftBtText = GameObject.FindObjectsOfType<TextMeshProUGUI>(true).FirstOrDefault(obj => obj.name == "Left HexR Text");
+                            controller.RightBtText = GameObject.FindObjectsOfType<TextMeshProUGUI>(true).FirstOrDefault(obj => obj.name == "Right HexR Text");
+
+                            Debug.Log("HexR Hand Menu Set Up Complete");
+                        }
+                        catch
+                        {
+                            Debug.Log("HexR panel is not set up, Manual Set up needed");
+
+                        }
+                        //Set up hand menu bluetooth buttons
+                        try
+                        {
+                            Button RightBluetoothButton = GameObject.FindObjectsOfType<GameObject>(true).FirstOrDefault(obj => obj.name == "Right Bluetooth Button").GetComponent<Button>();
+                            Button LeftBluetoothButton = GameObject.FindObjectsOfType<GameObject>(true).FirstOrDefault(obj => obj.name == "Left Bluetooth Button").GetComponent<Button>();
+
+                            HaptGloveUIOpenXR haptGloveUIOpenXR = controller.gameObject.GetComponent<HaptGloveUIOpenXR>();
+                            RightBluetoothButton.onClick.AddListener(haptGloveUIOpenXR.ConnectRightBT);
+                            LeftBluetoothButton.onClick.AddListener(haptGloveUIOpenXR.ConnectLeftBT);
+                            Debug.Log("HexR panel button set up complete.");
+                        }
+                        catch
+                        {
+                            Debug.Log("HexR panel button is not set up, Manual Set up needed");
+                        }
+                        // Find hand root for physics hand
+                        try
+                        {
+                            GameObject LeftXR = GameObject.Find("Left Hand Interaction Visual");
+                            GameObject RightXR = GameObject.Find("Right Hand Interaction Visual");
+                            PhysicsHandTracking LeftP = controller.leftHand.gameObject.GetComponent<PhysicsHandTracking>();
+                            PhysicsHandTracking RightP = controller.rightHand.gameObject.GetComponent<PhysicsHandTracking>();
+                            LeftP.handRoot = LeftXR.transform.Find("L_Wrist");
+                            RightP.handRoot = RightXR.transform.Find("R_Wrist");
+                            EditorUtility.SetDirty(LeftP); // Mark as dirty to save changes
+                            EditorUtility.SetDirty(RightP); // Mark as dirty to save changes
+
+                        }
+                        catch
+                        {
+                            Debug.Log("XR hand is linked not linked to Physics hand tracking, manual link needed, Drag the hand root of your vr hand to the left and right physicshandtracking script");
+                        }
+                    }
+                    else if(controller.XRFramework == Options.MetaOVR)
+                    {
+                        //Set up HexR Panel
+                        try
+                        {
+                            // Directly find inactive GameObjects
+                            controller.BluetoothIndicatorL = GameObject.FindObjectsOfType<GameObject>(true).FirstOrDefault(obj => obj.name == "Bluetooth Indicator L");
+                            controller.pumpIndicator_L = GameObject.FindObjectsOfType<GameObject>(true).FirstOrDefault(obj => obj.name == "Pump Indicator L");
+                            controller.BluetoothIndicatorR = GameObject.FindObjectsOfType<GameObject>(true).FirstOrDefault(obj => obj.name == "Bluetooth Indicator R");
+                            controller.pumpIndicator_R = GameObject.FindObjectsOfType<GameObject>(true).FirstOrDefault(obj => obj.name == "Pump Indicator R");
+                            controller.LeftBtText = GameObject.FindObjectsOfType<TextMeshProUGUI>(true).FirstOrDefault(obj => obj.name == "Left HexR Text");
+                            controller.RightBtText = GameObject.FindObjectsOfType<TextMeshProUGUI>(true).FirstOrDefault(obj => obj.name == "Right HexR Text");
+
+                            Debug.Log("HexR Panel Set Up Complete");
+                        }
+                        catch
+                        {
+                            Debug.Log("HexR panel is not set up, Manual Set up needed");
+
+                        }
+                        // Find hand root for physics hand
+                        try
+                        {
+                            GameObject LeftXR = GameObject.Find("Left Hand Interaction Visual");
+                            GameObject RightXR = GameObject.Find("Right Hand Interaction Visual");
+                            PhysicsHandTracking LeftP = controller.leftHand.gameObject.GetComponent<PhysicsHandTracking>();
+                            PhysicsHandTracking RightP = controller.rightHand.gameObject.GetComponent<PhysicsHandTracking>();
+                            LeftP.handRoot = LeftXR.transform.Find("OculusHand_L");
+                            RightP.handRoot = RightXR.transform.Find("OculusHand_R");
+                            EditorUtility.SetDirty(LeftP); // Mark as dirty to save changes
+                            EditorUtility.SetDirty(RightP); // Mark as dirty to save changes
+
+                        }
+                        catch
+                        {
+                            Debug.Log("XR hand is linked not linked to Physics hand tracking, manual link needed, Drag the hand root of your vr hand to the left and right physicshandtracking script");
+                        }
+                    }
+                    EditorUtility.SetDirty(controller); // Mark as dirty to save changes
                 }
-                EditorUtility.SetDirty(controller); // Mark as dirty to save changes
-            }
-            // Save changes
-            if (GUI.changed)
-            {
-                EditorUtility.SetDirty(target);
+                // Save changes
+                if (GUI.changed)
+                {
+                    EditorUtility.SetDirty(target);
+                }
             }
         }
-    }
 
 #endif
+    }
 }
