@@ -5,7 +5,6 @@ using HaptGlove;
 using UnityEditor;
 using UnityEngine;
 using TMPro;
-using UnityEngine.XR.Interaction.Toolkit.UI.BodyUI;
 using System.Linq;
 using UnityEngine.UI;
 using Unity.VisualScripting;
@@ -154,6 +153,7 @@ namespace HexR
         }
 
 
+
 #if UNITY_EDITOR
         [CustomEditor(typeof(HaptGloveManager))]
         public class HexRSettingEditorGUI : Editor
@@ -234,8 +234,8 @@ namespace HexR
                 {
                     try
                     {
-                        controller.rightHand = GameObject.Find("Right Hand Physics").GetComponent<HaptGloveHandler>(); // Replace with the name of your target object
-                        controller.leftHand = GameObject.Find("Left Hand Physics").GetComponent<HaptGloveHandler>(); // Replace with the name of your target object
+                        controller.rightHand = GameObject.Find("Right Hand Physics").GetComponent<HaptGloveHandler>(); 
+                        controller.leftHand = GameObject.Find("Left Hand Physics").GetComponent<HaptGloveHandler>();
                         Debug.Log("Right Hand Physics Found And Assigned.");
                     }
                     catch
@@ -303,6 +303,7 @@ namespace HexR
                             Debug.Log("XR hand is linked not linked to Physics hand tracking, manual link needed, Drag the hand root of your vr hand to the left and right physicshandtracking script");
                         }
                     }
+
                     else if(controller.XRFramework == Options.MetaOVR)
                     {
                         //Set up HexR Panel
@@ -341,6 +342,7 @@ namespace HexR
                             Debug.Log("XR hand is linked not linked to Physics hand tracking, manual link needed, Drag the hand root of your vr hand to the left and right physicshandtracking script");
                         }
                     }
+
                     EditorUtility.SetDirty(controller); // Mark as dirty to save changes
                 }
                 // Save changes

@@ -2,11 +2,8 @@
 
 #if OPEN_XR
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
-using UnityEngine.XR.Hands;
+
 
 namespace HexR
 {
@@ -91,6 +88,7 @@ namespace HexR
 
         void Update()
         {
+
             if (GloveManager.XRFramework == HaptGloveManager.Options.OpenXR)
             {
                 OpenXRUpdate();
@@ -209,6 +207,7 @@ namespace HexR
             }
             followingJoints[22] = HexrRoot;
             #endregion
+            Debug.Log("MetaOVR Hands are mapped");
         }
         private void MetaOVRFixedUpdate()
         {
@@ -409,6 +408,7 @@ namespace HexR
         #region MRTK
 
         #endregion
+
 
         public Transform GetDistal(int fingerID)
         {
