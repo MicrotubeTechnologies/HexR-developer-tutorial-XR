@@ -11,9 +11,9 @@
 
 
 <details>
-<summary> [  HexR Essential Scripts ] </summary>
+<summary> [  HexR code structure ] </summary>
  
- #### Learn more about the framework for HexR through this essential scripts 💡
+ ### Learn more about the code structure and architecture for HexR 💡
  
  <details> 
  <summary>  1. Hand Tracking ( PhysicsHandTracking ) </summary>
