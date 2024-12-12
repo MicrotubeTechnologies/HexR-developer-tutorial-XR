@@ -1,4 +1,4 @@
-# HexR Unity Integration (Uses Meta OVR)
+# HexR Unity Integration (Uses Meta OVR) ℹ️
 
 ## Installation
 
@@ -8,17 +8,42 @@
 [https://github.com/MicrotubeTechnologies/HexR-Developer-Tutorial.git](https://github.com/MicrotubeTechnologies/HexR-developer-tutorial-XR/tree/main)
 #### Then, open the HexR Developer Tutorial project in Unity.
 
+
+
 <details>
-<summary> [  HexR Set Up ] </summary>
+<summary> [  HexR Essential Scripts ] </summary>
  
-## **Essential HexR Set Up **
+ #### Learn more about the framework for HexR through this essential scripts 💡
+ 
+ <details> 
+ <summary>  1. Hand Tracking ( PhysicsHandTracking ) </summary>
 
-#### 1. Ensure you have drag and drop the plugins folder and HexRAssets folder to Unity/Asset.
-#### 2. In the folder HexRAssets/Main Prefab you can find the prefab HexR Main (Open XR), drag and drop this to your Hierachy.
-#### 3. In HexR Main (Open XR) look for the script Hapt Glove Manager and click Auto Set up, to set up the hand menu and link various essential gameobject.
-![Screenshot 2024-12-05 161348](https://github.com/user-attachments/assets/c787f18f-1f69-4da9-900b-b541ddee1f9c)
-#### 4. In HexR Main (Open XR) it contains Left/Right Hand Physics which is responsible of linking/mimic the HexR hands to the VR hands from openxr.
+ #### HexR hand supports both the Open XR and Meta OVR hand skeleton structure.
+ #### The difference in the hand structure is summarise in the illustration.
+ #### The Script PhysicsHandTracking is responsible to mimic the OVR/XR hands
+![Hand Skeleton](https://github.com/user-attachments/assets/2585a044-ae44-4814-88e5-abe61c876f8e)
+ </details>
 
+
+ <details>  
+ <summary>  2. HexR Overall Manager ( HaptGloveManager ) </summary>
+  
+ #### The HaptGloveManager allow users to automate the set up process.
+ #### In the inspector, you are able to select the XR framework and click on the "Auto Set Up HexR" button.
+ #### Check the debug log to ensure set up is successful.
+
+![image](https://github.com/user-attachments/assets/f09f713f-fa81-484e-8646-bbe830ecce35)
+</details>
+
+ <details>  
+ <summary>  3. Haptics Controller ( PressureTrackerMain ) </summary>
+  
+ #### The PressureTrackerMain contains the functions to call the haptics related functions.
+ #### Functions are categorise by single channel triggers or multiple channel triggers, take a look at the demo to see how they are used.
+ 
+</details>
+
+&nbsp;
 </details>
 
 <details>
