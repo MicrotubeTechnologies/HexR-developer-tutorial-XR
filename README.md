@@ -26,7 +26,7 @@
 Here’s a summary of the differences in hand structure:
 - **OpenXR Hand Skeleton**
 - **Meta OVR Hand Skeleton**  
-The `PhysicsHandTracking` script mimics the behavior of both the OVR/XR hands.
+The `PhysicsHandTracking` script mimics the behavior of either the OpenXR or Meta OVR hands, the script is attached to the Left/Right hand physics component under HexR Main.
 
 ![Hand Skeleton](https://github.com/user-attachments/assets/2585a044-ae44-4814-88e5-abe61c876f8e)
 
@@ -54,7 +54,7 @@ The `PhysicsHandTracking` script mimics the behavior of both the OVR/XR hands.
 <details>
   <summary>3. Haptics Controller (PressureTrackerMain)</summary>
 
-#### The `PressureTrackerMain` script contains functions for triggering haptic feedback.
+#### The `PressureTrackerMain` script contains functions for triggering haptic feedback and haptics vibrations.
 - Functions are categorized by **single-channel** or **multi-channel** triggers.  
 - Refer to the demo scene to see examples of how these functions are used.
 
@@ -64,6 +64,7 @@ The `PhysicsHandTracking` script mimics the behavior of both the OVR/XR hands.
   <summary>4. HexR Grab and Pinch (HexRGrabbable)</summary>
 
 #### The `HexRGrabbable` script enables objects to be picked up by the HexR hands.
+#### This is optional as you can also use the grab/pinch provided by **OpenXR**, however the haptics trigger and physics of grab will be different. Give both a try to see which is more suitable for you.
 To set up `HexRGrabbable`:
 1. Ensure the object has a **Collider (Trigger)** and **Rigidbody** attached to the same GameObject.
 2. Since the interaction is physics-based, adjust the size of the collider to improve grab/pinch behavior.
@@ -91,6 +92,39 @@ To set up `HexRGrabbable`:
   Trigger an event when the object is released.
 
 </details>
+
+<details>
+  <summary>5. Creating Haptic Zones (SpecialHaptics)</summary>
+
+#### The `SpecialHaptics` script enables objects to trigger a custom haptic effect when touch.
+
+![image](https://github.com/user-attachments/assets/15bc96c7-db42-452c-adeb-68b657984802)
+
+To set up `SpecialHaptics`:
+1. Ensure the object has a **Collider (Trigger)** attached to the same GameObject.
+2. Since the interaction is physics-based, adjust the size of the collider for the haptic zone.
+3. Select the type of Haptics in the inspector.
+
+#### SpecialHaptics Settings:
+- **Custom Vibrations:**  
+  - When activated will create the vibration effects
+  - **Frequency Speed:* the frequency of the vibrations.
+  - **Haptic Strength:* the strength of the vibrations.
+
+- **Fountain Effect:**  
+  - When activated will simulate running water.
+ 
+- **Raindrop Effect:**  
+  - When activated will simulate raindrops with random haptics trigger.
+    
+- **Heart Beat Effect:**  
+  - When activated will simulate beating heart, but only affects fingers and not palm.
+    
+- **Hand Squeeze Effect:**  
+  - When activated will allows the player to trigger an event by squeezing the hand
+  - `0.1`: Fully closed hand  
+  - `1`: Fully open hand
+</details> 
 
 </details>
 
