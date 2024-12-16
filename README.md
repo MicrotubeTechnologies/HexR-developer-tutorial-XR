@@ -2,49 +2,100 @@
 
 ## Installation
 
-#### Make sure you're using Unity 2021.3.26f1 or newer.
-#### For projects using Meta OVR refer to : [https://github.com/MicrotubeTechnologies/HaptGlove_Example](https://github.com/MicrotubeTechnologies/HexR-Developer-Tutorial-Meta-OVR)
-#### Clone this repo 
-[https://github.com/MicrotubeTechnologies/HexR-Developer-Tutorial.git](https://github.com/MicrotubeTechnologies/HexR-developer-tutorial-XR/tree/main)
-#### Then, open the HexR Developer Tutorial project in Unity.
+### Prerequisites:
+- Ensure you are using **Unity 2021.3.26f1** or newer.
+- For projects using **Meta OVR**, refer to the official [HexR Developer Tutorial (Meta OVR)](https://github.com/MicrotubeTechnologies/HexR-Developer-Tutorial-Meta-OVR).
 
+### Steps to Get Started:
+1. **Clone this repository:**
+   [HexR Developer Tutorial Repository](https://github.com/MicrotubeTechnologies/HexR-Developer-Tutorial.git)
 
+2. **Open the HexR Developer Tutorial project in Unity.**
+
+---
 
 <details>
-<summary> [  HexR code structure ] </summary>
- 
- ### Learn more about the code structure and architecture for HexR 💡
- 
- <details> 
- <summary>  1. Hand Tracking ( PhysicsHandTracking ) </summary>
+  <summary>🔍 HexR Code Structure</summary>
 
- #### HexR hand supports both the Open XR and Meta OVR hand skeleton structure.
- #### The difference in the hand structure is summarise in the illustration.
- #### The Script PhysicsHandTracking is responsible to mimic the OVR/XR hands
+### Learn more about the HexR code structure and architecture 💡
+
+<details>
+  <summary>1. Hand Tracking (PhysicsHandTracking)</summary>
+
+#### The HexR hand supports both the **OpenXR** and **Meta OVR** hand skeleton structure.  
+Here’s a summary of the differences in hand structure:
+- **OpenXR Hand Skeleton**
+- **Meta OVR Hand Skeleton**  
+The `PhysicsHandTracking` script mimics the behavior of both the OVR/XR hands.
+
 ![Hand Skeleton](https://github.com/user-attachments/assets/2585a044-ae44-4814-88e5-abe61c876f8e)
- </details>
 
-
- <details>  
- <summary>  2. HexR Overall Manager ( HaptGloveManager ) </summary>
-  
- #### The HaptGloveManager allow users to automate the set up process.
- #### In the inspector, you are able to select the XR framework and click on the "Auto Set Up HexR" button.
- #### Check the debug log to ensure set up is successful.
-
-![image](https://github.com/user-attachments/assets/f09f713f-fa81-484e-8646-bbe830ecce35)
 </details>
 
- <details>  
- <summary>  3. Haptics Controller ( PressureTrackerMain ) </summary>
+<details>
+  <summary>2. HexR Overall Manager (HaptGloveManager)</summary>
+
+#### The `HaptGloveManager` simplifies the setup process.  
+- In the inspector, ensure the XR framework is set to OpenXR and click the **"Auto Set Up HexR"** button.
+- If Set up is successfull, there should be no missing links in the inspector for HexR main, Left Hand Physics and Right hand Physics.
+- Check the debug log to ensure the setup is successful. 
+
+![Setup Image](https://github.com/user-attachments/assets/f09f713f-fa81-484e-8646-bbe830ecce35)
+
+#### HaptGloveManager Settings:
+- **XR Framework:**  
+  - Do select only the OpenXR Framework as there will be missing assets if meta OVR is selected, for projects using Meta OVR refer to the meta developer tutorial in the link above.
+
+- **HexR Hand Menu:**  
+  - The hand menu 
   
- #### The PressureTrackerMain contains the functions to call the haptics related functions.
- #### Functions are categorise by single channel triggers or multiple channel triggers, take a look at the demo to see how they are used.
- 
+</details>
+
+<details>
+  <summary>3. Haptics Controller (PressureTrackerMain)</summary>
+
+#### The `PressureTrackerMain` script contains functions for triggering haptic feedback.
+- Functions are categorized by **single-channel** or **multi-channel** triggers.  
+- Refer to the demo scene to see examples of how these functions are used.
+
+</details>
+
+<details>
+  <summary>4. HexR Grab and Pinch (HexRGrabbable)</summary>
+
+#### The `HexRGrabbable` script enables objects to be picked up by the HexR hands.
+To set up `HexRGrabbable`:
+1. Ensure the object has a **Collider (Trigger)** and **Rigidbody** attached to the same GameObject.
+2. Since the interaction is physics-based, adjust the size of the collider to improve grab/pinch behavior.
+3. Optionally, attach an additional collider if you want the object to interact with other GameObjects.
+
+![Grabbable Example](https://github.com/user-attachments/assets/3fadad3e-80d7-4f57-9186-a63d4ebc125f)
+
+#### HexRGrabbable Settings:
+- **Type of Grab:**  
+  - **Palm Grab:** Requires the palm and at least one finger to touch the object (thumb not required).
+  - **Pinch Grab:** Requires the thumb and at least one finger to touch the object (palm not required).
+
+- **Gravity Bool:**  
+  If enabled, gravity will affect the object when released.
+
+- **Haptic Slider:**  
+  Controls the strength of the haptic feedback during grab or pinch.  
+  - `0`: No haptics  
+  - `60`: Maximum haptics strength
+
+- **On Grab Event:**  
+  Trigger an event when the object is grabbed or pinched.
+
+- **On Release Event:**  
+  Trigger an event when the object is released.
+
+</details>
+
 </details>
 
 &nbsp;
-</details>
+
 
 <details>
 <summary> [  Demo Scene : Basic Tutorial ] </summary>
@@ -52,6 +103,15 @@
 ## **Demo Scene : Basic Tutorial **
 
 #### The **Basic Tutorial ** demo scene contains the implementation to grab and pinch object using HexR grabbing and pinching.
+
+![image](https://github.com/user-attachments/assets/a5ecd879-2c42-4e4b-a056-69a30dbceaec)
+
+### Apple Object
+#### The HexRGrabbable script is attach to the apple to allow it to be pick up. Palm grab have been selected and a haptics of 50 is triggered upon grab.
+#### Gravity bool have been turned on, hence when you release the apple, it will be affected by gravity.
+
+### Key Object
+
 </details>
 
 <details>
