@@ -5,7 +5,7 @@
 ### Prerequisites:
 - Ensure you are using **Unity 2021.3.26f1** or newer.
 - For projects using **Meta OVR**, refer to the official [HexR Developer Tutorial (Meta OVR)](https://github.com/MicrotubeTechnologies/HexR-Developer-Tutorial-Meta-OVR).
-
+- 
 ### Steps to Get Started:
 1. **Clone this repository:**
    [HexR Developer Tutorial Repository](https://github.com/MicrotubeTechnologies/HexR-Developer-Tutorial.git)
@@ -26,9 +26,11 @@
 Here’s a summary of the differences in hand structure:
 - **OpenXR Hand Skeleton**
 - **Meta OVR Hand Skeleton**  
-The `PhysicsHandTracking` script mimics the behavior of both the OVR/XR hands.
+The `PhysicsHandTracking` script mimics the position/rotation of either the OpenXR or Meta OVR hands, the script is attached to the Left/Right hand physics component under HexR Main.
 
 ![Hand Skeleton](https://github.com/user-attachments/assets/2585a044-ae44-4814-88e5-abe61c876f8e)
+
+If a custom hand structure is used, you will have to recreate the `PhysicsHandTracking` to track each joint.
 
 </details>
 
@@ -54,9 +56,13 @@ The `PhysicsHandTracking` script mimics the behavior of both the OVR/XR hands.
 <details>
   <summary>3. Haptics Controller (PressureTrackerMain)</summary>
 
-#### The `PressureTrackerMain` script contains functions for triggering haptic feedback.
-- Functions are categorized by **single-channel** or **multi-channel** triggers.  
-- Refer to the demo scene to see examples of how these functions are used.
+#### The `PressureTrackerMain` script provide more control for developer to create custom haptic conditions.
+#### There is functions that can be called to trigger specific haptics effect.
+#### There is 6 Channels in the HexR glove allowing haptics to be triggered for each finger and the palm
+
+- Functions Breakdown
+  - Functions are categorized by **single-channel** or **multi-channel** triggers.  
+  - Refer to the demo scene to see examples of how these functions are used.
 
 </details>
 
@@ -64,6 +70,7 @@ The `PhysicsHandTracking` script mimics the behavior of both the OVR/XR hands.
   <summary>4. HexR Grab and Pinch (HexRGrabbable)</summary>
 
 #### The `HexRGrabbable` script enables objects to be picked up by the HexR hands.
+#### This is optional as you can also use the grab/pinch provided by **OpenXR**, however the haptics trigger and physics of grab will be different. Give both a try to see which is more suitable for you.
 To set up `HexRGrabbable`:
 1. Ensure the object has a **Collider (Trigger)** and **Rigidbody** attached to the same GameObject.
 2. Since the interaction is physics-based, adjust the size of the collider to improve grab/pinch behavior.
@@ -92,13 +99,46 @@ To set up `HexRGrabbable`:
 
 </details>
 
+<details>
+  <summary>5. Creating Haptic Zones (SpecialHaptics)</summary>
+
+#### The `SpecialHaptics` script enables objects to trigger a custom haptic effect when touch.
+
+![image](https://github.com/user-attachments/assets/15bc96c7-db42-452c-adeb-68b657984802)
+
+To set up `SpecialHaptics`:
+1. Ensure the object has a **Collider (Trigger)** attached to the same GameObject.
+2. Since the interaction is physics-based, adjust the size of the collider for the haptic zone.
+3. Select the type of Haptics in the inspector.
+
+#### SpecialHaptics Settings:
+- **Custom Vibrations:**  
+  - When activated will create the vibration effects
+  - **Frequency Speed:* the frequency of the vibrations.
+  - **Haptic Strength:* the strength of the vibrations.
+
+- **Fountain Effect:**  
+  - When activated will simulate running water.
+ 
+- **Raindrop Effect:**  
+  - When activated will simulate raindrops with random haptics trigger.
+    
+- **Heart Beat Effect:**  
+  - When activated will simulate beating heart, but only affects fingers and not palm.
+    
+- **Hand Squeeze Effect:**  
+  - When activated will allows the player to trigger an event by squeezing the hand
+  - `0.1`: Fully closed hand  
+  - `1`: Fully open hand
+</details> 
+
 </details>
 
 &nbsp;
 
 
 <details>
-<summary> [  Demo Scene : Basic Tutorial ] </summary>
+<summary> Demo Scene : Basic Tutorial </summary>
  
 ## **Demo Scene : Basic Tutorial **
 
@@ -106,20 +146,36 @@ To set up `HexRGrabbable`:
 
 ![image](https://github.com/user-attachments/assets/a5ecd879-2c42-4e4b-a056-69a30dbceaec)
 
-### Apple Object
-#### The HexRGrabbable script is attach to the apple to allow it to be pick up. Palm grab have been selected and a haptics of 50 is triggered upon grab.
-#### Gravity bool have been turned on, hence when you release the apple, it will be affected by gravity.
+- Apple Object 🍎
+  - The HexRGrabbable script is attach to the apple to allow it to be pick up. Palm grab have been selected and a haptics of 50 is triggered upon grab.
+  - Gravity bool have been turned on, hence when you release the apple, it will be affected by gravity.
 
-### Key Object
+- Key Object 🔑
+  - The HexRGrabbable script is attach to the apple to allow it to be pick up. Pinch grab have been selected and a haptics of 30 is triggered upon grab.
+  - Gravity bool have been turned off.
 
+- Torch Object 🔥
+  - The HexRGrabbable script is attach to the torch to allow it to be pick up. Palm grab have been selected and a haptics of 40 is triggered upon grab.
+  - Gravity bool have been turned off.
+  - The SpecialHaptics is attach to the haptic zone(child gameobject) to allow vibrations to be triggered when touching the fire.
+
+- Button Object 🎮
+  - Button objects uses XR interaction and haptics is triggered from the events when the buttons is push.
+  - Take a look at Open XR documentation to understand how to implement their hands interactions.
 </details>
 
 <details>
-<summary> [  Demo Scene : Rain and Fountain Tutorial ] </summary>
+<summary> Demo Scene : Rain and Fountain Tutorial </summary>
  
-## **Demo Scene : Rain and Fountain Tutorial**
+## **  Demo Scene : Rain and Fountain Tutorial ⛲ **
 
 #### The **Rain and Fountain Tutorial** demo scene contains the haptics implementations for using triggers and colliders to trigger haptics. 
+#### There is a haptic zone in the fountain and rain clouds.
+#### To create a haptic zone simply attach the `SpecialHaptics` Script and a collider(trigger) to a gameobject.
+
+![image](https://github.com/user-attachments/assets/961d80fa-59ed-4431-a33e-46df43450ca8)
+
+
 </details>
 
 
