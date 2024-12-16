@@ -326,6 +326,7 @@ namespace HexR
                         {
                             Debug.Log("XR hand is linked not linked to Physics hand tracking, manual link needed, Drag the hand root of your vr hand to the left and right physicshandtracking script");
                         }
+
                     }
 
                     else if(controller.XRFramework == Options.MetaOVR)
