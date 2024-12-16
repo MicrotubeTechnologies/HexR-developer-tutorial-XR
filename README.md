@@ -132,7 +132,7 @@ To set up `SpecialHaptics`:
 
 
 <details>
-<summary> [  Demo Scene : Basic Tutorial ] </summary>
+<summary> Demo Scene : Basic Tutorial </summary>
  
 ## **Demo Scene : Basic Tutorial **
 
@@ -140,12 +140,21 @@ To set up `SpecialHaptics`:
 
 ![image](https://github.com/user-attachments/assets/a5ecd879-2c42-4e4b-a056-69a30dbceaec)
 
-### Apple Object
-#### The HexRGrabbable script is attach to the apple to allow it to be pick up. Palm grab have been selected and a haptics of 50 is triggered upon grab.
-#### Gravity bool have been turned on, hence when you release the apple, it will be affected by gravity.
+- Apple Object 🍎
+  - The HexRGrabbable script is attach to the apple to allow it to be pick up. Palm grab have been selected and a haptics of 50 is triggered upon grab.
+  - Gravity bool have been turned on, hence when you release the apple, it will be affected by gravity.
 
-### Key Object
+- Key Object 🔑
+  - The HexRGrabbable script is attach to the apple to allow it to be pick up. Pinch grab have been selected and a haptics of 30 is triggered upon grab.
+  - Gravity bool have been turned off.
 
+- Torch Object 🔥
+  - The HexRGrabbable script is attach to the torch to allow it to be pick up. Palm grab have been selected and a haptics of 40 is triggered upon grab.
+  - Gravity bool have been turned off.
+  - The SpecialHaptics is attach to the haptic zone(child gameobject) to allow vibrations to be triggered when touching the fire.
+
+- Button Object 🎮
+  - Button objects uses XR interaction and haptics is triggered from the events when the buttons is push.
 </details>
 
 <details>
