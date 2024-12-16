@@ -5,7 +5,7 @@
 ### Prerequisites:
 - Ensure you are using **Unity 2021.3.26f1** or newer.
 - For projects using **Meta OVR**, refer to the official [HexR Developer Tutorial (Meta OVR)](https://github.com/MicrotubeTechnologies/HexR-Developer-Tutorial-Meta-OVR).
-
+- 
 ### Steps to Get Started:
 1. **Clone this repository:**
    [HexR Developer Tutorial Repository](https://github.com/MicrotubeTechnologies/HexR-Developer-Tutorial.git)
@@ -26,9 +26,11 @@
 Here’s a summary of the differences in hand structure:
 - **OpenXR Hand Skeleton**
 - **Meta OVR Hand Skeleton**  
-The `PhysicsHandTracking` script mimics the behavior of either the OpenXR or Meta OVR hands, the script is attached to the Left/Right hand physics component under HexR Main.
+The `PhysicsHandTracking` script mimics the position/rotation of either the OpenXR or Meta OVR hands, the script is attached to the Left/Right hand physics component under HexR Main.
 
 ![Hand Skeleton](https://github.com/user-attachments/assets/2585a044-ae44-4814-88e5-abe61c876f8e)
+
+If a custom hand structure is used, you will have to recreate the `PhysicsHandTracking` to track each joint.
 
 </details>
 
@@ -54,9 +56,13 @@ The `PhysicsHandTracking` script mimics the behavior of either the OpenXR or Met
 <details>
   <summary>3. Haptics Controller (PressureTrackerMain)</summary>
 
-#### The `PressureTrackerMain` script contains functions for triggering haptic feedback and haptics vibrations.
-- Functions are categorized by **single-channel** or **multi-channel** triggers.  
-- Refer to the demo scene to see examples of how these functions are used.
+#### The `PressureTrackerMain` script provide more control for developer to create custom haptic conditions.
+#### There is functions that can be called to trigger specific haptics effect.
+#### There is 6 Channels in the HexR glove allowing haptics to be triggered for each finger and the palm
+
+- Functions Breakdown
+  - Functions are categorized by **single-channel** or **multi-channel** triggers.  
+  - Refer to the demo scene to see examples of how these functions are used.
 
 </details>
 
@@ -155,14 +161,21 @@ To set up `SpecialHaptics`:
 
 - Button Object 🎮
   - Button objects uses XR interaction and haptics is triggered from the events when the buttons is push.
+  - Take a look at Open XR documentation to understand how to implement their hands interactions.
 </details>
 
 <details>
-<summary> [  Demo Scene : Rain and Fountain Tutorial ] </summary>
+<summary> Demo Scene : Rain and Fountain Tutorial </summary>
  
-## **Demo Scene : Rain and Fountain Tutorial**
+## **  Demo Scene : Rain and Fountain Tutorial ⛲ **
 
 #### The **Rain and Fountain Tutorial** demo scene contains the haptics implementations for using triggers and colliders to trigger haptics. 
+#### There is a haptic zone in the fountain and rain clouds.
+#### To create a haptic zone simply attach the `SpecialHaptics` Script and a collider(trigger) to a gameobject.
+
+![image](https://github.com/user-attachments/assets/961d80fa-59ed-4431-a33e-46df43450ca8)
+
+
 </details>
 
 
