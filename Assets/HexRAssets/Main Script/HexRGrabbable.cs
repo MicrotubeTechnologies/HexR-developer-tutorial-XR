@@ -38,9 +38,9 @@ namespace HexR
         private FingerUseTracking RfingerUseTracking, LfingeruseTracking;
         private PressureTrackerMain RightPressureTracker, LeftPressureTracker;
         private Rigidbody objectRigidbody;
-        private bool HapticIsTriggered = false;
         [HideInInspector]
-        public bool isGrab = false, InvokeReady = true;
+        public bool isGrab = false, InvokeEventReady = true;
+        private bool ReadyToActivateGrab = true;
         // Start is called before the first frame update
         void Start()
         {
@@ -141,22 +141,18 @@ namespace HexR
             if (collision.transform.parent.name == "R_IndexTip" || collision.transform.parent.name == "R_Index_3")
             {
                 RIndex = true;
-                StartCoroutine(ResetFinger(RIndex));
             }
             if (collision.transform.parent.name == "R_LittleTip" || collision.transform.parent.name == "R_Pinky_1")
             {
                 RLittle = true;
-                StartCoroutine(ResetFinger(RLittle));
             }
             if (collision.transform.parent.name == "R_MiddleTip" || collision.transform.parent.name == "R_Middle_3")
             {
                 RMiddle = true;
-                StartCoroutine(ResetFinger(RMiddle));
             }
             if (collision.transform.parent.name == "R_RingTip" || collision.transform.parent.name == "R_Ring_3")
             {
                 RRing = true;
-                StartCoroutine(ResetFinger(RRing));
             }
             if (collision.transform.parent.name == "R_ThumbTip" || collision.transform.parent.name == "R_Thumb_2")
             {
@@ -182,22 +178,18 @@ namespace HexR
             if (collision.transform.parent.name == "L_IndexTip" || collision.transform.parent.name == "R_Index_3")
             {
                 LIndex = true;
-                StartCoroutine(ResetFinger(LIndex));
             }
             if (collision.transform.parent.name == "L_LittleTip" || collision.transform.parent.name == "R_Pinky_1")
             {
                 LLittle = true;
-                StartCoroutine(ResetFinger(LLittle));
             }
             if (collision.transform.parent.name == "L_MiddleTip" || collision.transform.parent.name == "R_Middle_3")
             {
                 LMiddle = true;
-                StartCoroutine(ResetFinger(LMiddle));
             }
             if (collision.transform.parent.name == "L_RingTip" || collision.transform.parent.name == "R_Ring_3")
             {
                 LRing = true;
-                StartCoroutine(ResetFinger(LRing));
             }
             if (collision.transform.parent.name == "L_ThumbTip" || collision.transform.parent.name == "R_Thumb_2")
             {
@@ -225,22 +217,18 @@ namespace HexR
             if (collision.transform.parent.name == "R_IndexTip" || collision.transform.parent.name == "R_Index_3")
             {
                 RIndex = true;
-                StartCoroutine(ResetFinger(RIndex));
             }
             if (collision.transform.parent.name == "R_LittleTip" || collision.transform.parent.name == "R_Pinky_1")
             {
                 RLittle = true;
-                StartCoroutine(ResetFinger(RLittle));
             }
             if (collision.transform.parent.name == "R_MiddleTip" || collision.transform.parent.name == "R_Middle_3")
             {
                 RMiddle = true;
-                StartCoroutine(ResetFinger(RMiddle));
             }
             if (collision.transform.parent.name == "R_RingTip" || collision.transform.parent.name == "R_Ring_3")
             {
                 RRing = true;
-                StartCoroutine(ResetFinger(RRing));
             }
             if (collision.transform.parent.name == "R_ThumbTip" || collision.transform.parent.name == "R_Thumb_2")
             {
@@ -266,22 +254,18 @@ namespace HexR
             if (collision.transform.parent.name == "L_IndexTip" || collision.transform.parent.name == "L_Index_3")
             {
                 LIndex = true;
-                StartCoroutine(ResetFinger(LIndex));
             }
             if (collision.transform.parent.name == "L_LittleTip" || collision.transform.parent.name == "L_Pinky_1")
             {
                 LLittle = true;
-                StartCoroutine(ResetFinger(LLittle));
             }
             if (collision.transform.parent.name == "L_MiddleTip" || collision.transform.parent.name == "L_Middle_3")
             {
                 LMiddle = true;
-                StartCoroutine(ResetFinger(LMiddle));
             }
             if (collision.transform.parent.name == "L_RingTip" || collision.transform.parent.name == "L_Ring_3")
             {
                 LRing = true;
-                StartCoroutine(ResetFinger(LRing));
             }
             if (collision.transform.parent.name == "L_ThumbTip" || collision.transform.parent.name == "L_Thumb_2")
             {
@@ -356,6 +340,7 @@ namespace HexR
                 LPalm = false;
             }
         }
+
         private void IsGrab(GameObject HandParent, FingerUseTracking fingerUseTracking, PressureTrackerMain ThePressureTracker, bool IsLeft)
         {
             ThePressureTracker?.HandGrabbingCheck(true);
@@ -368,113 +353,123 @@ namespace HexR
             #endregion
 
             //Trigger Events
-            if (isGrab && InvokeReady)
+            if (isGrab && InvokeEventReady)
             {
                 OnGrab?.Invoke();
-                InvokeReady = false;
+                InvokeEventReady = false;
             }
+
             TriggerHaptics(ThePressureTracker, IsLeft);
+
             StartCoroutine(ResetGrab(fingerUseTracking, ThePressureTracker));
         }
         private void NotGrab(PressureTrackerMain ThePressureTracker)
         {
-            ThePressureTracker?.HandGrabbingCheck(false);
+            ThePressureTracker?.HandGrabbingCheck(false); // change grab state back to false
             objectRigidbody.isKinematic = false;
             if (Gravity == Option.On) { objectRigidbody.useGravity = true; }
             objectRigidbody.interpolation = RigidbodyInterpolation.Extrapolate;
 
             gameObject.transform.SetParent(OriginalParent.transform);
 
-            if (!InvokeReady)
+            if (!InvokeEventReady)
             {
                 OnRelease?.Invoke();
-                InvokeReady = true;
+                InvokeEventReady = true;
                 RemoveHaptics(ThePressureTracker);
             }
         }
         private void TriggerHaptics(PressureTrackerMain pressureTrackerMain, bool IsLeft)
         {
-            if (HapticStrength != 0)
+            if(ReadyToActivateGrab)
             {
-                // Boolean states for right hand and left hand
-                byte[][] ClutchState = new byte[0][]; // Start with an empty array
-                if (IsLeft)
+                ReadyToActivateGrab = false;
+                if (HapticStrength != 0)
                 {
-                    bool[] fingerStates = { LThumb, LIndex, LMiddle, LRing, LLittle, LPalm }; // array of fingers touching object
-                    bool[] HapticStates = { LThumbHaptics, LIndexHaptics, LMiddleHaptics, LRingHaptics, LLittleHaptics, LPalmHaptics }; // array of which haptic is triggered
-                                                                                                                                        // Check each boolean and add its clutch state if true
-                                                                                                                                        // Check if finger is already having haptics and if haptics for specific fingers are required
-                    for (int i = 0; i < fingerStates.Length; i++)
-                    {
-                        if (fingerStates[i] && !HapticStates[i])
-                        {
-                            HapticStates[i] = true;
-                            // Expand the ClutchState array and add the new byte[]
-                            Array.Resize(ref ClutchState, ClutchState.Length + 1);
-                            ClutchState[ClutchState.Length - 1] = new byte[] { (byte)i, 0 };
-                        }
-                        else if (!fingerStates[i] && HapticStates[i])
-                        {
-                            HapticStates[i] = false;
-                            // Expand the ClutchState array and add the new byte[]
-                            Array.Resize(ref ClutchState, ClutchState.Length + 1);
-                            ClutchState[ClutchState.Length - 1] = new byte[] { (byte)i, 2 };
-                        }
-                    }
-                }
-                else
-                {
-                    bool[] fingerStates = { RThumb, RIndex, RMiddle, RRing, RLittle, RPalm };
-                    bool[] HapticStates = { RThumbHaptics, RIndexHaptics, RMiddleHaptics, RRingHaptics, RLittleHaptics, RPalmHaptics };
-                    // Check each boolean and add its clutch state if true
-                    for (int i = 0; i < fingerStates.Length; i++)
-                    {
-                        if (fingerStates[i] && !HapticStates[i])
-                        {
-                            HapticStates[i] = true;
-                            // Expand the ClutchState array and add the new byte[]
-                            Array.Resize(ref ClutchState, ClutchState.Length + 1);
-                            ClutchState[ClutchState.Length - 1] = new byte[] { (byte)i, 0 };
-                        }
-                        else if (!fingerStates[i] && HapticStates[i])
-                        {
-                            HapticStates[i] = false;
-                            // Expand the ClutchState array and add the new byte[]
-                            Array.Resize(ref ClutchState, ClutchState.Length + 1);
-                            ClutchState[ClutchState.Length - 1] = new byte[] { (byte)i, 2 };
-                        }
-                    }
-                }
+                    byte[][] ClutchState = new byte[0][]; // Start with an empty array
 
-                // Send haptics data if there are any clutch states
-                if (ClutchState.Length > 0)
-                {
-                    pressureTrackerMain.TriggerCustomHapticsIncrease(ClutchState, (byte)HapticStrength);
+                    if (IsLeft) // Left hand hexr trigger
+                    {
+                        // Check and update left hand fingers directly
+                        bool[] fingerStates = { LThumb, LIndex, LMiddle, LRing, LLittle, LPalm };
+
+                        for (int i = 0; i < fingerStates.Length; i++)
+                        {
+                            switch (i)
+                            {
+                                case 0: // Thumb
+                                    UpdateHapticState(ref LThumbHaptics, fingerStates[i], ref ClutchState, i);
+                                    break;
+                                case 1: // Index
+                                    UpdateHapticState(ref LIndexHaptics, fingerStates[i], ref ClutchState, i);
+                                    break;
+                                case 2: // Middle
+                                    UpdateHapticState(ref LMiddleHaptics, fingerStates[i], ref ClutchState, i);
+                                    break;
+                                case 3: // Ring
+                                    UpdateHapticState(ref LRingHaptics, fingerStates[i], ref ClutchState, i);
+                                    break;
+                                case 4: // Little
+                                    UpdateHapticState(ref LLittleHaptics, fingerStates[i], ref ClutchState, i);
+                                    break;
+                                case 5: // Palm
+                                    UpdateHapticState(ref LPalmHaptics, fingerStates[i], ref ClutchState, i);
+                                    break;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        // Check and update right hand fingers directly
+                        bool[] fingerStates = { RThumb, RIndex, RMiddle, RRing, RLittle, RPalm };
+
+                        for (int i = 0; i < fingerStates.Length; i++)
+                        {
+                            switch (i)
+                            {
+                                case 0: // Thumb
+                                    UpdateHapticState(ref RThumbHaptics, fingerStates[i], ref ClutchState, i);
+                                    break;
+                                case 1: // Index
+                                    UpdateHapticState(ref RIndexHaptics, fingerStates[i], ref ClutchState, i);
+                                    break;
+                                case 2: // Middle
+                                    UpdateHapticState(ref RMiddleHaptics, fingerStates[i], ref ClutchState, i);
+                                    break;
+                                case 3: // Ring
+                                    UpdateHapticState(ref RRingHaptics, fingerStates[i], ref ClutchState, i);
+                                    break;
+                                case 4: // Little
+                                    UpdateHapticState(ref RLittleHaptics, fingerStates[i], ref ClutchState, i);
+                                    break;
+                                case 5: // Palm
+                                    UpdateHapticState(ref RPalmHaptics, fingerStates[i], ref ClutchState, i);
+                                    break;
+                            }
+                        }
+                    } // Right hand hexr trigger
+
+                    // Send haptics data if there are any clutch states
+                    if (ClutchState.Length > 0)
+                    {
+                        pressureTrackerMain.TriggerCustomHapticsIncrease(ClutchState, (byte)HapticStrength);
+                    }
                 }
+                ReadyToActivateGrab = true;
             }
 
         }
         private void RemoveHaptics(PressureTrackerMain pressureTrackerMain)
         {
-            if (HapticStrength != 0 && HapticIsTriggered)
-            {
-                HapticIsTriggered = false;
-                pressureTrackerMain.RemoveAllHaptics();
-                bool[] HapticStates = { LThumbHaptics, LIndexHaptics, LMiddleHaptics, LRingHaptics, LLittleHaptics, LPalmHaptics, RThumbHaptics, RIndexHaptics, RMiddleHaptics, RRingHaptics, RLittleHaptics, RPalmHaptics };
-                for (int i = 0; i < HapticStates.Length; i++)
-                {
-                    HapticStates[i] = false;
-                }
-            }
+            if (HapticStrength == 0 ) return;
+
+            pressureTrackerMain.RemoveAllHaptics();
+
+            // Reset all haptic states
+            LThumbHaptics = LIndexHaptics = LMiddleHaptics = LRingHaptics = LLittleHaptics = LPalmHaptics = false;
+            RThumbHaptics = RIndexHaptics = RMiddleHaptics = RRingHaptics = RLittleHaptics = RPalmHaptics = false;
         }
 
-        IEnumerator ResetFinger(bool whichbool)
-        {
-            // Wait for the specified delay time
-            yield return new WaitForSeconds(0.2f);
-            whichbool = false;
-
-        }
         IEnumerator ResetGrab(FingerUseTracking fingerUseTracking, PressureTrackerMain ThePressureTracker)
         {
             // Wait for the specified delay time
@@ -509,5 +504,28 @@ namespace HexR
             RRingHaptics = false; LRingHaptics = false;
             RLittleHaptics = false; LLittleHaptics = false;
         }
+
+        #region Helper functions
+        private void UpdateHapticState(ref bool hapticState, bool fingerState, ref byte[][] clutchState, int fingerIndex)
+        {
+            if (fingerState && !hapticState) // Finger activated + no haptic
+            {
+                hapticState = true;
+                AddToClutchState(ref clutchState, fingerIndex, 0);
+            }
+            else if (!fingerState && hapticState) // Finger deactivated + haptic active
+            {
+                hapticState = false;
+                AddToClutchState(ref clutchState, fingerIndex, 2);
+            }
+        }
+
+        private void AddToClutchState(ref byte[][] clutchState, int fingerIndex, byte state)
+        {
+            Array.Resize(ref clutchState, clutchState.Length + 1);
+            clutchState[clutchState.Length - 1] = new byte[] { (byte)fingerIndex, state };
+        }
+
+        #endregion
     }
 }
