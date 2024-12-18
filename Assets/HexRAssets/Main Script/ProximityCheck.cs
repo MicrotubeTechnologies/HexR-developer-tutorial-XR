@@ -10,7 +10,7 @@ namespace HexR
 {
     public class ProximityCheck : MonoBehaviour
     {
-        public PressureTrackerMain pressureTrackerMain;
+        public PressureTrackerMain rightpressureTrackerMain, leftpressureTrackerMain;
         private bool restart = false;
         // Start is called before the first frame update
         void Start()
@@ -25,18 +25,36 @@ namespace HexR
         }
         private void OnTriggerEnter(Collider other)
         {
-            pressureTrackerMain.IsPhysicsCollisionNear(true);
-            StartCoroutine(removeCollisiontrue());
+            if (other.name.Contains("L_Palm") || other.name.Contains("LeftGhostPalm"))
+            {
+                restart = true;
+                leftpressureTrackerMain.IsPhysicsCollisionNear(true);
+                removeCollisiontrue(leftpressureTrackerMain);
+            }
+            else if(other.name.Contains("R_Palm") || other.name.Contains("RightGhostPalm"))
+            {
+                restart = true;
+                rightpressureTrackerMain.IsPhysicsCollisionNear(true);
+                removeCollisiontrue(rightpressureTrackerMain);
+            }
         }
         private void OnTriggerStay(Collider other)
         {
-            pressureTrackerMain.IsPhysicsCollisionNear(true);
-            restart = false;
+            if (other.name.Contains("L_Palm") || other.name.Contains("LeftGhostPalm"))
+            {
+                restart = false;
+                leftpressureTrackerMain.IsPhysicsCollisionNear(true);
+            }
+            else if (other.name.Contains("R_Palm") || other.name.Contains("RightGhostPalm"))
+            {
+                restart = false;
+                rightpressureTrackerMain.IsPhysicsCollisionNear(true);
+            }
         }
-        IEnumerator removeCollisiontrue()
+        IEnumerator removeCollisiontrue(PressureTrackerMain pressureTrackerMain)
         {
             // Wait for the specified delay time
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(0.5f);
             if(restart == true)
             {
                 pressureTrackerMain.IsPhysicsCollisionNear(false);
@@ -44,15 +62,21 @@ namespace HexR
             else
             {
                 restart = true;
-                StartCoroutine(removeCollisiontrue());
+                StartCoroutine(removeCollisiontrue(pressureTrackerMain));
             }
 
 
         }
         private void OnTriggerExit(Collider other)
         {
-            pressureTrackerMain.IsPhysicsCollisionNear(false);
-            restart = true;
+            if (other.name.Contains("L_Palm") || other.name.Contains("LeftGhostPalm"))
+            {
+                leftpressureTrackerMain.IsPhysicsCollisionNear(false);
+            }
+            else if (other.name.Contains("R_Palm") || other.name.Contains("RightGhostPalm"))
+            {
+                rightpressureTrackerMain.IsPhysicsCollisionNear(false);
+            }
         }
     }
 }

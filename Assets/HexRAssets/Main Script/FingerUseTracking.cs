@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using HaptGlove;
+using static UnityEngine.GraphicsBuffer;
+using System.Linq;
+using UnityEditor;
 
 namespace HexR
 {
@@ -16,7 +20,6 @@ namespace HexR
 
         [HideInInspector]
         public float IndexUse, MiddleUse, RingUse, LittleUse, ThumbUse;
-
         // Start is called before the first frame update
         void Start()
         {
@@ -25,6 +28,7 @@ namespace HexR
 
             // Initialize largest values to a very small number
             IndexLargest = MiddleLargest = RingLargest = LittleLargest = ThumbLargest = float.MinValue;
+
         }
 
         // Update is called once per frame
@@ -107,5 +111,6 @@ namespace HexR
         }
          
     }
+
 }
 
