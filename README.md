@@ -5,7 +5,7 @@
 ### Prerequisites:
 - Ensure you are using **Unity 2021.3.26f1** or newer.
 - For projects using **Meta OVR**, refer to the official [HexR Developer Tutorial (Meta OVR)](https://github.com/MicrotubeTechnologies/HexR-Developer-Tutorial-Meta-OVR).
-- 
+  
 ### Steps to Get Started:
 1. **Clone this repository:**
    [HexR Developer Tutorial Repository](https://github.com/MicrotubeTechnologies/HexR-Developer-Tutorial.git)
@@ -113,10 +113,12 @@ To set up `SpecialHaptics`:
 
 #### SpecialHaptics Settings:
 - **Custom Vibrations:**  
-  - When activated will create the vibration effects
-  - **Frequency Speed:* the frequency of the vibrations.
-  - **Haptic Strength:* the strength of the vibrations.
-
+  - When activated will create the vibration effects.
+  - *Frequency Speed:* the frequency of the vibrations.
+  - *Haptic Strength:* the strength of the vibrations.
+- **Custom Haptics:**
+  - When activated/touch will trigger a constant haptic.
+  - *Haptic Pressure:* slider to adjust strength of haptic. 10 = weakest, 60 = strongest.
 - **Fountain Effect:**  
   - When activated will simulate running water.
  
@@ -132,6 +134,16 @@ To set up `SpecialHaptics`:
   - `1`: Fully open hand
 </details> 
 
+<details>
+  <summary>6. Determine if hand is near (ProximityCheck)</summary>
+
+#### The `ProximityCheck` script checks if the left or right hand is near the target object.
+#### Haptics is only trigger when the hand is near the object.
+#### Place the `ProximityCheck` prefab as a child of the target object and click the auto set up.
+#### You should adjust the size of your trigger collider to ensure that it is optimise.
+
+
+</details> 
 </details>
 
 &nbsp;
