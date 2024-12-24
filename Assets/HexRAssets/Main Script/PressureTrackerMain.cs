@@ -61,9 +61,10 @@ namespace HexR
         {
             HandGrabbing = IsHandGrabbing;
         }
-        public bool IsPhysicsCollisionNear(bool CollisionNearHand)
+        public bool IsPhysicsCollisionNear(bool CollisionBool)
         {
-            return CollisionNearHand;
+            CollisionNearHand = CollisionBool;
+            return CollisionBool;
         }
         #endregion
 
@@ -142,7 +143,7 @@ namespace HexR
                 gloveHandler.BTSend(btData);
             }
         }
-        public void TriggerPinchPressure(int TargetPressure)
+            public void TriggerPinchPressure(int TargetPressure)
         {
             //Index and Thumb
             if (HandGrabbing == true || PokeHovering == true || CollisionNearHand == true)

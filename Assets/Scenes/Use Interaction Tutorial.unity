@@ -176,7 +176,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 8b3de967bb7e386439712cb9d188c5f3, type: 2}
+  - {fileID: 2100000, guid: eb1ca079d35a5f84fb5d45da68a05d3c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1138,6 +1138,17 @@ Transform:
   - {fileID: 148921903}
   m_Father: {fileID: 155698930}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &369547637 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7587032033531243993, guid: caecc2345cb6a984d87f1af4f5254c35, type: 3}
+  m_PrefabInstance: {fileID: 1206491280}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c531c5c871f98984787d839dc4596095, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &513238115
 GameObject:
   m_ObjectHideFlags: 0
@@ -1213,6 +1224,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 513238115}
   m_CullTransparentMesh: 1
+--- !u!114 &540008793 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 847855002104119674, guid: caecc2345cb6a984d87f1af4f5254c35, type: 3}
+  m_PrefabInstance: {fileID: 1206491280}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c531c5c871f98984787d839dc4596095, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &554478748
 GameObject:
   m_ObjectHideFlags: 0
@@ -1692,7 +1714,8 @@ GameObject:
   - component: {fileID: 827894437}
   - component: {fileID: 827894436}
   - component: {fileID: 827894435}
-  - component: {fileID: 827894434}
+  - component: {fileID: 827894439}
+  - component: {fileID: 827894440}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
@@ -1714,29 +1737,9 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 107648400}
+  - {fileID: 1843198272}
   m_Father: {fileID: 155698930}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &827894434
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 827894432}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &827894435
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1781,14 +1784,38 @@ MonoBehaviour:
   MiddleFinger: 0
   RingFinger: 0
   LittleFinger: 0
-  UseThreshold: 0.2
+  UseThreshold: 0.173
   WhenUseTriggerEvents:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 107648399}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 827894439}
+        m_TargetAssemblyTypeName: BallManager, Assembly-CSharp
+        m_MethodName: BallIsUsed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 369547637}
+        m_TargetAssemblyTypeName: HexR.PressureTrackerMain, Assembly-CSharp
+        m_MethodName: TriggerAllVibrations
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 540008793}
+        m_TargetAssemblyTypeName: HexR.PressureTrackerMain, Assembly-CSharp
+        m_MethodName: TriggerAllVibrations
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1800,10 +1827,34 @@ MonoBehaviour:
   WhenStopUsingTriggerEvents:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 107648399}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 827894439}
+        m_TargetAssemblyTypeName: BallManager, Assembly-CSharp
+        m_MethodName: ResetToOriginalState
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 540008793}
+        m_TargetAssemblyTypeName: HexR.PressureTrackerMain, Assembly-CSharp
+        m_MethodName: RemoveAllVibrations
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 369547637}
+        m_TargetAssemblyTypeName: HexR.PressureTrackerMain, Assembly-CSharp
+        m_MethodName: RemoveAllVibrations
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1824,8 +1875,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c677bb85324600a4194553564a52e7f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TypeOfGrab: 0
-  Gravity: 0
+  TypeOfGrab: 1
+  Gravity: 1
   HapticStrength: 10
   OnGrab:
     m_PersistentCalls:
@@ -1856,6 +1907,33 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &827894439
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 827894432}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1ba38cecf11e8248884d75b225429a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetMaterial: {fileID: 2100000, guid: eb1ca079d35a5f84fb5d45da68a05d3c, type: 2}
+--- !u!114 &827894440
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 827894432}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e733ecd62916d646bf6a4b602eb3aa1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rightpressureTrackerMain: {fileID: 369547637}
+  leftpressureTrackerMain: {fileID: 540008793}
 --- !u!1 &856345015
 GameObject:
   m_ObjectHideFlags: 0
@@ -4305,6 +4383,74 @@ MonoBehaviour:
       followLowerSmoothingValue: 12
       followUpperSmoothingValue: 16
     m_Variable: {fileID: 11400000, guid: 2899508b1645c5e4fa421b4217da9539, type: 2}
+--- !u!1 &1750085627
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1843198272}
+  - component: {fileID: 1843198274}
+  - component: {fileID: 1843198273}
+  m_Layer: 0
+  m_Name: Proximity
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1843198272
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1750085627}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 827894433}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1843198273
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1750085627}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e733ecd62916d646bf6a4b602eb3aa1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rightpressureTrackerMain: {fileID: 369547637}
+  leftpressureTrackerMain: {fileID: 540008793}
+--- !u!135 &1843198274
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1750085627}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1994342064
 GameObject:
   m_ObjectHideFlags: 0
