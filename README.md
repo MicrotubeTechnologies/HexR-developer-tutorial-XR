@@ -1,4 +1,4 @@
-# HexR Unity Integration (Uses Meta OVR) ℹ️
+# HexR Unity Integration (Uses Open XR) ℹ️
 
 ## Installation
 
