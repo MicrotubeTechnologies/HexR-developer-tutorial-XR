@@ -73,13 +73,11 @@ namespace HexR
         {
             if (HandGrabbing == true || PokeHovering == true|| ByPassHandInteractionCheck == true)
             {
-                TargetPressure = PressureChecker(TargetPressure);
+                TargetPressure = PressureChecker(TargetPressure); //Limit Pressure to 60
                 // btData contains the instruction for which haptics to be triggered and the incremented pressure
                 byte[] btData = gloveHandler.haptics.ApplyHaptics(FingerTypeByte, (byte)TargetPressure, false);
                 gloveHandler.BTSend(btData);
 
-                //Update Pressure status
-                UpdateSinglePressure(FingerTypeByte, TargetPressure);
             }
         }
         public void RemoveSingleHaptics(byte[] FingerTypeByte, string FingerTypeString, bool ByPassHandInteractionCheck)
@@ -88,9 +86,6 @@ namespace HexR
             {
                 byte[] btData = gloveHandler.haptics.ApplyHaptics(FingerTypeByte, (byte)60, false);
                 gloveHandler.BTSend(btData);
-
-                //Update Pressure status
-                ResetSinglePressure(FingerTypeString);
             }
         }
         public void TriggerSingleVibrations(byte[] FingerTypeByte, byte Frequency, byte HapticStrength, bool ByPassHandInteractionCheck)
@@ -117,27 +112,20 @@ namespace HexR
         {
             if (HandGrabbing == true || PokeHovering == true || CollisionNearHand == true)
             {
-                TargetPressure = PressureChecker(TargetPressure);
+                TargetPressure = PressureChecker(TargetPressure); //Limit Pressure to 60
                 // ClutchState affecting all indenters
                 byte[][] ClutchState = new byte[][] { new byte[] { 0, 0 }, new byte[] { 1, 0 }, new byte[] { 2, 0 }, new byte[] { 3, 0 }, new byte[] { 4, 0 }
                             , new byte[] { 5, 0 }};
                 byte[] btData = gloveHandler.haptics.ApplyHaptics(ClutchState, (byte)TargetPressure, false);
                 gloveHandler.BTSend(btData);
 
-                //Update Pressure status
-                ThumbPressure += TargetPressure;
-                IndexPressure += TargetPressure;
-                MiddlePressure += TargetPressure;
-                RingPressure += TargetPressure;
-                LittlePressure += TargetPressure;
-                PalmPressure += TargetPressure;
             }
         }
         public void TriggerCustomHapticsIncrease(byte[][] FingerTypeByte, int TargetPressure)
         {
             if (HandGrabbing == true || PokeHovering == true || CollisionNearHand == true)
             {
-                TargetPressure = PressureChecker(TargetPressure);
+                TargetPressure = PressureChecker(TargetPressure); //Limit Pressure to 60
                 // ClutchState affecting all indenters
                 byte[] btData = gloveHandler.haptics.ApplyHaptics(FingerTypeByte, (byte)TargetPressure, false);
                 gloveHandler.BTSend(btData);
@@ -148,7 +136,7 @@ namespace HexR
             //Index and Thumb
             if (HandGrabbing == true || PokeHovering == true || CollisionNearHand == true)
             {
-                TargetPressure = PressureChecker(TargetPressure);
+                TargetPressure = PressureChecker(TargetPressure); //Limit Pressure to 60
                 // ClutchState affecting all indenters
                 byte[][] ClutchState = new byte[][] { new byte[] { 0, 0 }, new byte[] { 1, 0 } };
                 byte[] btData = gloveHandler.haptics.ApplyHaptics(ClutchState, (byte)TargetPressure, false);
@@ -312,64 +300,7 @@ namespace HexR
         #endregion
 
         #region Helpers
-        public void UpdateSinglePressure(byte[] WhichPressure, int ValueToChange)
-        {
-            // Update the pressure status when the different indenters pressure is different.
-            if (WhichPressure[0] == 0)
-            {
-                ThumbPressure = ThumbPressure + ValueToChange;
-            }
-            else if (WhichPressure[0] == 1)
-            {
-                IndexPressure = IndexPressure + ValueToChange;
-            }
-            else if (WhichPressure[0] == 2)
-            {
-                MiddlePressure = MiddlePressure + ValueToChange;
-            }
-            else if (WhichPressure[0] == 3)
-            {
-                RingPressure = RingPressure + ValueToChange;
-            }
-            else if (WhichPressure[0] == 4)
-            {
-                LittlePressure = LittlePressure + ValueToChange;
-            }
-            else if (WhichPressure[0] == 5)
-            {
-                PalmPressure = PalmPressure + ValueToChange;
-            }
 
-        }
-        public void ResetSinglePressure(string WhichPressure)
-        {
-            // Update the pressure status when the different indenters pressure is different.
-            if (WhichPressure == "thumb")
-            {
-                ThumbPressure = 0;
-            }
-            else if (WhichPressure == "index")
-            {
-                IndexPressure = 0;
-            }
-            else if (WhichPressure == "middle")
-            {
-                MiddlePressure = 0;
-            }
-            else if (WhichPressure == "ring")
-            {
-                RingPressure = 0;
-            }
-            else if (WhichPressure == "little")
-            {
-                LittlePressure = 0;
-            }
-            else if (WhichPressure == "palm")
-            {
-                PalmPressure = 0;
-            }
-
-        }
         private int PressureChecker(int Input)
         {
             // to ensure pressure is within 60

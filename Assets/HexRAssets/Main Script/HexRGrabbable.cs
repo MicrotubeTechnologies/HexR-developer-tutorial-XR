@@ -17,6 +17,7 @@ namespace HexR
         public Options TypeOfGrab;
         public enum Option { On, Off }
         public Option Gravity;
+        public GameObject TheObject; //Optional, if you want to seperate the grab zone from the action object, which will allow you to not include nested collider in child
 
         [Range(0f, 60f)]
         public float HapticStrength = 10f;
@@ -27,7 +28,6 @@ namespace HexR
 
         private GameObject RHandParent, LHandParent;
         private GameObject OriginalParent;
-
         #region Bool Fields
         bool RThumb, RIndex, RLittle, RMiddle, RRing, RPalm; // if finger is touching
         bool LThumb, LIndex, LLittle, LMiddle, LRing, LPalm;
@@ -61,8 +61,12 @@ namespace HexR
             else { Debug.Log("Left pressuretracker is not found"); }
 
             objectRigidbody = gameObject.GetComponent<Rigidbody>();
-            OriginalParent = gameObject.transform.parent.gameObject;
+            if(TheObject == null)
+            {
+                TheObject = gameObject;
+            }
 
+            OriginalParent = TheObject.transform.parent.gameObject;
             SetUpBool();
 
         }
@@ -138,23 +142,23 @@ namespace HexR
 
         private void OnTriggerEnter(Collider collision)
         {
-            if (collision.transform.parent.name == "R_IndexTip" || collision.transform.parent.name == "R_Index_3")
+            if (collision.transform.parent.name == "R_IndexTip" || collision.transform.name == "R_Index_3")
             {
                 RIndex = true;
             }
-            if (collision.transform.parent.name == "R_LittleTip" || collision.transform.parent.name == "R_Pinky_1")
+            if (collision.transform.parent.name == "R_LittleTip" || collision.transform.name == "R_Pinky_1")
             {
                 RLittle = true;
             }
-            if (collision.transform.parent.name == "R_MiddleTip" || collision.transform.parent.name == "R_Middle_3")
+            if (collision.transform.parent.name == "R_MiddleTip" || collision.transform.name == "R_Middle_3")
             {
                 RMiddle = true;
             }
-            if (collision.transform.parent.name == "R_RingTip" || collision.transform.parent.name == "R_Ring_3")
+            if (collision.transform.parent.name == "R_RingTip" || collision.transform.name == "R_Ring_3")
             {
                 RRing = true;
             }
-            if (collision.transform.parent.name == "R_ThumbTip" || collision.transform.parent.name == "R_Thumb_2")
+            if (collision.transform.parent.name == "R_ThumbTip" || collision.transform.name == "R_Thumb_2")
             {
                 if (TypeOfGrab == Options.PinchGrab)
                 {
@@ -164,7 +168,7 @@ namespace HexR
                 }
                 RThumb = true;
             }
-            if (collision.transform.name == "R_Palm" || collision.transform.parent.name == "R_GhostPalm")
+            if (collision.transform.name == "R_Palm" || collision.transform.name == "R_GhostPalm")
             {
                 if (TypeOfGrab == Options.PalmGrab)
                 {
@@ -175,23 +179,23 @@ namespace HexR
                 RPalm = true;
             }
 
-            if (collision.transform.parent.name == "L_IndexTip" || collision.transform.parent.name == "R_Index_3")
+            if (collision.transform.parent.name == "L_IndexTip" || collision.transform.name == "R_Index_3")
             {
                 LIndex = true;
             }
-            if (collision.transform.parent.name == "L_LittleTip" || collision.transform.parent.name == "R_Pinky_1")
+            if (collision.transform.parent.name == "L_LittleTip" || collision.transform.name == "R_Pinky_1")
             {
                 LLittle = true;
             }
-            if (collision.transform.parent.name == "L_MiddleTip" || collision.transform.parent.name == "R_Middle_3")
+            if (collision.transform.parent.name == "L_MiddleTip" || collision.transform.name == "R_Middle_3")
             {
                 LMiddle = true;
             }
-            if (collision.transform.parent.name == "L_RingTip" || collision.transform.parent.name == "R_Ring_3")
+            if (collision.transform.parent.name == "L_RingTip" || collision.transform.name == "R_Ring_3")
             {
                 LRing = true;
             }
-            if (collision.transform.parent.name == "L_ThumbTip" || collision.transform.parent.name == "R_Thumb_2")
+            if (collision.transform.parent.name == "L_ThumbTip" || collision.transform.name == "R_Thumb_2")
             {
                 if (TypeOfGrab == Options.PinchGrab)
                 {
@@ -201,7 +205,7 @@ namespace HexR
                 }
                 LThumb = true;
             }
-            if (collision.transform.name == "L_Palm" || collision.transform.parent.name == "L_GhostPalm")
+            if (collision.transform.name == "L_Palm" || collision.transform.name == "L_GhostPalm")
             {
                 if (TypeOfGrab == Options.PalmGrab)
                 {
@@ -214,23 +218,23 @@ namespace HexR
         }
         private void OnTriggerStay(Collider collision)
         {
-            if (collision.transform.parent.name == "R_IndexTip" || collision.transform.parent.name == "R_Index_3")
+            if (collision.transform.parent.name == "R_IndexTip" || collision.transform.name == "R_Index_3")
             {
                 RIndex = true;
             }
-            if (collision.transform.parent.name == "R_LittleTip" || collision.transform.parent.name == "R_Pinky_1")
+            if (collision.transform.parent.name == "R_LittleTip" || collision.transform.name == "R_Pinky_1")
             {
                 RLittle = true;
             }
-            if (collision.transform.parent.name == "R_MiddleTip" || collision.transform.parent.name == "R_Middle_3")
+            if (collision.transform.parent.name == "R_MiddleTip" || collision.transform.name == "R_Middle_3")
             {
                 RMiddle = true;
             }
-            if (collision.transform.parent.name == "R_RingTip" || collision.transform.parent.name == "R_Ring_3")
+            if (collision.transform.parent.name == "R_RingTip" || collision.transform.name == "R_Ring_3")
             {
                 RRing = true;
             }
-            if (collision.transform.parent.name == "R_ThumbTip" || collision.transform.parent.name == "R_Thumb_2")
+            if (collision.transform.parent.name == "R_ThumbTip" || collision.transform.name == "R_Thumb_2")
             {
                 if (TypeOfGrab == Options.PinchGrab)
                 {
@@ -240,7 +244,7 @@ namespace HexR
                 }
                 RThumb = true;
             }
-            if (collision.transform.name == "R_Palm" || collision.transform.parent.name == "R_GhostPalm")
+            if (collision.transform.name == "R_Palm" || collision.transform.name == "R_GhostPalm")
             {
                 if (TypeOfGrab == Options.PalmGrab)
                 {
@@ -251,23 +255,23 @@ namespace HexR
                 RPalm = true;
             }
 
-            if (collision.transform.parent.name == "L_IndexTip" || collision.transform.parent.name == "L_Index_3")
+            if (collision.transform.parent.name == "L_IndexTip" || collision.transform.name == "L_Index_3")
             {
                 LIndex = true;
             }
-            if (collision.transform.parent.name == "L_LittleTip" || collision.transform.parent.name == "L_Pinky_1")
+            if (collision.transform.parent.name == "L_LittleTip" || collision.transform.name == "L_Pinky_1")
             {
                 LLittle = true;
             }
-            if (collision.transform.parent.name == "L_MiddleTip" || collision.transform.parent.name == "L_Middle_3")
+            if (collision.transform.parent.name == "L_MiddleTip" || collision.transform.name == "L_Middle_3")
             {
                 LMiddle = true;
             }
-            if (collision.transform.parent.name == "L_RingTip" || collision.transform.parent.name == "L_Ring_3")
+            if (collision.transform.parent.name == "L_RingTip" || collision.transform.name == "L_Ring_3")
             {
                 LRing = true;
             }
-            if (collision.transform.parent.name == "L_ThumbTip" || collision.transform.parent.name == "L_Thumb_2")
+            if (collision.transform.parent.name == "L_ThumbTip" || collision.transform.name == "L_Thumb_2")
             {
                 if (TypeOfGrab == Options.PinchGrab)
                 {
@@ -277,7 +281,7 @@ namespace HexR
                 }
                 LThumb = true;
             }
-            if (collision.transform.name == "L_Palm" || collision.transform.parent.name == "L_GhostPalm")
+            if (collision.transform.name == "L_Palm" || collision.transform.name == "L_GhostPalm")
             {
                 if (TypeOfGrab == Options.PalmGrab)
                 {
@@ -290,52 +294,52 @@ namespace HexR
         }
         private void OnTriggerExit(Collider collision)
         {
-            if (collision.transform.parent.name == "R_IndexTip" || collision.transform.parent.name == "R_Index_3")
+            if (collision.transform.parent.name == "R_IndexTip" || collision.transform.name == "R_Index_3")
             {
                 RIndex = false;
             }
-            if (collision.transform.parent.name == "R_LittleTip" || collision.transform.parent.name == "R_Pinky_1")
+            if (collision.transform.parent.name == "R_LittleTip" || collision.transform.name == "R_Pinky_1")
             {
                 RLittle = false;
             }
-            if (collision.transform.parent.name == "R_MiddleTip" || collision.transform.parent.name == "R_Middle_3")
+            if (collision.transform.parent.name == "R_MiddleTip" || collision.transform.name == "R_Middle_3")
             {
                 RMiddle = false;
             }
-            if (collision.transform.parent.name == "R_RingTip" || collision.transform.parent.name == "R_Ring_3")
+            if (collision.transform.parent.name == "R_RingTip" || collision.transform.name == "R_Ring_3")
             {
                 RRing = false;
             }
-            if (collision.transform.parent.name == "R_ThumbTip" || collision.transform.parent.name == "R_Thumb_2")
+            if (collision.transform.parent.name == "R_ThumbTip" || collision.transform.name == "R_Thumb_2")
             {
                 RThumb = false;
             }
-            if (collision.transform.name == "R_Palm" || collision.transform.parent.name == "R_GhostPalm")
+            if (collision.transform.name == "R_Palm" || collision.transform.name == "R_GhostPalm")
             {
                 RPalm = false;
             }
 
-            if (collision.transform.parent.name == "L_IndexTip" || collision.transform.parent.name == "L_Index_3")
+            if (collision.transform.parent.name == "L_IndexTip" || collision.transform.name == "L_Index_3")
             {
                 LIndex = false;
             }
-            if (collision.transform.parent.name == "L_LittleTip" || collision.transform.parent.name == "L_Pinky_1")
+            if (collision.transform.parent.name == "L_LittleTip" || collision.transform.name == "L_Pinky_1")
             {
                 LLittle = false;
             }
-            if (collision.transform.parent.name == "L_MiddleTip" || collision.transform.parent.name == "L_Middle_3")
+            if (collision.transform.parent.name == "L_MiddleTip" || collision.transform.name == "L_Middle_3")
             {
                 LMiddle = false;
             }
-            if (collision.transform.parent.name == "L_RingTip" || collision.transform.parent.name == "L_Ring_3")
+            if (collision.transform.parent.name == "L_RingTip" || collision.transform.name == "L_Ring_3")
             {
                 LRing = false;
             }
-            if (collision.transform.parent.name == "L_ThumbTip" || collision.transform.parent.name == "L_Thumb_2")
+            if (collision.transform.parent.name == "L_ThumbTip" || collision.transform.name == "L_Thumb_2")
             {
                 LThumb = false;
             }
-            if (collision.transform.name == "L_Palm" || collision.transform.parent.name == "L_GhostPalm")
+            if (collision.transform.name == "L_Palm" || collision.transform.name == "L_GhostPalm")
             {
                 LPalm = false;
             }
@@ -344,7 +348,7 @@ namespace HexR
         private void IsGrab(GameObject HandParent, FingerUseTracking fingerUseTracking, PressureTrackerMain ThePressureTracker, bool IsLeft)
         {
             ThePressureTracker?.HandGrabbingCheck(true);
-            gameObject.transform.SetParent(HandParent.transform);
+            TheObject.transform.SetParent(HandParent.transform);
 
             #region Rigidbody Settings
             objectRigidbody.isKinematic = true;
@@ -370,7 +374,7 @@ namespace HexR
             if (Gravity == Option.On) { objectRigidbody.useGravity = true; }
             objectRigidbody.interpolation = RigidbodyInterpolation.Extrapolate;
 
-            gameObject.transform.SetParent(OriginalParent.transform);
+            TheObject.transform.SetParent(OriginalParent.transform);
 
             if (!InvokeEventReady)
             {

@@ -14,7 +14,7 @@ namespace HexR
     public class SpecialHaptics : MonoBehaviour
     {
         public PressureTrackerMain RightHandPhysics, LeftHandPhysics;
-        public enum Options { CustomVibrations,CustomHaptics, FountainEffect, RainDropEffect, HeartBeatEffect, HandSqueezeEffect }
+        public enum Options { CustomVibrations, CustomHaptics, FountainEffect, RainDropEffect, HeartBeatEffect, HandSqueezeEffect }
         public Options TypeOfHaptics;
         private bool RemoveIt = false, IsTriggered = false, ReadyToDrop = true;
         private float timer = 0.2f;
@@ -35,8 +35,12 @@ namespace HexR
         [Range(10f, 60f)]
         private bool RemoveHap = false;
         #endregion
+
         #region Heart Beat Fields
-        public float InTimer = 0.4f, OutTimer = 0f;
+        public float InTimer = 0.4f, OutTimer = 0.3f;
+        public float HeartBeatPressure = 40f;
+        [Range(10f, 60f)]
+
         public HeartBeat heartbeat;
         private bool PressureIn = true;
         public enum HeartBeat { Regular, Irregular };
@@ -69,23 +73,23 @@ namespace HexR
         }
         private void OnTriggerEnter(Collider other)
         {
-            if(TypeOfHaptics == Options.FountainEffect)
+            if (TypeOfHaptics == Options.FountainEffect)
             {
                 FountainHapticTriggerEnter(other);
             }
-            else if(TypeOfHaptics == Options.RainDropEffect)
+            else if (TypeOfHaptics == Options.RainDropEffect)
             {
                 RaindropHapticTriggerEnter(other);
             }
-            else if(TypeOfHaptics == Options.HeartBeatEffect)
+            else if (TypeOfHaptics == Options.HeartBeatEffect)
             {
                 HeartBeatHapticTriggerEnter(other);
             }
-            else if(TypeOfHaptics == Options.CustomVibrations)
+            else if (TypeOfHaptics == Options.CustomVibrations)
             {
                 CustomVibrationsTriggerEnter(other);
             }
-            else if(TypeOfHaptics == Options.HandSqueezeEffect)
+            else if (TypeOfHaptics == Options.HandSqueezeEffect)
             {
                 if (other.name.Contains("R_"))
                 {
@@ -113,7 +117,7 @@ namespace HexR
             }
             else if (TypeOfHaptics == Options.CustomVibrations)
             {
-                CustomVibrationsBool(other,false);
+                CustomVibrationsBool(other, false);
             }
         }
         private void OnTriggerExit(Collider other)
@@ -418,9 +422,9 @@ namespace HexR
                 {
                     totalFingerAffected = fingerAffected.ToArray();
                     HaptGloveHandler gloveHandler = FindParent(other.transform);
-                    if(gloveHandler != null)
+                    if (gloveHandler != null)
                     {
-                        byte[] btData = gloveHandler.haptics.ApplyHaptics(totalFingerAffected, 40, false);
+                        byte[] btData = gloveHandler.haptics.ApplyHaptics(totalFingerAffected, (byte)HeartBeatPressure, false);
                         gloveHandler.BTSend(btData);
                         PressureIn = false;
                         StartCoroutine(RemoveHeartBeatHaptic());
@@ -455,7 +459,7 @@ namespace HexR
             // Wait for the specified delay time
             if (heartbeat == HeartBeat.Regular)
             {
-                yield return new WaitForSeconds(0.3f);
+                yield return new WaitForSeconds(OutTimer);
             }
             else
             {
@@ -472,7 +476,7 @@ namespace HexR
         {
             if (heartbeat == HeartBeat.Regular)
             {
-                yield return new WaitForSeconds(0.5f);
+                yield return new WaitForSeconds(InTimer);
             }
             else
             {
@@ -501,7 +505,7 @@ namespace HexR
             float ring = fingerUseTracking.RingUse;
             float little = fingerUseTracking.LittleUse;
             float thumb = fingerUseTracking.ThumbUse;
-            if(index >= SqueezeTightness && middle >=SqueezeTightness && ring >= SqueezeTightness 
+            if (index >= SqueezeTightness && middle >= SqueezeTightness && ring >= SqueezeTightness
                 && little >= SqueezeTightness && thumb >= SqueezeTightness)
             {
                 OnSqueezeEventTrigger?.Invoke();
@@ -544,7 +548,19 @@ namespace HexR
 
             // Conditional fields for HeartBeatEffect
             if (controller.TypeOfHaptics == SpecialHaptics.Options.HeartBeatEffect)
+
             {
+                // Create a tooltip for the slider
+                GUIContent sliderContent = new GUIContent(
+                    "Haptic Pressure",
+                    "Set the Haptic Pressure between 10 and 60. 10 = lowest, 60 = strongest"
+                );
+                controller.HeartBeatPressure = EditorGUILayout.Slider(sliderContent, controller.HeartBeatPressure, 10f, 60f);
+
+
+                // Round to nearest increment of 10
+                controller.HeartBeatPressure = Mathf.Round(controller.HeartBeatPressure / 10) * 10;
+
                 // Timers
                 controller.InTimer = EditorGUILayout.FloatField("In Timer", controller.InTimer);
                 controller.OutTimer = EditorGUILayout.FloatField("Out Timer", controller.OutTimer);
@@ -554,14 +570,14 @@ namespace HexR
             }
 
             // Conditional fields for Custom Vibrations
-            if(controller.TypeOfHaptics == SpecialHaptics.Options.CustomVibrations)
+            if (controller.TypeOfHaptics == SpecialHaptics.Options.CustomVibrations)
             {
                 // Create a tooltip for the slider
                 GUIContent sliderContent = new GUIContent(
                     "Frequency Speed",
                     "Set the vibration frequency speed between 10 and 60. 10 = Slowest, 60 = fastest"
                 );
-                controller.VibrationsFrequencyValue = EditorGUILayout.Slider(sliderContent, controller.VibrationsFrequencyValue,10f,60f);
+                controller.VibrationsFrequencyValue = EditorGUILayout.Slider(sliderContent, controller.VibrationsFrequencyValue, 10f, 60f);
 
                 // Create a tooltip for the slider
                 GUIContent sliderContent2 = new GUIContent(
@@ -571,12 +587,12 @@ namespace HexR
                 controller.HapticStrenngthValue = EditorGUILayout.Slider(sliderContent2, controller.HapticStrenngthValue, 10f, 60f);
 
                 // Round to nearest increment of 10
-                controller.VibrationsFrequencyValue = Mathf.Round(controller.VibrationsFrequencyValue / 10) *10;
+                controller.VibrationsFrequencyValue = Mathf.Round(controller.VibrationsFrequencyValue / 10) * 10;
                 // Round to nearest increment of 10
-                controller.HapticStrenngthValue = Mathf.Round(controller.HapticStrenngthValue / 10) *10;
+                controller.HapticStrenngthValue = Mathf.Round(controller.HapticStrenngthValue / 10) * 10;
             }
 
-            if(controller.TypeOfHaptics == SpecialHaptics.Options.CustomHaptics)
+            if (controller.TypeOfHaptics == SpecialHaptics.Options.CustomHaptics)
             {
                 // Create a tooltip for the slider
                 GUIContent sliderContent = new GUIContent(
@@ -600,7 +616,7 @@ namespace HexR
                     "0.1 = tightest , 1 = Open Hand"
                 );
                 controller.VibrationsFrequencyValue = EditorGUILayout.Slider(sliderContent, controller.VibrationsFrequencyValue, 0.1f, 1f);
-                
+
                 GUILayout.Space(15); // Add vertical spacing
 
                 // Expose the UnityEvent in the custom inspector
