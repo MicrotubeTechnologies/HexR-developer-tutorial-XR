@@ -3781,7 +3781,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TypeOfGrab: 0
   Gravity: 0
-  TheObject: {fileID: 0}
+  TheObject: {fileID: 1998943328299360}
   HapticStrength: 50
   OnGrab:
     m_PersistentCalls:
@@ -4954,6 +4954,7 @@ MonoBehaviour:
   HapticPressure: 10
   InTimer: 0.4
   OutTimer: 0
+  HeartBeatPressure: 40
   heartbeat: 0
   OnSqueezeEventTrigger:
     m_PersistentCalls:
@@ -11634,7 +11635,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TypeOfGrab: 0
   Gravity: 1
-  TheObject: {fileID: 0}
+  TheObject: {fileID: 3602283366722335510}
   HapticStrength: 30
   OnGrab:
     m_PersistentCalls:

@@ -5,26 +5,26 @@ using HaptGlove;
 using UnityEngine.UI;
 using TMPro;
 using System;
+using UnityEngine.XR.Interaction.Toolkit;
 namespace HexR
 {
     public class PressureTrackerMain : MonoBehaviour
     {
-        [Tooltip("Located in OVRHands ")]
 
         [HideInInspector]
         public int ThumbPressure, IndexPressure, MiddlePressure, RingPressure, LittlePressure, PalmPressure, TankPressure;
         [HideInInspector]
         public HaptGloveHandler gloveHandler;
-
+        private HaptGloveManager haptGloveManager;
         [HideInInspector]
         public bool HandGrabbing, PokeHovering, CollisionNearHand;
-        private bool Hovering = false;
         //This is the central control for the pressure on each finger
         //As we want them to be within 60 KPA
 
         // Start is called before the first frame update
         void Start()
         {
+            haptGloveManager = gameObject?.GetComponentInParent<HaptGloveManager>();
             gloveHandler = gameObject.GetComponent<HaptGloveHandler>();
             ThumbPressure = 0;
             IndexPressure = 0;
@@ -34,15 +34,17 @@ namespace HexR
             PalmPressure = 0;
             TankPressure = 0;
             CollisionNearHand = false;
-            HandGrabbing =false;
+            HandGrabbing = false;
             PokeHovering = false;
+
         }
 
         // Update is called once per frame
         void Update()
         {
+
             int[] AirPressure = gloveHandler?.GetAirPressure();
-            if(AirPressure!= null)
+            if (AirPressure != null)
             {
                 ThumbPressure = ((int)Math.Round(AirPressure[0] / 100000.0) * 100000) - 100000;
                 IndexPressure = ((int)Math.Round(AirPressure[1] / 100000.0) * 100000) - 100000;
@@ -56,33 +58,32 @@ namespace HexR
         }
 
         #region Hand Proximity Test
-            
+
         public void HandGrabbingCheck(bool IsHandGrabbing)
         {
             HandGrabbing = IsHandGrabbing;
         }
-        public bool IsPhysicsCollisionNear(bool CollisionBool)
+        public bool IsPhysicsCollisionNear(bool CollisionNearHand)
         {
-            CollisionNearHand = CollisionBool;
-            return CollisionBool;
+            return CollisionNearHand;
         }
         #endregion
 
         #region Basic Haptics Functions For Single Trigger
         public void TriggerSingleHapticsIncrease(byte[] FingerTypeByte, int TargetPressure, bool ByPassHandInteractionCheck)
         {
-            if (HandGrabbing == true || PokeHovering == true|| ByPassHandInteractionCheck == true)
+            if (IsHandNear() == true || ByPassHandInteractionCheck == true)
             {
-                TargetPressure = PressureChecker(TargetPressure); //Limit Pressure to 60
+                TargetPressure = PressureChecker(TargetPressure);
                 // btData contains the instruction for which haptics to be triggered and the incremented pressure
                 byte[] btData = gloveHandler.haptics.ApplyHaptics(FingerTypeByte, (byte)TargetPressure, false);
                 gloveHandler.BTSend(btData);
 
             }
         }
-        public void RemoveSingleHaptics(byte[] FingerTypeByte, string FingerTypeString, bool ByPassHandInteractionCheck)
+        public void RemoveSingleHaptics(byte[] FingerTypeByte, bool ByPassHandInteractionCheck)
         {
-            if (HandGrabbing == true || PokeHovering == true || ByPassHandInteractionCheck == true)
+            if (IsHandNear() == true || ByPassHandInteractionCheck == true)
             {
                 byte[] btData = gloveHandler.haptics.ApplyHaptics(FingerTypeByte, (byte)60, false);
                 gloveHandler.BTSend(btData);
@@ -90,7 +91,7 @@ namespace HexR
         }
         public void TriggerSingleVibrations(byte[] FingerTypeByte, byte Frequency, byte HapticStrength, bool ByPassHandInteractionCheck)
         {
-            if (HandGrabbing == true || PokeHovering == true || ByPassHandInteractionCheck == true)
+            if (IsHandNear() == true || ByPassHandInteractionCheck == true)
             {
 
                 byte[] btData = gloveHandler.haptics.ApplyHaptics(Frequency, FingerTypeByte, HapticStrength, false);
@@ -105,14 +106,82 @@ namespace HexR
             gloveHandler.BTSend(btData);
         }
 
+        // Single Finger Haptics increase.
+        // Set a TargetPressure of 0 - 60.
+        public void SingleThumbHaptic(int TargetPressure)
+        {
+            if (IsHandNear() == true)
+            {
+                TargetPressure = PressureChecker(TargetPressure);
+                // btData contains the instruction for which haptics to be triggered and the incremented pressure
+                byte[] btData = gloveHandler.haptics.ApplyHaptics(new byte[] { 0, 0 }, (byte)TargetPressure, false);
+                gloveHandler.BTSend(btData);
+
+            }
+        }
+        public void SingleIndexHaptic(int TargetPressure)
+        {
+            if (IsHandNear() == true)
+            {
+                TargetPressure = PressureChecker(TargetPressure);
+                // btData contains the instruction for which haptics to be triggered and the incremented pressure
+                byte[] btData = gloveHandler.haptics.ApplyHaptics(new byte[] { 1, 0 }, (byte)TargetPressure, false);
+                gloveHandler.BTSend(btData);
+
+            }
+        }
+        public void SingleMiddleHaptic(int TargetPressure)
+        {
+            if (IsHandNear() == true)
+            {
+                TargetPressure = PressureChecker(TargetPressure);
+                // btData contains the instruction for which haptics to be triggered and the incremented pressure
+                byte[] btData = gloveHandler.haptics.ApplyHaptics(new byte[] { 2, 0 }, (byte)TargetPressure, false);
+                gloveHandler.BTSend(btData);
+
+            }
+        }
+        public void SingleRingHaptic(int TargetPressure)
+        {
+            if (IsHandNear() == true)
+            {
+                TargetPressure = PressureChecker(TargetPressure);
+                // btData contains the instruction for which haptics to be triggered and the incremented pressure
+                byte[] btData = gloveHandler.haptics.ApplyHaptics(new byte[] { 3, 0 }, (byte)TargetPressure, false);
+                gloveHandler.BTSend(btData);
+
+            }
+        }
+        public void SingleLittleHaptic(int TargetPressure)
+        {
+            if (IsHandNear() == true)
+            {
+                TargetPressure = PressureChecker(TargetPressure);
+                // btData contains the instruction for which haptics to be triggered and the incremented pressure
+                byte[] btData = gloveHandler.haptics.ApplyHaptics(new byte[] { 4, 0 }, (byte)TargetPressure, false);
+                gloveHandler.BTSend(btData);
+
+            }
+        }
+        public void SinglePalmHaptic(int TargetPressure)
+        {
+            if (IsHandNear() == true)
+            {
+                TargetPressure = PressureChecker(TargetPressure);
+                // btData contains the instruction for which haptics to be triggered and the incremented pressure
+                byte[] btData = gloveHandler.haptics.ApplyHaptics(new byte[] { 5, 0 }, (byte)TargetPressure, false);
+                gloveHandler.BTSend(btData);
+
+            }
+        }
         #endregion
 
         #region Basic Haptics Function For Multiple Trigger
         public void TriggerAllHapticsIncrease(int TargetPressure)
         {
-            if (HandGrabbing == true || PokeHovering == true || CollisionNearHand == true)
+            if (IsHandNear())
             {
-                TargetPressure = PressureChecker(TargetPressure); //Limit Pressure to 60
+                TargetPressure = PressureChecker(TargetPressure);
                 // ClutchState affecting all indenters
                 byte[][] ClutchState = new byte[][] { new byte[] { 0, 0 }, new byte[] { 1, 0 }, new byte[] { 2, 0 }, new byte[] { 3, 0 }, new byte[] { 4, 0 }
                             , new byte[] { 5, 0 }};
@@ -123,20 +192,20 @@ namespace HexR
         }
         public void TriggerCustomHapticsIncrease(byte[][] FingerTypeByte, int TargetPressure)
         {
-            if (HandGrabbing == true || PokeHovering == true || CollisionNearHand == true)
+            if (IsHandNear())
             {
-                TargetPressure = PressureChecker(TargetPressure); //Limit Pressure to 60
+                TargetPressure = PressureChecker(TargetPressure);
                 // ClutchState affecting all indenters
                 byte[] btData = gloveHandler.haptics.ApplyHaptics(FingerTypeByte, (byte)TargetPressure, false);
                 gloveHandler.BTSend(btData);
             }
         }
-            public void TriggerPinchPressure(int TargetPressure)
+        public void TriggerPinchPressure(int TargetPressure)
         {
             //Index and Thumb
-            if (HandGrabbing == true || PokeHovering == true || CollisionNearHand == true)
+            if (IsHandNear())
             {
-                TargetPressure = PressureChecker(TargetPressure); //Limit Pressure to 60
+                TargetPressure = PressureChecker(TargetPressure);
                 // ClutchState affecting all indenters
                 byte[][] ClutchState = new byte[][] { new byte[] { 0, 0 }, new byte[] { 1, 0 } };
                 byte[] btData = gloveHandler.haptics.ApplyHaptics(ClutchState, (byte)TargetPressure, false);
@@ -147,15 +216,15 @@ namespace HexR
                 IndexPressure = IndexPressure + TargetPressure;
             }
         }
-        public void TriggerAllVibrations()
+        public void TriggerAllVibrations(int VibrationStrength)
         {
-            if (HandGrabbing == true || PokeHovering == true || CollisionNearHand == true)
+            if (IsHandNear())
             {
-                byte VibrationStrength = 30; // Between 10 to 60
+                VibrationStrength = PressureChecker(VibrationStrength); // Between 10 to 60
                 // ClutchState affecting all indenters
                 byte[][] ClutchState = new byte[][] { new byte[] { 0, 0 }, new byte[] { 1, 0 }, new byte[] { 2, 0 }, new byte[] { 3, 0 }, new byte[] { 4, 0 }
                             , new byte[] { 5, 0 }};
-                byte[] btData = gloveHandler.haptics.ApplyHaptics(VibrationStrength, ClutchState, (byte)(30), false);
+                byte[] btData = gloveHandler.haptics.ApplyHaptics((byte)VibrationStrength, ClutchState, (byte)30, false);
                 gloveHandler.BTSend(btData);
 
             }
@@ -171,7 +240,6 @@ namespace HexR
             byte[] btData = gloveHandler.haptics.ApplyHaptics((byte)0, ClutchState, (byte)60, false);
             gloveHandler.BTSend(btData);
             ThumbPressure = 0; IndexPressure = 0; MiddlePressure = 0; RingPressure = 0; LittlePressure = 0; PalmPressure = 0;
-            Hovering = false;
         }
         public void RemoveAllVibrations()
         {
@@ -184,21 +252,6 @@ namespace HexR
             byte[] btData = gloveHandler.haptics.ApplyHaptics((byte)60, ClutchState, (byte)60, false);
             gloveHandler.BTSend(btData);
             ThumbPressure = 0; IndexPressure = 0; MiddlePressure = 0; RingPressure = 0; LittlePressure = 0; PalmPressure = 0;
-            Hovering = false;
-        }
-        public void RemovePinchPressure()
-        {
-            if (ThumbPressure != 0 || IndexPressure != 0)
-            {
-                // ClutchState affecting all indenters
-                byte[][] ClutchState = new byte[][] { new byte[] { 0, 2 }, new byte[] { 1, 2 } };
-                byte[] btData = gloveHandler.haptics.ApplyHaptics(ClutchState, (byte)60, false);
-                gloveHandler.BTSend(btData);
-
-                //Update Pressure status
-                ThumbPressure = 0;
-                IndexPressure = 0;
-            }
         }
 
         public async void TriggerPulseIt()
@@ -275,46 +328,40 @@ namespace HexR
             byte[] RbtData = gloveHandler.haptics.ApplyHaptics(RemoveClutchState, (byte)10, false);
             gloveHandler.BTSend(RbtData);
         }
-        public void HoverAllHapticsIncrease()
-        {
-            if (HandGrabbing == true || PokeHovering == true)
-            {
-                if (Hovering == false)
-                {
-                    Hovering = true;
-                    // ClutchState affecting all indenters
-                    byte[][] ClutchState = new byte[][] { new byte[] { 0, 0 }, new byte[] { 1, 0 }, new byte[] { 2, 0 }, new byte[] { 3, 0 }, new byte[] { 4, 0 }
-                            , new byte[] { 5, 0 }};
-                    byte[] btData = gloveHandler.haptics.ApplyHaptics(ClutchState, (byte)20, false);
-                    gloveHandler.BTSend(btData);
-                    //Update Pressure status
-                    ThumbPressure += 20;
-                    IndexPressure += 20;
-                    MiddlePressure += 20;
-                    RingPressure += 20;
-                    LittlePressure += 20;
-                    PalmPressure += 20;
-                }
-            }
-        }
+
         #endregion
 
         #region Helpers
 
+        private bool IsHandNear()
+        {
+            if (HandGrabbing == true || PokeHovering == true || CollisionNearHand == true)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
         private int PressureChecker(int Input)
         {
             // to ensure pressure is within 60
-            if(Input > 60)
+            if (Input > 60)
             {
                 Input = 60;
+            }
+            else if (Input < 0)
+            {
+                Input = 0;
             }
             return Input;
         }
 
         private void PressureSafetyNet()
         {
-            if(ThumbPressure > 65|| IndexPressure >65 || MiddlePressure >65
-                || RingPressure >65 || LittlePressure >65 |PalmPressure >65)
+            if (ThumbPressure > 65 || IndexPressure > 65 || MiddlePressure > 65
+                || RingPressure > 65 || LittlePressure > 65 | PalmPressure > 65)
             {
                 RemoveAllHaptics();
             }
