@@ -8,7 +8,7 @@
   
 ### Steps to Get Started:
 1. **Clone this repository:**
-   [HexR Developer Tutorial Repository](https://github.com/MicrotubeTechnologies/HexR-Developer-Tutorial.git)
+   https://github.com/MicrotubeTechnologies/HexR-developer-tutorial-XR
 
 2. **Open the HexR Developer Tutorial project in Unity.**
 
