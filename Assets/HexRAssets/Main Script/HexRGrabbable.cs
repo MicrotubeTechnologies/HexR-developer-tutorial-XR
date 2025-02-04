@@ -17,11 +17,15 @@ namespace HexR
         public Options TypeOfGrab;
         public enum Option { On, Off }
         public Option Gravity;
+
+        [Tooltip("Assign the target gameobject, this is to allow the grab collider to be seperated from other colliders in the gameobject.)")]
         public GameObject TheObject; //Optional, if you want to seperate the grab zone from the action object, which will allow you to not include nested collider in child
 
+        [Tooltip("60 = strongest haptics, 0 = no haptics")]
         [Range(0f, 60f)]
         public float HapticStrength = 10f;
 
+        [Tooltip("Trigger functions on grab and release event.  ")]
         [Space(5)]
         public UnityEvent OnGrab, OnRelease;
 
@@ -61,7 +65,7 @@ namespace HexR
             else { Debug.Log("Left pressuretracker is not found"); }
 
             objectRigidbody = gameObject.GetComponent<Rigidbody>();
-            if(TheObject == null)
+            if (TheObject == null)
             {
                 TheObject = gameObject;
             }
@@ -105,6 +109,10 @@ namespace HexR
                     }
 
                 }
+                if (!RThumb && !LThumb)
+                {
+                    TheObject.transform.SetParent(OriginalParent.transform);
+                }
             }
             else if (TypeOfGrab == Options.PalmGrab)
             {
@@ -136,6 +144,10 @@ namespace HexR
                     }
 
                 }
+                if (!RPalm && !LPalm)
+                {
+                    TheObject.transform.SetParent(OriginalParent.transform);
+                }
             }
 
         }
@@ -158,7 +170,7 @@ namespace HexR
             {
                 RRing = true;
             }
-            if (collision.transform.parent.name == "R_ThumbTip" || collision.transform.name == "R_Thumb_2")
+            if (collision.transform.parent.name == "R_ThumbTip" || collision.transform.name == "R_Thumb_2" && isGrab == false)
             {
                 if (TypeOfGrab == Options.PinchGrab)
                 {
@@ -168,7 +180,7 @@ namespace HexR
                 }
                 RThumb = true;
             }
-            if (collision.transform.name == "R_Palm" || collision.transform.name == "R_GhostPalm")
+            if (collision.transform.name == "R_Palm" || collision.transform.name == "R_GhostPalm" && isGrab == false)
             {
                 if (TypeOfGrab == Options.PalmGrab)
                 {
@@ -179,23 +191,23 @@ namespace HexR
                 RPalm = true;
             }
 
-            if (collision.transform.parent.name == "L_IndexTip" || collision.transform.name == "R_Index_3")
+            if (collision.transform.parent.name == "L_IndexTip" || collision.transform.name == "L_Index_3")
             {
                 LIndex = true;
             }
-            if (collision.transform.parent.name == "L_LittleTip" || collision.transform.name == "R_Pinky_1")
+            if (collision.transform.parent.name == "L_LittleTip" || collision.transform.name == "L_Pinky_1")
             {
                 LLittle = true;
             }
-            if (collision.transform.parent.name == "L_MiddleTip" || collision.transform.name == "R_Middle_3")
+            if (collision.transform.parent.name == "L_MiddleTip" || collision.transform.name == "L_Middle_3")
             {
                 LMiddle = true;
             }
-            if (collision.transform.parent.name == "L_RingTip" || collision.transform.name == "R_Ring_3")
+            if (collision.transform.parent.name == "L_RingTip" || collision.transform.name == "L_Ring_3")
             {
                 LRing = true;
             }
-            if (collision.transform.parent.name == "L_ThumbTip" || collision.transform.name == "R_Thumb_2")
+            if (collision.transform.parent.name == "L_ThumbTip" || collision.transform.name == "L_Thumb_2" && isGrab == false)
             {
                 if (TypeOfGrab == Options.PinchGrab)
                 {
@@ -205,7 +217,7 @@ namespace HexR
                 }
                 LThumb = true;
             }
-            if (collision.transform.name == "L_Palm" || collision.transform.name == "L_GhostPalm")
+            if (collision.transform.name == "L_Palm" || collision.transform.name == "L_GhostPalm" && isGrab == false)
             {
                 if (TypeOfGrab == Options.PalmGrab)
                 {
@@ -234,7 +246,7 @@ namespace HexR
             {
                 RRing = true;
             }
-            if (collision.transform.parent.name == "R_ThumbTip" || collision.transform.name == "R_Thumb_2")
+            if (collision.transform.parent.name == "R_ThumbTip" || collision.transform.name == "R_Thumb_2" && isGrab == false)
             {
                 if (TypeOfGrab == Options.PinchGrab)
                 {
@@ -244,7 +256,7 @@ namespace HexR
                 }
                 RThumb = true;
             }
-            if (collision.transform.name == "R_Palm" || collision.transform.name == "R_GhostPalm")
+            if (collision.transform.name == "R_Palm" || collision.transform.name == "R_GhostPalm" && isGrab == false)
             {
                 if (TypeOfGrab == Options.PalmGrab)
                 {
@@ -271,7 +283,7 @@ namespace HexR
             {
                 LRing = true;
             }
-            if (collision.transform.parent.name == "L_ThumbTip" || collision.transform.name == "L_Thumb_2")
+            if (collision.transform.parent.name == "L_ThumbTip" || collision.transform.name == "L_Thumb_2" && isGrab == false)
             {
                 if (TypeOfGrab == Options.PinchGrab)
                 {
@@ -281,7 +293,7 @@ namespace HexR
                 }
                 LThumb = true;
             }
-            if (collision.transform.name == "L_Palm" || collision.transform.name == "L_GhostPalm")
+            if (collision.transform.name == "L_Palm" || collision.transform.name == "L_GhostPalm" && isGrab == false)
             {
                 if (TypeOfGrab == Options.PalmGrab)
                 {
@@ -347,8 +359,8 @@ namespace HexR
 
         private void IsGrab(GameObject HandParent, FingerUseTracking fingerUseTracking, PressureTrackerMain ThePressureTracker, bool IsLeft)
         {
-            ThePressureTracker?.HandGrabbingCheck(true);
-            TheObject.transform.SetParent(HandParent.transform);
+            ThePressureTracker?.HandGrabbingCheck(true); // To take note which hand left or right is grabbing
+            TheObject.transform.SetParent(HandParent.transform); // move parent to hand so object sticks to hand
 
             #region Rigidbody Settings
             objectRigidbody.isKinematic = true;
@@ -369,12 +381,14 @@ namespace HexR
         }
         private void NotGrab(PressureTrackerMain ThePressureTracker)
         {
+            TheObject.transform.SetParent(OriginalParent.transform);
             ThePressureTracker?.HandGrabbingCheck(false); // change grab state back to false
+
+            #region Rigidbody Settings
             objectRigidbody.isKinematic = false;
             if (Gravity == Option.On) { objectRigidbody.useGravity = true; }
             objectRigidbody.interpolation = RigidbodyInterpolation.Extrapolate;
-
-            TheObject.transform.SetParent(OriginalParent.transform);
+            #endregion
 
             if (!InvokeEventReady)
             {
@@ -382,10 +396,11 @@ namespace HexR
                 InvokeEventReady = true;
                 RemoveHaptics(ThePressureTracker);
             }
+            TheObject.transform.SetParent(OriginalParent.transform);
         }
         private void TriggerHaptics(PressureTrackerMain pressureTrackerMain, bool IsLeft)
         {
-            if(ReadyToActivateGrab)
+            if (ReadyToActivateGrab)
             {
                 ReadyToActivateGrab = false;
                 if (HapticStrength != 0)
@@ -465,9 +480,9 @@ namespace HexR
         }
         private void RemoveHaptics(PressureTrackerMain pressureTrackerMain)
         {
-            if (HapticStrength == 0 ) return;
+            if (HapticStrength == 0) return;
 
-            pressureTrackerMain.RemoveAllHaptics();
+            pressureTrackerMain?.RemoveAllHaptics();
 
             // Reset all haptic states
             LThumbHaptics = LIndexHaptics = LMiddleHaptics = LRingHaptics = LLittleHaptics = LPalmHaptics = false;
@@ -478,11 +493,12 @@ namespace HexR
         {
             // Wait for the specified delay time
             yield return new WaitForSeconds(0.2f);
-            if (fingerUseTracking.isHandOpen() == true)
+            // every 0.2 sec check if hand is open
+            if (fingerUseTracking.isHandOpen() == true && isGrab == true)
             {
                 NotGrab(ThePressureTracker);
             }
-            else
+            else if (isGrab == true)
             {
                 isGrab = false;
                 StartCoroutine(ResetGrab(fingerUseTracking, ThePressureTracker));

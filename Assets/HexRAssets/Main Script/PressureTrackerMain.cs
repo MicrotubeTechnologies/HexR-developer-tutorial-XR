@@ -78,7 +78,6 @@ namespace HexR
                 // btData contains the instruction for which haptics to be triggered and the incremented pressure
                 byte[] btData = gloveHandler.haptics.ApplyHaptics(FingerTypeByte, (byte)TargetPressure, false);
                 gloveHandler.BTSend(btData);
-
             }
         }
         public void RemoveSingleHaptics(byte[] FingerTypeByte, bool ByPassHandInteractionCheck)
@@ -114,7 +113,9 @@ namespace HexR
             {
                 TargetPressure = PressureChecker(TargetPressure);
                 // btData contains the instruction for which haptics to be triggered and the incremented pressure
-                byte[] btData = gloveHandler.haptics.ApplyHaptics(new byte[] { 0, 0 }, (byte)TargetPressure, false);
+                // byte[] btData = gloveHandler.haptics.ApplyHaptics(new byte[] { 0, 0 }, (byte)TargetPressure, false);
+
+                byte[] btData = gloveHandler.haptics.HEXRPressure(Haptics.Finger.Thumb,true, TargetPressure);
                 gloveHandler.BTSend(btData);
 
             }
@@ -125,7 +126,9 @@ namespace HexR
             {
                 TargetPressure = PressureChecker(TargetPressure);
                 // btData contains the instruction for which haptics to be triggered and the incremented pressure
-                byte[] btData = gloveHandler.haptics.ApplyHaptics(new byte[] { 1, 0 }, (byte)TargetPressure, false);
+                // byte[] btData = gloveHandler.haptics.ApplyHaptics(new byte[] { 1, 0 }, (byte)TargetPressure, false);
+
+                byte[] btData = gloveHandler.haptics.HEXRPressure(Haptics.Finger.Index, true, TargetPressure);
                 gloveHandler.BTSend(btData);
 
             }
@@ -136,7 +139,9 @@ namespace HexR
             {
                 TargetPressure = PressureChecker(TargetPressure);
                 // btData contains the instruction for which haptics to be triggered and the incremented pressure
-                byte[] btData = gloveHandler.haptics.ApplyHaptics(new byte[] { 2, 0 }, (byte)TargetPressure, false);
+                // byte[] btData = gloveHandler.haptics.ApplyHaptics(new byte[] { 2, 0 }, (byte)TargetPressure, false);
+
+                byte[] btData = gloveHandler.haptics.HEXRPressure(Haptics.Finger.Middle, true, TargetPressure);
                 gloveHandler.BTSend(btData);
 
             }
@@ -147,7 +152,9 @@ namespace HexR
             {
                 TargetPressure = PressureChecker(TargetPressure);
                 // btData contains the instruction for which haptics to be triggered and the incremented pressure
-                byte[] btData = gloveHandler.haptics.ApplyHaptics(new byte[] { 3, 0 }, (byte)TargetPressure, false);
+                // byte[] btData = gloveHandler.haptics.ApplyHaptics(new byte[] { 3, 0 }, (byte)TargetPressure, false);
+
+                byte[] btData = gloveHandler.haptics.HEXRPressure(Haptics.Finger.Ring, true, TargetPressure);
                 gloveHandler.BTSend(btData);
 
             }
@@ -158,7 +165,9 @@ namespace HexR
             {
                 TargetPressure = PressureChecker(TargetPressure);
                 // btData contains the instruction for which haptics to be triggered and the incremented pressure
-                byte[] btData = gloveHandler.haptics.ApplyHaptics(new byte[] { 4, 0 }, (byte)TargetPressure, false);
+                // byte[] btData = gloveHandler.haptics.ApplyHaptics(new byte[] { 4, 0 }, (byte)TargetPressure, false);
+
+                byte[] btData = gloveHandler.haptics.HEXRPressure(Haptics.Finger.Pinky, true, TargetPressure);
                 gloveHandler.BTSend(btData);
 
             }
@@ -169,7 +178,9 @@ namespace HexR
             {
                 TargetPressure = PressureChecker(TargetPressure);
                 // btData contains the instruction for which haptics to be triggered and the incremented pressure
-                byte[] btData = gloveHandler.haptics.ApplyHaptics(new byte[] { 5, 0 }, (byte)TargetPressure, false);
+                // byte[] btData = gloveHandler.haptics.ApplyHaptics(new byte[] { 5, 0 }, (byte)TargetPressure, false);
+
+                byte[] btData = gloveHandler.haptics.HEXRPressure(Haptics.Finger.Palm, true, TargetPressure);
                 gloveHandler.BTSend(btData);
 
             }
