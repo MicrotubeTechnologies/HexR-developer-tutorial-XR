@@ -93,12 +93,27 @@ namespace HexR
             if (LeftOrRight == "Right")
             {
                 float BatteryLevel = rightHand.GetBatteryLevel();
-                RightBtText.text = "Right Glove Connected: " + BatteryLevel * 100 + "%";
+                if (BatteryLevel == 0)
+                {
+                    RightBtText.text = "Right Glove Ready";
+                }
+                else
+                {
+                    RightBtText.text = "Right Glove Ready: " + Math.Round(BatteryLevel * 100) + "%";
+                }
             }
             else if (LeftOrRight == "Left")
             {
                 float BatteryLevel = leftHand.GetBatteryLevel();
-                LeftBtText.text = "Left Glove Connected: " + BatteryLevel * 100 + "%";
+                if (BatteryLevel == 0)
+                {
+                    LeftBtText.text = "Left Glove Ready";
+                }
+                else
+                {
+                    LeftBtText.text = "Left Glove Ready: " + Math.Round(BatteryLevel * 100) + "%";
+                }
+
             }
 
         }
