@@ -2382,6 +2382,7 @@ Transform:
   m_Children:
   - {fileID: 2848049908656253380}
   - {fileID: 8845797560069470184}
+  - {fileID: 7092797464814963244}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3596971877594727963
@@ -2400,7 +2401,7 @@ MonoBehaviour:
   isQuest: 1
   leftHand: {fileID: 1162483658235158602}
   rightHand: {fileID: 4100039038910364776}
-  HandMenu: {fileID: 0}
+  HandMenu: {fileID: 3236670046184289510}
   NewHandMenu: {fileID: 0}
   BluetoothIndicatorL: {fileID: 0}
   BluetoothIndicatorR: {fileID: 0}
@@ -2869,6 +2870,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   whichHand: 1
+  batteryState: 0
   sourcePres: 80
   deviceName: HaptGloveAR Right
   btText: 
@@ -3171,6 +3173,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   whichHand: 0
+  batteryState: 0
   sourcePres: 80
   deviceName: HaptGloveAR Right
   btText: 
@@ -4051,3 +4054,70 @@ CapsuleCollider:
   m_Height: 0.036
   m_Direction: 2
   m_Center: {x: 0, y: 0, z: 0.01}
+--- !u!1001 &7977664641152437016
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 2159286414937762467}
+    m_Modifications:
+    - target: {fileID: 925760264673132852, guid: 6c6ca1063a8b20d49b3fe8a5a9314082, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 925760264673132852, guid: 6c6ca1063a8b20d49b3fe8a5a9314082, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.36144
+      objectReference: {fileID: 0}
+    - target: {fileID: 925760264673132852, guid: 6c6ca1063a8b20d49b3fe8a5a9314082, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 925760264673132852, guid: 6c6ca1063a8b20d49b3fe8a5a9314082, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 925760264673132852, guid: 6c6ca1063a8b20d49b3fe8a5a9314082, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 925760264673132852, guid: 6c6ca1063a8b20d49b3fe8a5a9314082, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 925760264673132852, guid: 6c6ca1063a8b20d49b3fe8a5a9314082, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 925760264673132852, guid: 6c6ca1063a8b20d49b3fe8a5a9314082, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 925760264673132852, guid: 6c6ca1063a8b20d49b3fe8a5a9314082, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 925760264673132852, guid: 6c6ca1063a8b20d49b3fe8a5a9314082, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4781888199601684478, guid: 6c6ca1063a8b20d49b3fe8a5a9314082, type: 3}
+      propertyPath: m_Name
+      value: Hand Menu With Button Activation
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 6c6ca1063a8b20d49b3fe8a5a9314082, type: 3}
+--- !u!1 &3236670046184289510 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4781888199601684478, guid: 6c6ca1063a8b20d49b3fe8a5a9314082, type: 3}
+  m_PrefabInstance: {fileID: 7977664641152437016}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &7092797464814963244 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 925760264673132852, guid: 6c6ca1063a8b20d49b3fe8a5a9314082, type: 3}
+  m_PrefabInstance: {fileID: 7977664641152437016}
+  m_PrefabAsset: {fileID: 0}
