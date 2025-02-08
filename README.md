@@ -1,4 +1,4 @@
-# HexR Unity Integration (Uses Open XR) ℹ️
+# HexR Unity Integration For Pico (Uses Open XR) ℹ️
 
 ## Installation
 
