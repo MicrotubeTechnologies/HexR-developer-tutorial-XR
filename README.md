@@ -5,6 +5,7 @@
 ### Prerequisites:
 - Ensure you are using **Unity 2021.3.26f1** or newer.
 - For projects using **Meta OVR**, refer to the official [HexR Developer Tutorial (Meta OVR)](https://github.com/MicrotubeTechnologies/HexR-Developer-Tutorial-Meta-OVR).
+- Learn more about Pico unity integration, refer to the official [Pico developer website](https://developer.picoxr.com/resources/)
   
 ### Steps to Get Started:
 1. **Clone this repository:**
@@ -147,7 +148,6 @@ To set up `SpecialHaptics`:
 </details>
 
 &nbsp;
-
 
 <details>
 <summary> Demo Scene : Basic Tutorial </summary>
