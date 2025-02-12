@@ -1273,7 +1273,7 @@ Transform:
   m_GameObject: {fileID: 611335209}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.021514859, z: -0, w: 0.99976856}
-  m_LocalPosition: {x: 0.08, y: 0.30966678, z: -0.37}
+  m_LocalPosition: {x: 0.103, y: 0.465, z: 0.155}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1321,6 +1321,7 @@ MonoBehaviour:
   InTimer: 0.4
   OutTimer: 0
   HeartBeatPressure: 40
+  IncludePalm: 0
   heartbeat: 0
   OnSqueezeEventTrigger:
     m_PersistentCalls:
@@ -1771,8 +1772,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 849954012}
-  - component: {fileID: 849954014}
   - component: {fileID: 849954013}
+  - component: {fileID: 849954015}
+  - component: {fileID: 849954014}
   m_Layer: 0
   m_Name: Haptic Zone (1)
   m_TagString: Untagged
@@ -1789,7 +1791,7 @@ Transform:
   m_GameObject: {fileID: 849954011}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0.00271}
   m_LocalScale: {x: 0.015, y: 0.015000001, z: 0.015}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1816,6 +1818,7 @@ MonoBehaviour:
   InTimer: 0.4
   OutTimer: 0
   HeartBeatPressure: 40
+  IncludePalm: 1
   heartbeat: 0
   OnSqueezeEventTrigger:
     m_PersistentCalls:
@@ -1824,8 +1827,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   SqueezeTightness: 0.2
---- !u!135 &849954014
-SphereCollider:
+--- !u!136 &849954014
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -1842,9 +1845,38 @@ SphereCollider:
   m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.2
-  m_Center: {x: 0, y: 0, z: 0}
+  serializedVersion: 2
+  m_Radius: 0.089279115
+  m_Height: 0.3036846
+  m_Direction: 1
+  m_Center: {x: 0.011564378, y: -0.008525185, z: 0.015348246}
+--- !u!54 &849954015
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 849954011}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 1
+  m_Constraints: 0
+  m_CollisionDetection: 2
 --- !u!1 &898514713
 GameObject:
   m_ObjectHideFlags: 0
@@ -2179,15 +2211,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 1b72c1e6302ca7542afd89257b6367aa, type: 3}
       propertyPath: m_LocalScale.x
-      value: 20
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 1b72c1e6302ca7542afd89257b6367aa, type: 3}
       propertyPath: m_LocalScale.y
-      value: 20
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 1b72c1e6302ca7542afd89257b6367aa, type: 3}
       propertyPath: m_LocalScale.z
-      value: 20
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 1b72c1e6302ca7542afd89257b6367aa, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3026,6 +3058,7 @@ MonoBehaviour:
   InTimer: 0.4
   OutTimer: 0
   HeartBeatPressure: 40
+  IncludePalm: 0
   heartbeat: 0
   OnSqueezeEventTrigger:
     m_PersistentCalls:
