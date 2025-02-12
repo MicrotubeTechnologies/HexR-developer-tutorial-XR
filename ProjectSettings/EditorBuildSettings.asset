@@ -8,7 +8,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/1.Basic Tutorial.unity
     guid: ae7a8499fb3c01948bb2d0b72e2c2c0d
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/2.Special Haptics Tutorial.unity
     guid: a905249a05ad1db428ce684ece20cf27
   - enabled: 0
@@ -17,7 +17,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/Use Interaction Tutorial 1.unity
     guid: 7eb516ef641f52348827994539e7fda6
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/0.Full Demo.unity
     guid: 58f0c2568435fa44d9a4e072bdac9790
   m_configObjects:

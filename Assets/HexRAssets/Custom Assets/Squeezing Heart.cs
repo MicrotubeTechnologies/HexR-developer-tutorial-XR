@@ -26,8 +26,8 @@ public class SqueezingHeart : MonoBehaviour
     }
     public void whenrelease()
     {
-        TargetSpecialHaptics.InTimer = 0.4f;
-        TargetSpecialHaptics.OutTimer = 0.4f;
-        TargetSpecialHaptics.HapticPressure = 30f;
+        TargetSpecialHaptics.InTimer = 0.5f;
+        TargetSpecialHaptics.OutTimer = 0.5f;
+        TargetSpecialHaptics.HapticPressure = 20f;
     }
 }
