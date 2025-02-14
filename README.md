@@ -56,14 +56,33 @@ If a custom hand structure is used, you will have to recreate the `PhysicsHandTr
 <details>
   <summary>3. Haptics Controller (PressureTrackerMain)</summary>
 
-#### The `PressureTrackerMain` script provide more control for developer to create custom haptic conditions.
-#### There is functions that can be called to trigger specific haptics effect.
+#### The `PressureTrackerMain` script contains all of the functions to trigger haptics.
 #### There is 6 Channels in the HexR glove allowing haptics to be triggered for each finger and the palm
 
-- Functions Breakdown
-  - Functions are categorized by **single-channel** or **multi-channel** triggers.  
+- Overview
+  - Functions are categorized by **single-channel** or **multi-channel** triggers.
+  - Haptics intensity range from 0.1 (no haptics) to 1 (Max haptics).
   - Refer to the demo scene to see examples of how these functions are used.
 
+- Function : IsHandNear()
+  - This is use to check if the user left or right hand is grabbing or near the target object, so that haptics is correctly triggered at the right timme and by the right hand.
+    
+- Function : CustomSingleHaptics ( Haptics.Finger finger, bool states, float intensity, float speed, bool ByPassHandCheck )
+  - Haptics.Finger = which finger is to be triggered: index,middle,ring,pinky,thumb,palm
+  - states : true = haptics in , false = haptics out
+  - intensity : 0.1 - 1 , min haptics - max haptics
+  - speed : 0.1 - 1 , slowly increase haptics vs fast increase haptics
+  - ByPassHandCheck : true = will trigger haptics without checking IsHandNear()
+
+- Function : CustomSingleVibrations(Haptics.Finger finger, bool states, float intensity, float frequency,float PeakRatio,float Speed,float endIntensity, bool ByPassHandCheck)
+  - Haptics.Finger = which finger is to be triggered: index,middle,ring,pinky,thumb,palm
+  - states : true = haptics in , false = haptics out
+  - frequency : 0.1 - 2 
+  - intensity : 0.1 - 1 , min haptics - max haptics
+  - peakratio : 0.2 - 0.8
+  - speed : 0.1 - 1 , slowly increase haptics vs fast increase haptics
+  - endIntensity : vibrations to end with selected haptics pressure
+  - ByPassHandCheck : true = will trigger haptics without checking IsHandNear()
 </details>
 
 <details>
