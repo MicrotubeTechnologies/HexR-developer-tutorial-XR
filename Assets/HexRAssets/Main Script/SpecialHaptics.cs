@@ -19,13 +19,17 @@ namespace HexR
         public Options TypeOfHaptics;
         private bool RemoveIt = false, IsTriggered = false, ReadyToDrop = true;
         private float timer = 0.2f;
+        [Range(0.1f, 1f)]
+        public float HapticStrenngthValue = 0.5f;
 
         #region Custom Vibrations Fields
 
-        [Range(10f, 60f)]
-        public float VibrationsFrequencyValue = 10f;
-        [Range(10f, 60f)]
-        public float HapticStrenngthValue = 10f;
+        [Range(0.1f, 2f)]
+        public float VibrationsFrequencyValue = 1f;
+        [Range(0.2f, 0.8f)]
+        public float PeakRatio = 0.8f;
+        [Range(0.2f, 0.8f)]
+        public float Speed = 0.8f;
         private bool RemoveCustomVibrationCheck = false;
         #endregion
 
@@ -85,6 +89,10 @@ namespace HexR
             {
                 FountainHapticTriggerEnter(other);
             }
+            else if(TypeOfHaptics == Options.CustomHaptics)
+            {
+                CustomHapticTriggerEnter(other);
+            }
             else if (TypeOfHaptics == Options.RainDropEffect)
             {
                 RaindropHapticTriggerEnter(other);
@@ -127,6 +135,10 @@ namespace HexR
             {
                 CustomVibrationsBool(other, false);
             }
+            else if (TypeOfHaptics == Options.CustomHaptics)
+            {
+                CustomHapticTriggerEnter(other);
+            }
         }
         private void OnTriggerExit(Collider other)
         {
@@ -146,6 +158,10 @@ namespace HexR
             {
                 CustomVibrationsBool(other, true);
             }
+            else if (TypeOfHaptics == Options.CustomHaptics)
+            {
+                CustomHapticTriggerExit(other);
+            }
         }
 
 
@@ -155,7 +171,7 @@ namespace HexR
             if (collider.gameObject.TryGetComponent(out HapticFingerTrigger hapticFingerTrigger) && timer <= 0)
             {
                 RemoveCustomVibrationCheck = false;
-                hapticFingerTrigger.TriggerVibrationPressure((byte)VibrationsFrequencyValue, (byte)HapticStrenngthValue);
+                hapticFingerTrigger.TriggerVibrationPressure(VibrationsFrequencyValue, HapticStrenngthValue, PeakRatio, Speed);
                 timer = 0.1f;
                 StartCoroutine(RemoveCustomVibrations(hapticFingerTrigger));
             }
@@ -174,7 +190,7 @@ namespace HexR
 
             if (RemoveCustomVibrationCheck == true)
             {
-                hapticFingerTrigger.RemoveVibration((byte)VibrationsFrequencyValue);
+                hapticFingerTrigger.RemoveVibration();
             }
             else
             {
@@ -336,63 +352,73 @@ namespace HexR
         }
         public void RaindropEffect(int Pattern, HaptGloveHandler gloveHandler)
         {
-            byte Pressure = (byte)40; // 10 to 60
+            Haptics.Finger[] AllFingers = new Haptics.Finger[] { Haptics.Finger.Thumb, Haptics.Finger.Index, Haptics.Finger.Middle, Haptics.Finger.Ring, Haptics.Finger.Pinky, Haptics.Finger.Palm };
 
+            float[] ThePressure = new float[] { HapticStrenngthValue, HapticStrenngthValue, HapticStrenngthValue, HapticStrenngthValue, HapticStrenngthValue, HapticStrenngthValue };
+            float[] TheSpeed = new float[] { 1, 1, 1, 1, 1, 1 };
             // ClutchState affecting all indenters
             if (Pattern == 1)
             {
                 // thumb Pinky
-                byte[][] ClutchState = new byte[][] { new byte[] { 0, 0 }, new byte[] { 1, 2 }, new byte[] { 2, 2 }, new byte[] { 3, 2 }, new byte[] { 4, 0 }, new byte[] { 5, 2 } };
-                byte[] btData = gloveHandler.haptics.ApplyHaptics(ClutchState, Pressure, false);
+                bool[] TheBool = new bool[] {true,false,false,false,true,false };
+
+                byte[] btData = gloveHandler.haptics.HEXRPressure(AllFingers, TheBool, ThePressure, TheSpeed);
                 gloveHandler.BTSend(btData);
             }
             else if (Pattern == 2)
             {
                 // Index middle ring
-                byte[][] ClutchState = new byte[][] { new byte[] { 0, 2 }, new byte[] { 1, 0 }, new byte[] { 2, 0 }, new byte[] { 3, 0 }, new byte[] { 4, 2 }, new byte[] { 5, 2 } };
-                byte[] btData = gloveHandler.haptics.ApplyHaptics(ClutchState, Pressure, false);
+                bool[] TheBool = new bool[] { false, true, true, true, false, false };
+
+                byte[] btData = gloveHandler.haptics.HEXRPressure(AllFingers, TheBool, ThePressure, TheSpeed);
                 gloveHandler.BTSend(btData);
             }
             else if (Pattern == 3)
             {
                 // Palm Middle
-                byte[][] ClutchState = new byte[][] { new byte[] { 0, 2 }, new byte[] { 1, 2 }, new byte[] { 2, 0 }, new byte[] { 3, 2 }, new byte[] { 4, 2 }, new byte[] { 5, 0 } };
-                byte[] btData = gloveHandler.haptics.ApplyHaptics(ClutchState, Pressure, false);
+                bool[] TheBool = new bool[] { true, false, true, false, false, true };
+
+                byte[] btData = gloveHandler.haptics.HEXRPressure(AllFingers, TheBool, ThePressure, TheSpeed);
                 gloveHandler.BTSend(btData);
             }
             else if (Pattern == 4)
             {
                 // Index Thumb
-                byte[][] ClutchState = new byte[][] { new byte[] { 0, 0 }, new byte[] { 1, 0 }, new byte[] { 2, 2 }, new byte[] { 3, 2 }, new byte[] { 4, 2 }, new byte[] { 5, 2 } };
-                byte[] btData = gloveHandler.haptics.ApplyHaptics(ClutchState, Pressure, false);
+                bool[] TheBool = new bool[] { true, true, false, false, false, false };
+
+                byte[] btData = gloveHandler.haptics.HEXRPressure(AllFingers, TheBool, ThePressure, TheSpeed);
                 gloveHandler.BTSend(btData);
             }
             else if (Pattern == 5)
             {
                 // ring middle
-                byte[][] ClutchState = new byte[][] { new byte[] { 0, 2 }, new byte[] { 1, 2 }, new byte[] { 2, 0 }, new byte[] { 3, 0 }, new byte[] { 4, 2 }, new byte[] { 5, 2 } };
-                byte[] btData = gloveHandler.haptics.ApplyHaptics(ClutchState, Pressure, false);
+                bool[] TheBool = new bool[] { false, false, true, true, false, false };
+
+                byte[] btData = gloveHandler.haptics.HEXRPressure(AllFingers, TheBool, ThePressure, TheSpeed);
                 gloveHandler.BTSend(btData);
             }
             else if (Pattern == 6)
             {
                 // Palm
-                byte[][] ClutchState = new byte[][] { new byte[] { 0, 2 }, new byte[] { 1, 2 }, new byte[] { 2, 2 }, new byte[] { 3, 2 }, new byte[] { 4, 2 }, new byte[] { 5, 0 } };
-                byte[] btData = gloveHandler.haptics.ApplyHaptics(ClutchState, Pressure, false);
+                bool[] TheBool = new bool[] { false, false, false, false, false, true };
+
+                byte[] btData = gloveHandler.haptics.HEXRPressure(AllFingers, TheBool, ThePressure, TheSpeed);
                 gloveHandler.BTSend(btData);
             }
             else if (Pattern == 7)
             {
                 //middle little
-                byte[][] ClutchState = new byte[][] { new byte[] { 0, 2 }, new byte[] { 1, 2 }, new byte[] { 2, 0 }, new byte[] { 3, 2 }, new byte[] { 4, 0 }, new byte[] { 5, 2 } };
-                byte[] btData = gloveHandler.haptics.ApplyHaptics(ClutchState, Pressure, false);
+                bool[] TheBool = new bool[] { false, false, false, true, true, false };
+
+                byte[] btData = gloveHandler.haptics.HEXRPressure(AllFingers, TheBool, ThePressure, TheSpeed);
                 gloveHandler.BTSend(btData);
             }
             else if (Pattern == 8)
             {
                 //Index little
-                byte[][] ClutchState = new byte[][] { new byte[] { 0, 2 }, new byte[] { 1, 0 }, new byte[] { 2, 2 }, new byte[] { 3, 2 }, new byte[] { 4, 0 }, new byte[] { 5, 2 } };
-                byte[] btData = gloveHandler.haptics.ApplyHaptics(ClutchState, Pressure, false);
+                bool[] TheBool = new bool[] { false, true, false, false, true, false };
+
+                byte[] btData = gloveHandler.haptics.HEXRPressure(AllFingers, TheBool, ThePressure, TheSpeed);
                 gloveHandler.BTSend(btData);
             }
         }
@@ -638,21 +664,39 @@ namespace HexR
                 // Create a tooltip for the slider
                 GUIContent sliderContent = new GUIContent(
                     "Frequency Speed",
-                    "Set the vibration frequency speed between 10 and 60. 10 = Slowest, 60 = fastest"
+                    "Set the vibration frequency speed between 0.1 and 2. 0.1 = Slowest, 2 = fastest"
                 );
-                controller.VibrationsFrequencyValue = EditorGUILayout.Slider(sliderContent, controller.VibrationsFrequencyValue, 10f, 60f);
+                controller.VibrationsFrequencyValue = EditorGUILayout.Slider(sliderContent, controller.VibrationsFrequencyValue, 0.1f, 2f);
 
                 // Create a tooltip for the slider
                 GUIContent sliderContent2 = new GUIContent(
                     "Haptic Strength",
-                    "Set the Haptic strength between 10 and 60. 10 = Weakest, 60 = Strongest"
+                    "Set the Haptic strength between 0.1 and 0.7. 0.1 = Weakest, 0.7 = Strongest"
                 );
-                controller.HapticStrenngthValue = EditorGUILayout.Slider(sliderContent2, controller.HapticStrenngthValue, 10f, 60f);
+                controller.HapticStrenngthValue = EditorGUILayout.Slider(sliderContent2, controller.HapticStrenngthValue, 0.1f, 0.7f);
+
+                // Create a tooltip for the slider
+                GUIContent sliderContent3 = new GUIContent(
+                    "Peak Ratio",
+                    "Set the fraction of one cycle in which the haptics is active between 0.2 and 0.8. 0.2 = shortest, 0.8 = longest"
+                );
+                controller.PeakRatio = EditorGUILayout.Slider(sliderContent3, controller.PeakRatio, 0.2f, 0.8f) ;
+
+                // Create a tooltip for the slider
+                GUIContent sliderContent4 = new GUIContent(
+                    "Speed",
+                    "Speed to reach target haptic strength between 0.1 and 1. 0.1 = Weakest, 1 = Strongest"
+                );
+                controller.Speed = EditorGUILayout.Slider(sliderContent4, controller.Speed, 0.1f, 1f);
 
                 // Round to nearest increment of 10
-                controller.VibrationsFrequencyValue = Mathf.Round(controller.VibrationsFrequencyValue / 10) * 10;
+                controller.VibrationsFrequencyValue = Mathf.Round(controller.VibrationsFrequencyValue * 10) /10;
                 // Round to nearest increment of 10
-                controller.HapticStrenngthValue = Mathf.Round(controller.HapticStrenngthValue / 10) * 10;
+                controller.HapticStrenngthValue = Mathf.Round(controller.HapticStrenngthValue * 10) / 10;
+                // Round to nearest increment of 10
+                controller.PeakRatio = Mathf.Round(controller.PeakRatio * 10) / 10;
+                // Round to nearest increment of 10
+                controller.Speed = Mathf.Round(controller.Speed * 10) / 10;
             }
 
             if (controller.TypeOfHaptics == SpecialHaptics.Options.CustomHaptics)
@@ -669,6 +713,18 @@ namespace HexR
                 controller.HapticPressure = Mathf.Round(controller.HapticPressure / 10) * 10;
             }
 
+            if(controller.TypeOfHaptics == SpecialHaptics.Options.RainDropEffect)
+            {
+                // Create a tooltip for the slider
+                GUIContent sliderContent2 = new GUIContent(
+                    "Haptic Strength",
+                    "Set the Haptic strength between 0.1 and 0.7. 0.1 = Weakest, 0.7 = Strongest"
+                );
+                controller.HapticStrenngthValue = EditorGUILayout.Slider(sliderContent2, controller.HapticStrenngthValue, 0.1f, 0.7f);
+
+                // Round to nearest increment of 10
+                controller.HapticStrenngthValue = Mathf.Round(controller.HapticStrenngthValue * 10) / 10;
+            }
             // Conditional fields for Custom Vibrations
             if (controller.TypeOfHaptics == SpecialHaptics.Options.HandSqueezeEffect)
             {

@@ -14,9 +14,9 @@ namespace HexR
         private PressureTrackerMain pressureTrackerMain;
         public HandType handType;
         public FingerType fingertype;
+        private Haptics.Finger HapticsFingertype;
         private byte[] clutchStateIn, clutchStateOut;
         private int Pressure;
-        private string Fingertype;
         public enum FingerType
         {
             Index,
@@ -46,37 +46,37 @@ namespace HexR
             {
                 clutchStateIn = new byte[] { 0, 0 };
                 clutchStateOut = new byte[] { 0, 2 };
-                Fingertype = "thumb";
+                HapticsFingertype = Haptics.Finger.Thumb;
             }
             else if (fingertype == FingerType.Index)
             {
                 clutchStateIn = new byte[] { 1, 0 };
                 clutchStateOut = new byte[] { 1, 2 };
-                Fingertype = "index";
+                HapticsFingertype = Haptics.Finger.Thumb;
             }
             else if (fingertype == FingerType.Middle)
             {
                 clutchStateIn = new byte[] { 2, 0 };
                 clutchStateOut = new byte[] { 2, 2 };
-                Fingertype = "middle";
+                HapticsFingertype = Haptics.Finger.Thumb;
             }
             else if (fingertype == FingerType.Ring)
             {
                 clutchStateIn = new byte[] { 3, 0 };
                 clutchStateOut = new byte[] { 3, 2 };
-                Fingertype = "ring";
+                HapticsFingertype = Haptics.Finger.Thumb;
             }
             else if (fingertype == FingerType.Little)
             {
                 clutchStateIn = new byte[] { 4, 0 };
                 clutchStateOut = new byte[] { 4, 2 };
-                Fingertype = "little";
+                HapticsFingertype = Haptics.Finger.Thumb;
             }
             else if (fingertype == FingerType.Palm)
             {
                 clutchStateIn = new byte[] { 5, 0 };
                 clutchStateOut = new byte[] { 5, 2 };
-                Fingertype = "palm";
+                HapticsFingertype = Haptics.Finger.Thumb;
             }
         }
 
@@ -96,14 +96,14 @@ namespace HexR
             }
 
         }
-        public void TriggerVibrationPressure(byte VibrationStrength, byte HapticStrength)
+        public void TriggerVibrationPressure(float Frequency,float Intensity, float PeakRatio, float Speed)
         {
-            byte[] btData = gloveHandler.haptics.ApplyHaptics(VibrationStrength, clutchStateIn, HapticStrength, false);
+            byte[] btData = gloveHandler.haptics.HEXRVibration(HapticsFingertype, true, Frequency, Intensity, PeakRatio, Speed, Intensity);
             gloveHandler.BTSend(btData);
         }
-        public void RemoveVibration(byte VibrationStrength)
+        public void RemoveVibration()
         {
-            byte[] btData = gloveHandler.haptics.ApplyHaptics(VibrationStrength, clutchStateOut, 60, false);
+            byte[] btData = gloveHandler.haptics.HEXRVibration(HapticsFingertype, false, 0, 0, 0, 0, 0);
             gloveHandler.BTSend(btData);
         }
         public void RemoveHaptics()
