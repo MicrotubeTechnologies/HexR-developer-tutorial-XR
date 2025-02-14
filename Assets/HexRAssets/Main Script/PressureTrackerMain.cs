@@ -11,6 +11,7 @@ namespace HexR
     public class PressureTrackerMain : MonoBehaviour
     {
 
+
         [HideInInspector]
         public int ThumbPressure, IndexPressure, MiddlePressure, RingPressure, LittlePressure, PalmPressure, TankPressure;
         [HideInInspector]
@@ -53,7 +54,6 @@ namespace HexR
                 LittlePressure = ((int)Math.Round(AirPressure[4] / 100000.0) * 100000) - 100000;
                 PalmPressure = ((int)Math.Round(AirPressure[5] / 100000.0) * 100000) - 100000;
                 TankPressure = ((int)Math.Round(AirPressure[6] / 100000.0) * 100000) - 100000;
-                PressureSafetyNet();
             }
         }
 
@@ -65,16 +65,150 @@ namespace HexR
         }
         public bool IsPhysicsCollisionNear(bool CollisionNearHand)
         {
+            //uses proximmity checker to check if hand is near
             return CollisionNearHand;
+        }
+
+        #endregion
+
+        #region Basic Haptics Functions For Single Haptics Trigger
+
+        // Single Finger Haptics increase.
+        // Set a TargetPressure of 0 - 1
+
+        #region Simple Single haptics Functions
+        public void SingleThumbHaptic(float TargetPressure)
+        {
+            if (IsHandNear() == true)
+            { 
+                // byte[] btData = gloveHandler.haptics.ApplyHaptics(new byte[] { 0, 0 }, (byte)TargetPressure, false);
+
+                byte[] btData = gloveHandler.haptics.HEXRPressure(Haptics.Finger.Thumb,true, TargetPressure,1);
+                gloveHandler.BTSend(btData);
+
+            }
+        }
+        public void SingleIndexHaptic(int TargetPressure)
+        {
+            if (IsHandNear() == true)
+            {
+                // btData contains the instruction for which haptics to be triggered and the incremented pressure
+
+                byte[] btData = gloveHandler.haptics.HEXRPressure(Haptics.Finger.Index, true, TargetPressure,1);
+                gloveHandler.BTSend(btData);
+
+            }
+        }
+        public void SingleMiddleHaptic(int TargetPressure)
+        {
+            if (IsHandNear() == true)
+            {
+                // btData contains the instruction for which haptics to be triggered and the incremented pressure
+
+                byte[] btData = gloveHandler.haptics.HEXRPressure(Haptics.Finger.Middle, true, TargetPressure, 1);
+                gloveHandler.BTSend(btData);
+
+            }
+        }
+        public void SingleRingHaptic(int TargetPressure)
+        {
+            if (IsHandNear() == true)
+            {
+                // btData contains the instruction for which haptics to be triggered and the incremented pressure
+
+                byte[] btData = gloveHandler.haptics.HEXRPressure(Haptics.Finger.Ring, true, TargetPressure, 1);
+                gloveHandler.BTSend(btData);
+
+            }
+        }
+        public void SinglePinkyHaptic(int TargetPressure)
+        {
+            if (IsHandNear() == true)
+            {
+                // btData contains the instruction for which haptics to be triggered and the incremented pressure
+
+                byte[] btData = gloveHandler.haptics.HEXRPressure(Haptics.Finger.Pinky, true, TargetPressure, 1);
+                gloveHandler.BTSend(btData);
+
+            }
+        }
+        public void SinglePalmHaptic(int TargetPressure)
+        {
+            if (IsHandNear() == true)
+            {
+                // btData contains the instruction for which haptics to be triggered and the incremented pressure
+
+                byte[] btData = gloveHandler.haptics.HEXRPressure(Haptics.Finger.Palm, true, TargetPressure, 1);
+                gloveHandler.BTSend(btData);
+            }
+        }
+        public void RemoveThumbHaptics()
+        {
+            byte[] btData = gloveHandler.haptics.HEXRPressure(Haptics.Finger.Thumb, false, 0, 1);
+            gloveHandler.BTSend(btData);
+        }
+        public void RemoveIndexHaptics()
+        {
+            byte[] btData = gloveHandler.haptics.HEXRPressure(Haptics.Finger.Index, false, 0, 1);
+            gloveHandler.BTSend(btData);
+        }
+        public void RemoveMiddleHaptics()
+        {
+            byte[] btData = gloveHandler.haptics.HEXRPressure(Haptics.Finger.Middle, false, 0, 1);
+            gloveHandler.BTSend(btData);
+        }
+        public void RemoveRingHaptics()
+        {
+            byte[] btData = gloveHandler.haptics.HEXRPressure(Haptics.Finger.Ring, false, 0, 1);
+            gloveHandler.BTSend(btData);
+        }
+        public void RemovePinkyHaptics()
+        {
+            byte[] btData = gloveHandler.haptics.HEXRPressure(Haptics.Finger.Pinky, false, 0, 1);
+            gloveHandler.BTSend(btData);
+        }
+        public void RemovePalmHaptics()
+        {
+            byte[] btData = gloveHandler.haptics.HEXRPressure(Haptics.Finger.Palm, false, 0, 1);
+            gloveHandler.BTSend(btData);
         }
         #endregion
 
-        #region Basic Haptics Functions For Single Trigger
+        public void CustomSingleHaptics(Haptics.Finger finger, bool states, float intensity, float speed, bool ByPassHandCheck )
+        {
+            if(!ByPassHandCheck && IsHandNear())
+            {
+                byte[] btData = gloveHandler.haptics.HEXRPressure(finger, states, intensity, speed);
+                gloveHandler.BTSend(btData);
+            }
+            else if(ByPassHandCheck)
+            {
+                byte[] btData = gloveHandler.haptics.HEXRPressure(finger, states, intensity, speed);
+                gloveHandler.BTSend(btData);
+            }
+        }
+
+        // Single Finger vibrations increase.
+        
+        public void CustomSingleVibrations(Haptics.Finger finger, bool states, float intensity, float frequency,float PeakRatio,float Speed,float endIntensity, bool ByPassHandCheck)
+        {
+            if (!ByPassHandCheck && IsHandNear())
+            {
+                byte[] btData = gloveHandler.haptics.HEXRVibration(finger, states, frequency, intensity, PeakRatio, Speed, endIntensity);
+                gloveHandler.BTSend(btData);
+            }
+            else if (ByPassHandCheck)
+            {
+                byte[] btData = gloveHandler.haptics.HEXRVibration(finger, states, frequency, intensity, PeakRatio, Speed, endIntensity);
+                gloveHandler.BTSend(btData);
+            }
+        }
+
+        // These Functions are depreciating 
         public void TriggerSingleHapticsIncrease(byte[] FingerTypeByte, int TargetPressure, bool ByPassHandInteractionCheck)
         {
             if (IsHandNear() == true || ByPassHandInteractionCheck == true)
             {
-                TargetPressure = PressureChecker(TargetPressure);
                 // btData contains the instruction for which haptics to be triggered and the incremented pressure
                 byte[] btData = gloveHandler.haptics.ApplyHaptics(FingerTypeByte, (byte)TargetPressure, false);
                 gloveHandler.BTSend(btData);
@@ -104,87 +238,6 @@ namespace HexR
             byte[] btData = gloveHandler.haptics.ApplyHaptics(Frequency, FingerTypeByte, 60, false);
             gloveHandler.BTSend(btData);
         }
-
-        // Single Finger Haptics increase.
-        // Set a TargetPressure of 0 - 60.
-        public void SingleThumbHaptic(int TargetPressure)
-        {
-            if (IsHandNear() == true)
-            {
-                TargetPressure = PressureChecker(TargetPressure);
-                // btData contains the instruction for which haptics to be triggered and the incremented pressure
-                // byte[] btData = gloveHandler.haptics.ApplyHaptics(new byte[] { 0, 0 }, (byte)TargetPressure, false);
-
-                byte[] btData = gloveHandler.haptics.HEXRPressure(Haptics.Finger.Thumb,true, TargetPressure);
-                gloveHandler.BTSend(btData);
-
-            }
-        }
-        public void SingleIndexHaptic(int TargetPressure)
-        {
-            if (IsHandNear() == true)
-            {
-                TargetPressure = PressureChecker(TargetPressure);
-                // btData contains the instruction for which haptics to be triggered and the incremented pressure
-                // byte[] btData = gloveHandler.haptics.ApplyHaptics(new byte[] { 1, 0 }, (byte)TargetPressure, false);
-
-                byte[] btData = gloveHandler.haptics.HEXRPressure(Haptics.Finger.Index, true, TargetPressure);
-                gloveHandler.BTSend(btData);
-
-            }
-        }
-        public void SingleMiddleHaptic(int TargetPressure)
-        {
-            if (IsHandNear() == true)
-            {
-                TargetPressure = PressureChecker(TargetPressure);
-                // btData contains the instruction for which haptics to be triggered and the incremented pressure
-                // byte[] btData = gloveHandler.haptics.ApplyHaptics(new byte[] { 2, 0 }, (byte)TargetPressure, false);
-
-                byte[] btData = gloveHandler.haptics.HEXRPressure(Haptics.Finger.Middle, true, TargetPressure);
-                gloveHandler.BTSend(btData);
-
-            }
-        }
-        public void SingleRingHaptic(int TargetPressure)
-        {
-            if (IsHandNear() == true)
-            {
-                TargetPressure = PressureChecker(TargetPressure);
-                // btData contains the instruction for which haptics to be triggered and the incremented pressure
-                // byte[] btData = gloveHandler.haptics.ApplyHaptics(new byte[] { 3, 0 }, (byte)TargetPressure, false);
-
-                byte[] btData = gloveHandler.haptics.HEXRPressure(Haptics.Finger.Ring, true, TargetPressure);
-                gloveHandler.BTSend(btData);
-
-            }
-        }
-        public void SingleLittleHaptic(int TargetPressure)
-        {
-            if (IsHandNear() == true)
-            {
-                TargetPressure = PressureChecker(TargetPressure);
-                // btData contains the instruction for which haptics to be triggered and the incremented pressure
-                // byte[] btData = gloveHandler.haptics.ApplyHaptics(new byte[] { 4, 0 }, (byte)TargetPressure, false);
-
-                byte[] btData = gloveHandler.haptics.HEXRPressure(Haptics.Finger.Pinky, true, TargetPressure);
-                gloveHandler.BTSend(btData);
-
-            }
-        }
-        public void SinglePalmHaptic(int TargetPressure)
-        {
-            if (IsHandNear() == true)
-            {
-                TargetPressure = PressureChecker(TargetPressure);
-                // btData contains the instruction for which haptics to be triggered and the incremented pressure
-                // byte[] btData = gloveHandler.haptics.ApplyHaptics(new byte[] { 5, 0 }, (byte)TargetPressure, false);
-
-                byte[] btData = gloveHandler.haptics.HEXRPressure(Haptics.Finger.Palm, true, TargetPressure);
-                gloveHandler.BTSend(btData);
-
-            }
-        }
         #endregion
 
         #region Basic Haptics Function For Multiple Trigger
@@ -192,7 +245,6 @@ namespace HexR
         {
             if (IsHandNear())
             {
-                TargetPressure = PressureChecker(TargetPressure);
                 // ClutchState affecting all indenters
                 byte[][] ClutchState = new byte[][] { new byte[] { 0, 0 }, new byte[] { 1, 0 }, new byte[] { 2, 0 }, new byte[] { 3, 0 }, new byte[] { 4, 0 }
                             , new byte[] { 5, 0 }};
@@ -205,7 +257,6 @@ namespace HexR
         {
             if (IsHandNear())
             {
-                TargetPressure = PressureChecker(TargetPressure);
                 // ClutchState affecting all indenters
                 byte[] btData = gloveHandler.haptics.ApplyHaptics(FingerTypeByte, (byte)TargetPressure, false);
                 gloveHandler.BTSend(btData);
@@ -216,7 +267,6 @@ namespace HexR
             //Index and Thumb
             if (IsHandNear())
             {
-                TargetPressure = PressureChecker(TargetPressure);
                 // ClutchState affecting all indenters
                 byte[][] ClutchState = new byte[][] { new byte[] { 0, 0 }, new byte[] { 1, 0 } };
                 byte[] btData = gloveHandler.haptics.ApplyHaptics(ClutchState, (byte)TargetPressure, false);
@@ -231,7 +281,6 @@ namespace HexR
         {
             if (IsHandNear())
             {
-                VibrationStrength = PressureChecker(VibrationStrength); // Between 10 to 60
                 // ClutchState affecting all indenters
                 byte[][] ClutchState = new byte[][] { new byte[] { 0, 0 }, new byte[] { 1, 0 }, new byte[] { 2, 0 }, new byte[] { 3, 0 }, new byte[] { 4, 0 }
                             , new byte[] { 5, 0 }};
@@ -346,6 +395,8 @@ namespace HexR
 
         private bool IsHandNear()
         {
+            //Only trigger haptics if hand is near
+
             if (HandGrabbing == true || PokeHovering == true || CollisionNearHand == true)
             {
                 return true;
@@ -355,28 +406,7 @@ namespace HexR
                 return false;
             }
         }
-        private int PressureChecker(int Input)
-        {
-            // to ensure pressure is within 60
-            if (Input > 60)
-            {
-                Input = 60;
-            }
-            else if (Input < 0)
-            {
-                Input = 0;
-            }
-            return Input;
-        }
 
-        private void PressureSafetyNet()
-        {
-            if (ThumbPressure > 65 || IndexPressure > 65 || MiddlePressure > 65
-                || RingPressure > 65 || LittlePressure > 65 | PalmPressure > 65)
-            {
-                RemoveAllHaptics();
-            }
-        }
         #endregion
 
     }
