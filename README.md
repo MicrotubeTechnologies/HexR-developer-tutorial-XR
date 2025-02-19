@@ -74,14 +74,11 @@ If a custom hand structure is used, you will have to recreate the `PhysicsHandTr
   - speed : 0.1 - 1 , slowly increase haptics vs fast increase haptics
   - ByPassHandCheck : true = will trigger haptics without checking IsHandNear()
 
-- Function : CustomSingleVibrations(Haptics.Finger finger, bool states, float intensity, float frequency,float PeakRatio,float Speed,float endIntensity, bool ByPassHandCheck)
+- Function : CustomSingleVibrations(Haptics.Finger finger, bool states, float intensity, float frequency, bool ByPassHandCheck)
   - Haptics.Finger = which finger is to be triggered: index,middle,ring,pinky,thumb,palm
   - states : true = haptics in , false = haptics out
   - frequency : 0.1 - 2 
   - intensity : 0.1 - 1 , min haptics - max haptics
-  - peakratio : 0.2 - 0.8
-  - speed : 0.1 - 1 , slowly increase haptics vs fast increase haptics
-  - endIntensity : vibrations to end with selected haptics pressure
   - ByPassHandCheck : true = will trigger haptics without checking IsHandNear()
 </details>
 
@@ -169,9 +166,9 @@ To set up `SpecialHaptics`:
 
 
 <details>
-<summary> Demo Scene : Basic Tutorial </summary>
+<summary> Demo Scene : 1. Basic Tutorial </summary>
  
-## **Demo Scene : Basic Tutorial **
+## **Demo Scene : 1. Basic Tutorial **
 
 #### The **Basic Tutorial ** demo scene contains the implementation to grab and pinch object using HexR grabbing and pinching.
 
@@ -196,15 +193,31 @@ To set up `SpecialHaptics`:
 </details>
 
 <details>
-<summary> Demo Scene : Rain and Fountain Tutorial </summary>
+<summary> Demo Scene : 2. Special Haptics </summary>
  
-## **  Demo Scene : Rain and Fountain Tutorial ⛲ **
+## **  Demo Scene : 2. Special Haptics Tutorial ⛲ **
 
-#### The **Rain and Fountain Tutorial** demo scene contains the haptics implementations for using triggers and colliders to trigger haptics. 
-#### There is a haptic zone in the fountain and rain clouds.
+#### The **Special Haptics Tutorial** demo scene contains the haptics implementations for using triggers and colliders to trigger haptics. 
+#### There is a haptic zone in the fountain, Heart and rain clouds.
 #### To create a haptic zone simply attach the `SpecialHaptics` Script and a collider(trigger) to a gameobject.
 
-![image](https://github.com/user-attachments/assets/961d80fa-59ed-4431-a33e-46df43450ca8)
+![image](https://github.com/user-attachments/assets/49262fdc-6391-4753-815a-d2d5c7988306)
+
+
+
+</details>
+
+<details>
+<summary> Demo Scene : 3. Button </summary>
+ 
+## **  Demo Scene : 3. Button  **
+
+#### The **Button Tutorial** demo scene contains the haptics implementations by using event trigger. 
+#### The haptics function are triggered by the interactable Events in XR simple Interactable in each buttons.
+#### A Proximity Check is place in the buttons to determine if the left or right hand have triggered the event.
+
+![image](https://github.com/user-attachments/assets/472501fa-952c-40bc-8c0b-89ed692bd22b)
+
 
 
 </details>
