@@ -3065,6 +3065,7 @@ GameObject:
   - component: {fileID: 437853770}
   - component: {fileID: 437853772}
   - component: {fileID: 437853771}
+  - component: {fileID: 437853773}
   m_Layer: 0
   m_Name: Haptic Zone
   m_TagString: Untagged
@@ -3102,7 +3103,7 @@ MonoBehaviour:
   RightHandPhysics: {fileID: 7587032033609018493}
   LeftHandPhysics: {fileID: 847855002038927582}
   TypeOfHaptics: 3
-  HapticStrenngthValue: 0.4
+  HapticStrenngthValue: 0.3
   VibrationsFrequencyValue: 10
   HapticPressure: 10
   InTimer: 0.4
@@ -3138,6 +3139,20 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1.4896442, z: 1}
   m_Center: {x: 0, y: 0.24482134, z: 0}
+--- !u!114 &437853773
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 437853769}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e733ecd62916d646bf6a4b602eb3aa1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rightpressureTrackerMain: {fileID: 7587032033609018493}
+  leftpressureTrackerMain: {fileID: 847855002038927582}
 --- !u!1 &459549930
 GameObject:
   m_ObjectHideFlags: 0

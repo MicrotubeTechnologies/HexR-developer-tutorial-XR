@@ -60,10 +60,10 @@ namespace HexR
         {
             HandGrabbing = IsHandGrabbing;
         }
-        public bool IsPhysicsCollisionNear(bool CollisionNearHand)
+        public void IsPhysicsCollisionNear(bool Selection)
         {
             //uses proximmity checker to check if hand is near
-            return CollisionNearHand;
+            CollisionNearHand = Selection;
         }
 
         #endregion

@@ -402,28 +402,35 @@ namespace HexR
 
         private void RaindropHapticTriggerEnter(Collider other)
         {
-            if (other.gameObject.name == "RightGhostPalm" || other.gameObject.name == "R_GhostPalm" && ReadyToDrop == true)
+            if (other.gameObject.name == "R_Palm" || other.gameObject.name == "R_GhostPalm")
             {
-                ReadyToDrop = false;
-                RemoveIt = false;
-                HaptGloveHandler gloveHandler = RightHandPhysics.GetComponent<HaptGloveHandler>();
-                RaindropEffect(UnityEngine.Random.Range(1, 9), gloveHandler);
-                StartCoroutine(RestartRaindropHaptic());
-                StartCoroutine(RemoveRaindropHaptic(RightHandPhysics));
+                if(ReadyToDrop)
+                {
+                    ReadyToDrop = false;
+                    RemoveIt = false;
+                    HaptGloveHandler gloveHandler = RightHandPhysics.GetComponent<HaptGloveHandler>();
+                    RaindropEffect(Random.Range(1, 9), gloveHandler);
+                    StartCoroutine(RestartRaindropHaptic());
+                    StartCoroutine(RemoveRaindropHaptic(RightHandPhysics));
+                }
+
             }
-            if (other.gameObject.name == "LeftGhostPalm" || other.gameObject.name == "L_GhostPalm" && ReadyToDrop == true)
+            if (other.gameObject.name == "L_Palm" || other.gameObject.name == "L_GhostPalm" )
             {
-                ReadyToDrop = false;
-                RemoveIt = false;
-                HaptGloveHandler gloveHandler = LeftHandPhysics.GetComponent<HaptGloveHandler>();
-                RaindropEffect(UnityEngine.Random.Range(1, 9), gloveHandler);
-                StartCoroutine(RestartRaindropHaptic());
-                StartCoroutine(RemoveRaindropHaptic(LeftHandPhysics));
+                if (ReadyToDrop)
+                {
+                    ReadyToDrop = false;
+                    RemoveIt = false;
+                    HaptGloveHandler gloveHandler = LeftHandPhysics.GetComponent<HaptGloveHandler>();
+                    RaindropEffect(Random.Range(1, 9), gloveHandler);
+                    StartCoroutine(RestartRaindropHaptic());
+                    StartCoroutine(RemoveRaindropHaptic(LeftHandPhysics));
+                }
             }
         }
         IEnumerator RestartRaindropHaptic()
         {
-            yield return new WaitForSeconds(0.4f);
+            yield return new WaitForSeconds(0.2f);
             ReadyToDrop = true;
         }
         IEnumerator RemoveRaindropHaptic(PressureTrackerMain PressureTracker)
@@ -448,14 +455,17 @@ namespace HexR
 
             float[] ThePressure = new float[] { HapticStrenngthValue, HapticStrenngthValue, HapticStrenngthValue, HapticStrenngthValue, HapticStrenngthValue, HapticStrenngthValue };
             float[] TheSpeed = new float[] { 1, 1, 1, 1, 1, 1 };
+
             // ClutchState affecting all indenters
             if (Pattern == 1)
             {
                 // thumb Pinky
                 bool[] TheBool = new bool[] { true, false, false, false, true, false };
 
+
                 byte[] btData = gloveHandler.haptics.HEXRPressure(AllFingers, TheBool, ThePressure, TheSpeed);
                 gloveHandler.BTSend(btData);
+
             }
             else if (Pattern == 2)
             {
@@ -469,7 +479,6 @@ namespace HexR
             {
                 // Palm Middle
                 bool[] TheBool = new bool[] { true, false, true, false, false, true };
-
                 byte[] btData = gloveHandler.haptics.HEXRPressure(AllFingers, TheBool, ThePressure, TheSpeed);
                 gloveHandler.BTSend(btData);
             }

@@ -2142,6 +2142,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TypeOfGrab: 1
   Gravity: 1
+  TheObject: {fileID: 0}
   HapticStrength: 10
   OnGrab:
     m_PersistentCalls:
@@ -2197,8 +2198,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e733ecd62916d646bf6a4b602eb3aa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rightpressureTrackerMain: {fileID: 0}
-  leftpressureTrackerMain: {fileID: 0}
+  rightpressureTrackerMain: {fileID: 2098701242}
+  leftpressureTrackerMain: {fileID: 2098701240}
 --- !u!1 &859997146
 GameObject:
   m_ObjectHideFlags: 0
@@ -4126,6 +4127,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TypeOfGrab: 1
   Gravity: 0
+  TheObject: {fileID: 0}
   HapticStrength: 10
   OnGrab:
     m_PersistentCalls:
