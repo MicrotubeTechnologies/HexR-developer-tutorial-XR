@@ -4746,12 +4746,15 @@ MonoBehaviour:
   RightHandPhysics: {fileID: 1352756773}
   LeftHandPhysics: {fileID: 1352756774}
   TypeOfHaptics: 0
-  VibrationsFrequencyValue: 10
-  HapticStrenngthValue: 30
+  HapticStrenngthValue: 0.4
+  VibrationsFrequencyValue: 1.1
+  PeakRatio: 0.8
+  Speed: 1
   HapticPressure: 10
   InTimer: 0.4
   OutTimer: 0
   HeartBeatPressure: 40
+  IncludePalm: 0
   heartbeat: 0
   OnSqueezeEventTrigger:
     m_PersistentCalls:

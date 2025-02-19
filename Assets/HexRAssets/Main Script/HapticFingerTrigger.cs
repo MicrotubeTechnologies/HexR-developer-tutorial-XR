@@ -15,8 +15,6 @@ namespace HexR
         public HandType handType;
         public FingerType fingertype;
         private Haptics.Finger HapticsFingertype;
-        private byte[] clutchStateIn, clutchStateOut;
-        private int Pressure;
         public enum FingerType
         {
             Index,
@@ -38,44 +36,31 @@ namespace HexR
         // Start is called before the first frame update
         void Start()
         {
-            //Debug = GameObject.Find("Panel Debug").GetComponent<Text>();
-            Pressure = 0;
+
             gloveHandler = HexrLeftOrRight.GetComponent<HaptGloveHandler>();
             pressureTrackerMain = HexrLeftOrRight.GetComponent<PressureTrackerMain>();
             if (fingertype == FingerType.Thumb)
             {
-                clutchStateIn = new byte[] { 0, 0 };
-                clutchStateOut = new byte[] { 0, 2 };
                 HapticsFingertype = Haptics.Finger.Thumb;
             }
             else if (fingertype == FingerType.Index)
             {
-                clutchStateIn = new byte[] { 1, 0 };
-                clutchStateOut = new byte[] { 1, 2 };
                 HapticsFingertype = Haptics.Finger.Thumb;
             }
             else if (fingertype == FingerType.Middle)
             {
-                clutchStateIn = new byte[] { 2, 0 };
-                clutchStateOut = new byte[] { 2, 2 };
                 HapticsFingertype = Haptics.Finger.Thumb;
             }
             else if (fingertype == FingerType.Ring)
             {
-                clutchStateIn = new byte[] { 3, 0 };
-                clutchStateOut = new byte[] { 3, 2 };
                 HapticsFingertype = Haptics.Finger.Thumb;
             }
             else if (fingertype == FingerType.Little)
             {
-                clutchStateIn = new byte[] { 4, 0 };
-                clutchStateOut = new byte[] { 4, 2 };
                 HapticsFingertype = Haptics.Finger.Thumb;
             }
             else if (fingertype == FingerType.Palm)
             {
-                clutchStateIn = new byte[] { 5, 0 };
-                clutchStateOut = new byte[] { 5, 2 };
                 HapticsFingertype = Haptics.Finger.Thumb;
             }
         }
@@ -85,33 +70,23 @@ namespace HexR
         {
 
         }
-        public void TriggerFixPressure(byte TargetPressure)
+        public void TriggerFixPressure(float TargetPressure)
         {
-            if (TargetPressure > Pressure)
-            {
-
-                int IncreasePressure = (int)TargetPressure - Pressure;
-
-                pressureTrackerMain.TriggerSingleHapticsIncrease(clutchStateIn, IncreasePressure, true);
-            }
-
+            pressureTrackerMain.CustomSingleHaptics(HapticsFingertype,true, TargetPressure,1f,true);
         }
-        public void TriggerVibrationPressure(float Frequency,float Intensity, float PeakRatio, float Speed)
+        public void TriggerVibrationPressure(float Frequency,float Intensity)
         {
-            byte[] btData = gloveHandler.haptics.HEXRVibration(HapticsFingertype, true, Frequency, Intensity, PeakRatio, Speed, Intensity);
+            byte[] btData = gloveHandler.haptics.HEXRVibration(HapticsFingertype, true, Frequency, Intensity);
             gloveHandler.BTSend(btData);
         }
         public void RemoveVibration()
         {
-            byte[] btData = gloveHandler.haptics.HEXRVibration(HapticsFingertype, false, 0, 0, 0, 0, 0);
+            byte[] btData = gloveHandler.haptics.HEXRVibration(HapticsFingertype, false, 0, 0);
             gloveHandler.BTSend(btData);
         }
         public void RemoveHaptics()
         {
-            if (Pressure != 0)
-            {
-                pressureTrackerMain.RemoveSingleHaptics(clutchStateOut,true);
-            }
+            pressureTrackerMain.CustomSingleHaptics(HapticsFingertype, false, 0, 1f, true);
 
         }
 

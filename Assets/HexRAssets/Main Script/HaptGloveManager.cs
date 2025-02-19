@@ -14,7 +14,7 @@ namespace HexR
     {
         public enum Options { OpenXR, MetaOVR } //MRTK not included yet
         public Options XRFramework;
-        public bool isQuest;
+        public bool isQuest = true;
 
         public HaptGloveHandler leftHand;
         public HaptGloveHandler rightHand;

@@ -2691,11 +2691,11 @@ PrefabInstance:
     - target: {fileID: 2297975618005212854, guid: 7f1f138409abf1a49a7e714b84e9838f, type: 3}
       propertyPath: leftpressureTrackerMain
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 847855002038927582}
     - target: {fileID: 2297975618005212854, guid: 7f1f138409abf1a49a7e714b84e9838f, type: 3}
       propertyPath: rightpressureTrackerMain
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 7587032033609018493}
     - target: {fileID: 6027286037296454752, guid: 7f1f138409abf1a49a7e714b84e9838f, type: 3}
       propertyPath: m_Name
       value: Proximity Check
@@ -2854,24 +2854,24 @@ MonoBehaviour:
       - m_Target: {fileID: 847855002038927582}
         m_TargetAssemblyTypeName: HexR.PressureTrackerMain, Assembly-CSharp
         m_MethodName: TriggerAllVibrations
-        m_Mode: 3
+        m_Mode: 4
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 50
-          m_FloatArgument: 0
+          m_IntArgument: 0
+          m_FloatArgument: 0.6
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 7587032033609018493}
         m_TargetAssemblyTypeName: HexR.PressureTrackerMain, Assembly-CSharp
         m_MethodName: TriggerAllVibrations
-        m_Mode: 3
+        m_Mode: 4
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 50
-          m_FloatArgument: 0
+          m_FloatArgument: 0.6
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
@@ -3104,8 +3104,6 @@ MonoBehaviour:
   TypeOfHaptics: 3
   HapticStrenngthValue: 0.4
   VibrationsFrequencyValue: 10
-  PeakRatio: 0.8
-  Speed: 0.8
   HapticPressure: 10
   InTimer: 0.4
   OutTimer: 0
@@ -8784,24 +8782,24 @@ MonoBehaviour:
       - m_Target: {fileID: 847855002038927582}
         m_TargetAssemblyTypeName: HexR.PressureTrackerMain, Assembly-CSharp
         m_MethodName: TriggerAllHapticsIncrease
-        m_Mode: 3
+        m_Mode: 4
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 30
-          m_FloatArgument: 0
+          m_FloatArgument: 0.4
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 7587032033609018493}
         m_TargetAssemblyTypeName: HexR.PressureTrackerMain, Assembly-CSharp
         m_MethodName: TriggerAllHapticsIncrease
-        m_Mode: 3
+        m_Mode: 4
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 30
-          m_FloatArgument: 0
+          m_FloatArgument: 0.4
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
@@ -9553,12 +9551,10 @@ MonoBehaviour:
   TypeOfHaptics: 4
   HapticStrenngthValue: 10
   VibrationsFrequencyValue: 10
-  PeakRatio: 0.8
-  Speed: 0.8
   HapticPressure: 10
   InTimer: 0.5
   OutTimer: 0.5
-  HeartBeatPressure: 20
+  HeartBeatPressure: 0.5
   IncludePalm: 1
   heartbeat: 0
   OnSqueezeEventTrigger:
@@ -15795,11 +15791,11 @@ PrefabInstance:
     - target: {fileID: 2297975618005212854, guid: 7f1f138409abf1a49a7e714b84e9838f, type: 3}
       propertyPath: leftpressureTrackerMain
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 847855002038927582}
     - target: {fileID: 2297975618005212854, guid: 7f1f138409abf1a49a7e714b84e9838f, type: 3}
       propertyPath: rightpressureTrackerMain
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 7587032033609018493}
     - target: {fileID: 6027286037296454752, guid: 7f1f138409abf1a49a7e714b84e9838f, type: 3}
       propertyPath: m_Name
       value: Proximity Check
@@ -16206,24 +16202,24 @@ MonoBehaviour:
       - m_Target: {fileID: 847855002038927582}
         m_TargetAssemblyTypeName: HexR.PressureTrackerMain, Assembly-CSharp
         m_MethodName: TriggerAllVibrations
-        m_Mode: 3
+        m_Mode: 4
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 30
-          m_FloatArgument: 0
+          m_FloatArgument: 10
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 7587032033609018493}
         m_TargetAssemblyTypeName: HexR.PressureTrackerMain, Assembly-CSharp
         m_MethodName: TriggerAllVibrations
-        m_Mode: 3
+        m_Mode: 4
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 30
-          m_FloatArgument: 0
+          m_FloatArgument: 10
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
@@ -16417,11 +16413,11 @@ PrefabInstance:
     - target: {fileID: 2297975618005212854, guid: 7f1f138409abf1a49a7e714b84e9838f, type: 3}
       propertyPath: leftpressureTrackerMain
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 847855002038927582}
     - target: {fileID: 2297975618005212854, guid: 7f1f138409abf1a49a7e714b84e9838f, type: 3}
       propertyPath: rightpressureTrackerMain
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 7587032033609018493}
     - target: {fileID: 6027286037296454752, guid: 7f1f138409abf1a49a7e714b84e9838f, type: 3}
       propertyPath: m_Name
       value: Proximity Check
@@ -34480,8 +34476,6 @@ MonoBehaviour:
   TypeOfHaptics: 2
   HapticStrenngthValue: 10
   VibrationsFrequencyValue: 10
-  PeakRatio: 0.8
-  Speed: 0.8
   HapticPressure: 10
   InTimer: 0.4
   OutTimer: 0
@@ -35578,10 +35572,8 @@ MonoBehaviour:
   RightHandPhysics: {fileID: 7587032033609018493}
   LeftHandPhysics: {fileID: 847855002038927582}
   TypeOfHaptics: 0
-  HapticStrenngthValue: 0.4
-  VibrationsFrequencyValue: 1
-  PeakRatio: 0.6
-  Speed: 0.8
+  HapticStrenngthValue: 0.5
+  VibrationsFrequencyValue: 29.4
   HapticPressure: 10
   InTimer: 0.4
   OutTimer: 0
@@ -45801,6 +45793,10 @@ PrefabInstance:
       propertyPath: m_Center.z
       value: 0.04634063
       objectReference: {fileID: 0}
+    - target: {fileID: 2697160425466937452, guid: a6913a5d789fd2f44b3d70414cc4a75e, type: 3}
+      propertyPath: m_Mass
+      value: 0.01
+      objectReference: {fileID: 0}
     - target: {fileID: 5308380541298486983, guid: a6913a5d789fd2f44b3d70414cc4a75e, type: 3}
       propertyPath: m_Radius
       value: 1.35
@@ -45808,6 +45804,10 @@ PrefabInstance:
     - target: {fileID: 5474956540064194252, guid: a6913a5d789fd2f44b3d70414cc4a75e, type: 3}
       propertyPath: m_Name
       value: Apple
+      objectReference: {fileID: 0}
+    - target: {fileID: 8554235267555815584, guid: a6913a5d789fd2f44b3d70414cc4a75e, type: 3}
+      propertyPath: HapticStrength
+      value: 30
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -50839,7 +50839,7 @@ MonoBehaviour:
   TypeOfGrab: 1
   Gravity: 1
   TheObject: {fileID: 8686009509830425931}
-  HapticStrength: 40
+  HapticStrength: 50
   OnGrab:
     m_PersistentCalls:
       m_Calls:
