@@ -14,7 +14,7 @@ namespace HexR
     {
         public enum Options { OpenXR, MetaOVR } //MRTK not included yet
         public Options XRFramework;
-        public bool isQuest;
+        public bool isQuest = true;
 
         public HaptGloveHandler leftHand;
         public HaptGloveHandler rightHand;
@@ -230,6 +230,8 @@ namespace HexR
 
                 // Draw default fields
                 controller.XRFramework = (HaptGloveManager.Options)EditorGUILayout.EnumPopup("XR Framework", controller.XRFramework);
+
+                controller.isQuest = EditorGUILayout.Toggle("Quest Headset", controller.isQuest);
 
                 EditorGUILayout.LabelField("Hand Physics Components", EditorStyles.boldLabel);
 
