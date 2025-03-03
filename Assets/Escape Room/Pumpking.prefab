@@ -1,0 +1,316 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2518072135005854253
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3336180807685066950}
+  - component: {fileID: 7042987641195109849}
+  - component: {fileID: 8327558819006254411}
+  - component: {fileID: 7567221808689474696}
+  - component: {fileID: 1989205586999129500}
+  - component: {fileID: 8436933862481406798}
+  - component: {fileID: 6232884952980785086}
+  - component: {fileID: 6953738964240321576}
+  - component: {fileID: 6883158276981093963}
+  m_Layer: 0
+  m_Name: Pumpking
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3336180807685066950
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2518072135005854253}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.014680227, y: -0.9983912, z: -0.052373156, w: 0.016020352}
+  m_LocalPosition: {x: 0.434, y: 0.213, z: -1.904}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2938141898761754651}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: -5.9760003, y: -178.06801, z: -1.7860001}
+--- !u!33 &7042987641195109849
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2518072135005854253}
+  m_Mesh: {fileID: -8317572690992909458, guid: 79c5935e3d3ea504db56922a02205249, type: 3}
+--- !u!23 &8327558819006254411
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2518072135005854253}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: b087163334465c846aaae5f8ba363f50, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!54 &7567221808689474696
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2518072135005854253}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!64 &1989205586999129500
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2518072135005854253}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -8317572690992909458, guid: 79c5935e3d3ea504db56922a02205249, type: 3}
+--- !u!114 &8436933862481406798
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2518072135005854253}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 488e520d5502e37488baee86278fabc6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IngredientType: Pumpking
+--- !u!114 &6232884952980785086
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2518072135005854253}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c677bb85324600a4194553564a52e7f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TypeOfGrab: 0
+  Gravity: 0
+  TheObject: {fileID: 0}
+  HapticStrength: 10
+  OnGrab:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5601043230655978582}
+        m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
+        m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnRelease:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1021609354888043497}
+        m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
+        m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  isGrab: 0
+  InvokeEventReady: 1
+--- !u!135 &6953738964240321576
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2518072135005854253}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.1
+  m_Center: {x: 0, y: -0.03, z: 0}
+--- !u!135 &6883158276981093963
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2518072135005854253}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.1
+  m_Center: {x: 0, y: -0.03, z: 0}
+--- !u!1001 &4964959451896141895
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3336180807685066950}
+    m_Modifications:
+    - target: {fileID: 300912258264181694, guid: 715d6e3e83918e447bb236a6d71eb63d, type: 3}
+      propertyPath: m_Name
+      value: Grab Audio
+      objectReference: {fileID: 0}
+    - target: {fileID: 7791636569250463836, guid: 715d6e3e83918e447bb236a6d71eb63d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.25824532
+      objectReference: {fileID: 0}
+    - target: {fileID: 7791636569250463836, guid: 715d6e3e83918e447bb236a6d71eb63d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.80581814
+      objectReference: {fileID: 0}
+    - target: {fileID: 7791636569250463836, guid: 715d6e3e83918e447bb236a6d71eb63d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.3024545
+      objectReference: {fileID: 0}
+    - target: {fileID: 7791636569250463836, guid: 715d6e3e83918e447bb236a6d71eb63d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7791636569250463836, guid: 715d6e3e83918e447bb236a6d71eb63d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7791636569250463836, guid: 715d6e3e83918e447bb236a6d71eb63d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7791636569250463836, guid: 715d6e3e83918e447bb236a6d71eb63d, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7791636569250463836, guid: 715d6e3e83918e447bb236a6d71eb63d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7791636569250463836, guid: 715d6e3e83918e447bb236a6d71eb63d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7791636569250463836, guid: 715d6e3e83918e447bb236a6d71eb63d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 715d6e3e83918e447bb236a6d71eb63d, type: 3}
+--- !u!82 &1021609354888043497 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 5389234370604008366, guid: 715d6e3e83918e447bb236a6d71eb63d, type: 3}
+  m_PrefabInstance: {fileID: 4964959451896141895}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &2938141898761754651 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7791636569250463836, guid: 715d6e3e83918e447bb236a6d71eb63d, type: 3}
+  m_PrefabInstance: {fileID: 4964959451896141895}
+  m_PrefabAsset: {fileID: 0}
+--- !u!82 &5601043230655978582 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 674963200338805777, guid: 715d6e3e83918e447bb236a6d71eb63d, type: 3}
+  m_PrefabInstance: {fileID: 4964959451896141895}
+  m_PrefabAsset: {fileID: 0}
