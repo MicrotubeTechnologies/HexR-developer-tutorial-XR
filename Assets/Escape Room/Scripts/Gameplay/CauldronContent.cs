@@ -128,8 +128,8 @@ namespace Inworld.UI
             Recipe recipeBewed = null;
             foreach (Recipe recipe in Recipes)
             {
-                if (recipe.temperature != m_Temperature || recipe.rotation != m_Rotation)
-                    continue;
+/*                if (recipe.temperature != m_Temperature || recipe.rotation != m_Rotation)
+                    continue;*/
 
                 List<string> copyOfIngredient = new List<string>(m_CurrentIngredientsIn);
                 int ingredientCount = 0;
