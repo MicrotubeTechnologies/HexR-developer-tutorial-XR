@@ -60,7 +60,7 @@ public class Potion : MonoBehaviour
 
     void Start()
     {
-        m_AudioSource = SFXPlayer.Instance.GetNewSource();
+        m_AudioSource = gameObject.GetComponent<AudioSource>();
         m_AudioSource.gameObject.transform.SetParent(particleSystemLiquid.transform, false);
         m_AudioSource.gameObject.SetActive(true);
 

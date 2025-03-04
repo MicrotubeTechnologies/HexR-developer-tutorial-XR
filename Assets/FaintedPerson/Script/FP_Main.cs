@@ -26,7 +26,7 @@ public class FP_Main : MonoBehaviour
 
         if (Input.GetKey(KeyCode.Q))
         {
-            StartCoroutine(StartDialogue());
+            TextTwo();
         }
         if (Input.GetKey(KeyCode.W))
         {
