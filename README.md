@@ -11,6 +11,8 @@
    https://github.com/MicrotubeTechnologies/HexR-developer-tutorial-XR
 
 2. **Open the HexR Developer Tutorial project in Unity.**
+   
+3. **Switch to Android platform in build settings.**
 
 ---
 
