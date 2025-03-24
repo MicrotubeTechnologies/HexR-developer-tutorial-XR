@@ -286,7 +286,7 @@ GameObject:
   - component: {fileID: 9091401820214224032}
   - component: {fileID: 1281492150097164478}
   m_Layer: 0
-  m_Name: GhostMiddle
+  m_Name: R_GhostMiddle
   m_TagString: GhostHand
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -411,7 +411,7 @@ GameObject:
   - component: {fileID: 3877045636760753830}
   - component: {fileID: 5605300157624451077}
   m_Layer: 0
-  m_Name: GhostIndex
+  m_Name: R_GhostIndex
   m_TagString: GhostHand
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1092,7 +1092,7 @@ GameObject:
   - component: {fileID: 2197229918446793986}
   - component: {fileID: 1559947817194155843}
   m_Layer: 0
-  m_Name: GhostIndex
+  m_Name: L_GhostIndex
   m_TagString: GhostHand
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1834,7 +1834,7 @@ GameObject:
   - component: {fileID: 8322987057391632656}
   - component: {fileID: 4883044145316880139}
   m_Layer: 0
-  m_Name: GhostThumb
+  m_Name: R_GhostThumb
   m_TagString: GhostHand
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1903,7 +1903,7 @@ GameObject:
   - component: {fileID: 7787675950299518600}
   - component: {fileID: 7967275466111242421}
   m_Layer: 0
-  m_Name: GhostPinky
+  m_Name: R_GhostPinky
   m_TagString: GhostHand
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1972,7 +1972,7 @@ GameObject:
   - component: {fileID: 4404101969347275173}
   - component: {fileID: 8508127124548472468}
   m_Layer: 0
-  m_Name: GhostRing
+  m_Name: L_GhostRing
   m_TagString: GhostHand
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2097,7 +2097,7 @@ GameObject:
   - component: {fileID: 8596432630870176458}
   - component: {fileID: 671059333385567657}
   m_Layer: 0
-  m_Name: GhostPinky
+  m_Name: L_GhostPinky
   m_TagString: GhostHand
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2291,7 +2291,7 @@ GameObject:
   - component: {fileID: 7764353171011471082}
   - component: {fileID: 2326625320862239963}
   m_Layer: 0
-  m_Name: GhostMiddle
+  m_Name: L_GhostMiddle
   m_TagString: GhostHand
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2359,7 +2359,6 @@ GameObject:
   - component: {fileID: 2159286414937762467}
   - component: {fileID: 3596971877594727963}
   - component: {fileID: 5789052200750220501}
-  - component: {fileID: 579593648070845495}
   m_Layer: 0
   m_Name: HexR Main (Open XR)
   m_TagString: Untagged
@@ -2419,18 +2418,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: da24b5f209a2ac745974f0e56908afcd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &579593648070845495
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5126384606502274510}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ac8fb1c7655bb1e46bf97ded7b525bae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &5143656081425564886
@@ -2869,6 +2856,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   whichHand: 1
+  batteryState: 0
   sourcePres: 80
   deviceName: HaptGloveAR Right
   btText: 
@@ -3171,6 +3159,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   whichHand: 0
+  batteryState: 0
   sourcePres: 80
   deviceName: HaptGloveAR Right
   btText: 
@@ -3302,7 +3291,7 @@ GameObject:
   - component: {fileID: 6288196913537009409}
   - component: {fileID: 7743390897351289368}
   m_Layer: 0
-  m_Name: GhostRing
+  m_Name: R_GhostRing
   m_TagString: GhostHand
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3709,7 +3698,7 @@ GameObject:
   - component: {fileID: 7595103438670343969}
   - component: {fileID: 6674298663470647961}
   m_Layer: 0
-  m_Name: GhostThumb
+  m_Name: L_GhostThumb
   m_TagString: GhostHand
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
