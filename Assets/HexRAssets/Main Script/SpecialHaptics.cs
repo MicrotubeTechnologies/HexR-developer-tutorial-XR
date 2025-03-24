@@ -69,7 +69,6 @@ namespace HexR
             if (TypeOfHaptics == Options.HeartBeatEffect)
             {
                 StartCoroutine(HeartBeatIn());
-
             }
 
             if (TypeOfHaptics == Options.CustomVibrations)
@@ -643,7 +642,7 @@ namespace HexR
         private void TriggerHapticForHeartBeat(HaptGloveHandler gloveHandler)
         {
 
-            if (IndexHB || MiddleHB || RingHB || LittleHB | PalmHB)
+            if (IndexHB || MiddleHB || RingHB || LittleHB || PalmHB)
             {
                 Haptics.Finger[] AllFingers = new Haptics.Finger[] { Haptics.Finger.Thumb, Haptics.Finger.Index, Haptics.Finger.Middle, Haptics.Finger.Ring, Haptics.Finger.Pinky, Haptics.Finger.Palm };
 

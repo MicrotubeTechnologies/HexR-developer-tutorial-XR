@@ -38535,7 +38535,7 @@ GameObject:
   - component: {fileID: 9091401820157289732}
   - component: {fileID: 1281492150015228186}
   m_Layer: 0
-  m_Name: GhostMiddle
+  m_Name: R_GhostMiddle
   m_TagString: GhostHand
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -38837,7 +38837,7 @@ GameObject:
   - component: {fileID: 3877045636708669186}
   - component: {fileID: 5605300157684924833}
   m_Layer: 0
-  m_Name: GhostIndex
+  m_Name: R_GhostIndex
   m_TagString: GhostHand
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -40490,7 +40490,7 @@ GameObject:
   - component: {fileID: 2197229918499402918}
   - component: {fileID: 1559947817276223207}
   m_Layer: 0
-  m_Name: GhostIndex
+  m_Name: L_GhostIndex
   m_TagString: GhostHand
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -47151,7 +47151,7 @@ GameObject:
   - component: {fileID: 7787675950368511788}
   - component: {fileID: 7967275466188591377}
   m_Layer: 0
-  m_Name: GhostPinky
+  m_Name: R_GhostPinky
   m_TagString: GhostHand
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -47259,7 +47259,7 @@ GameObject:
   - component: {fileID: 4404101969278347265}
   - component: {fileID: 8508127124613631792}
   m_Layer: 0
-  m_Name: GhostRing
+  m_Name: L_GhostRing
   m_TagString: GhostHand
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -47350,7 +47350,7 @@ GameObject:
   - component: {fileID: 8596432630934811502}
   - component: {fileID: 671059333312543757}
   m_Layer: 0
-  m_Name: GhostPinky
+  m_Name: L_GhostPinky
   m_TagString: GhostHand
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -48094,7 +48094,7 @@ GameObject:
   - component: {fileID: 7764353170934122318}
   - component: {fileID: 2326625320797048191}
   m_Layer: 0
-  m_Name: GhostMiddle
+  m_Name: L_GhostMiddle
   m_TagString: GhostHand
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -56002,7 +56002,7 @@ GameObject:
   - component: {fileID: 6288196913484334757}
   - component: {fileID: 7743390897415924668}
   m_Layer: 0
-  m_Name: GhostRing
+  m_Name: R_GhostRing
   m_TagString: GhostHand
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -57577,7 +57577,7 @@ GameObject:
   - component: {fileID: 7595103438609772165}
   - component: {fileID: 6674298663552781117}
   m_Layer: 0
-  m_Name: GhostThumb
+  m_Name: L_GhostThumb
   m_TagString: GhostHand
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
