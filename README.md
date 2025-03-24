@@ -5,7 +5,8 @@
 ### Prerequisites:
 - Ensure you are using **Unity 2021.3.26f1** or newer.
 - For projects using **Meta OVR**, refer to the official [HexR Developer Tutorial (Meta OVR)](https://github.com/MicrotubeTechnologies/HexR-Developer-Tutorial-Meta-OVR).
-  
+- For projects using **Pico Headsets**, refer to the Pico-Version branch.
+   
 ### Steps to Get Started:
 1. **Clone this repository:**
    https://github.com/MicrotubeTechnologies/HexR-developer-tutorial-XR
