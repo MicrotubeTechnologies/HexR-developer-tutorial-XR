@@ -491,6 +491,17 @@
                     "isPartOfComposite": true
                 },
                 {
+                    "name": "",
+                    "id": "259bcf3a-c40d-46f3-9bf4-c046d79d62fb",
+                    "path": "<HandInteraction>{LeftHand}/devicePose/rotation",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Rotation",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
                     "name": "Vector 3 Fallback",
                     "id": "14aeff85-d719-43ff-a124-b1cd7ca8686d",
                     "path": "Vector3Fallback",
@@ -533,6 +544,17 @@
                     "action": "Position",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "15cb5e27-34cf-4c2b-a4e3-79bdeb43db7f",
+                    "path": "<HandInteraction>{LeftHand}/devicePose/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Position",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 },
                 {
                     "name": "",
@@ -580,11 +602,33 @@
                 },
                 {
                     "name": "",
+                    "id": "b63794eb-816c-4146-9fa1-5a685c5cac9d",
+                    "path": "<HandInteraction>{LeftHand}/pointer/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Aim Position",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "2623b909-75bd-40da-97bd-ae1ecfb0a89b",
                     "path": "<MetaAimHand>{LeftHand}/deviceRotation",
                     "interactions": "",
                     "processors": "",
                     "groups": "Generic XR Controller",
+                    "action": "Aim Rotation",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "364efce7-2a93-464b-bd8e-d2249648d63a",
+                    "path": "<HandInteraction>{LeftHand}/pointer/rotation",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
                     "action": "Aim Rotation",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -808,6 +852,39 @@
                 },
                 {
                     "name": "",
+                    "id": "406cb7fd-71de-433d-a0ac-6b5ddb522264",
+                    "path": "<HandInteraction>{LeftHand}/pinchReady",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Select",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1388fbbf-6343-4e6e-90bf-a098fa929acf",
+                    "path": "<HandInteraction>{LeftHand}/graspReady",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Select",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b0868a22-8d43-44e2-9635-1ad0ef7a7b8d",
+                    "path": "<HandInteraction>{LeftHand}/pinchReady",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Select",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "49a23327-a116-48c0-8af9-0d2c50c15a88",
                     "path": "<XRController>{LeftHand}/{Grip}",
                     "interactions": "",
@@ -824,6 +901,39 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Generic XR Controller",
+                    "action": "Select Value",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b187ad5b-ffe2-4a4a-8f3e-4efbedfb7eb2",
+                    "path": "<HandInteraction>{LeftHand}/pinchValue",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Select Value",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "694f3f30-2a6e-48a6-be2b-c28cdd98f332",
+                    "path": "<HandInteraction>{LeftHand}/graspValue",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Select Value",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b04ce725-5bb7-458e-a030-4149ac91e54d",
+                    "path": "<HandInteraction>{LeftHand}/pinchValue",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
                     "action": "Select Value",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -874,6 +984,28 @@
                 },
                 {
                     "name": "",
+                    "id": "d155f8af-51d1-412d-9347-08e9ffccd50f",
+                    "path": "<HandInteraction>{LeftHand}/pinchReady",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "UI Press",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "41c7b43b-8a40-42ce-bec8-1df5480c5849",
+                    "path": "<HandInteraction>/pointerActivateReady",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "UI Press",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "71d94579-1bf4-4034-ab9e-e7166842128f",
                     "path": "<XRController>{LeftHand}/{Trigger}",
                     "interactions": "",
@@ -890,6 +1022,28 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Generic XR Controller",
+                    "action": "UI Press Value",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "47271580-ee3a-4c55-90e8-65729cc314ae",
+                    "path": "<HandInteraction>/pinchValue",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "UI Press Value",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2fc5b346-8927-400a-b5a1-bf68b355dc3b",
+                    "path": "<HandInteraction>/pointerActivateValue",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
                     "action": "UI Press Value",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -1287,6 +1441,17 @@
                     "isPartOfComposite": true
                 },
                 {
+                    "name": "",
+                    "id": "ea5f8856-c07d-4a26-b067-54e9df6eaf13",
+                    "path": "<HandInteraction>{RightHand}/devicePose/rotation",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Rotation",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
                     "name": "Vector 3 Fallback",
                     "id": "74e968f1-ad08-4a82-a68d-764517faecef",
                     "path": "Vector3Fallback",
@@ -1329,6 +1494,17 @@
                     "action": "Position",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "45771c31-0353-45cd-ba81-886b852d2280",
+                    "path": "<HandInteraction>{RightHand}/devicePose/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Position",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 },
                 {
                     "name": "",
@@ -1376,11 +1552,33 @@
                 },
                 {
                     "name": "",
+                    "id": "3fb76cbf-8917-4e7d-b570-6f769023e108",
+                    "path": "<HandInteraction>{RightHand}/pointer/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Aim Position",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "2bb1158a-2d78-446b-9351-6f9b3f1364cb",
                     "path": "<MetaAimHand>{RightHand}/deviceRotation",
                     "interactions": "",
                     "processors": "",
                     "groups": "Generic XR Controller",
+                    "action": "Aim Rotation",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9868919c-028c-4270-af60-978ab5743b8b",
+                    "path": "<HandInteraction>{RightHand}/pointer/rotation",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
                     "action": "Aim Rotation",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -1604,6 +1802,39 @@
                 },
                 {
                     "name": "",
+                    "id": "880cb3c1-1128-4feb-9a56-1853c2f55a9d",
+                    "path": "<HandInteraction>{RightHand}/pinchReady",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Select",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d95f4594-c234-45b9-93c8-a9c570dd50b3",
+                    "path": "<HandInteraction>{RightHand}/graspReady",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Select",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "33a6c0a6-1ad1-4439-a366-c4ca546a69eb",
+                    "path": "<HandInteraction>{RightHand}/pinchReady",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Select",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "dd433817-216c-46b9-8dd3-f3a4ea1767b9",
                     "path": "<XRController>{RightHand}/{Grip}",
                     "interactions": "",
@@ -1620,6 +1851,39 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Generic XR Controller",
+                    "action": "Select Value",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "eb2ec72a-8d44-4c23-ab1a-847c19b5ba28",
+                    "path": "<HandInteraction>{RightHand}/pinchValue",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Select Value",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "10158462-daa2-4e8c-853a-7bcc7f7f58ae",
+                    "path": "<HandInteraction>{RightHand}/graspValue",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Select Value",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "79d01b59-53ba-441c-a7a5-7762b528b88b",
+                    "path": "<HandInteraction>{RightHand}/pinchValue",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
                     "action": "Select Value",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -1670,6 +1934,28 @@
                 },
                 {
                     "name": "",
+                    "id": "9b758b33-bfc4-48f6-86fc-779d8a01f996",
+                    "path": "<HandInteraction>{RightHand}/pinchReady",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "UI Press",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e22bccb8-4d17-448a-b56d-72e8fc1a700d",
+                    "path": "<HandInteraction>{RightHand}/pointerActivateReady",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "UI Press",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "5b4ef08d-9ddd-4f0a-8539-d1114d14d143",
                     "path": "<XRController>{RightHand}/{Trigger}",
                     "interactions": "",
@@ -1686,6 +1972,28 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Generic XR Controller",
+                    "action": "UI Press Value",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5df88339-07ca-4a02-8aff-af78bc0436d5",
+                    "path": "<HandInteraction>{RightHand}/pinchValue",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "UI Press Value",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "272af6d8-87e1-4b60-be46-8475659fcfd8",
+                    "path": "<HandInteraction>{RightHand}/pointerActivateValue",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
                     "action": "UI Press Value",
                     "isComposite": false,
                     "isPartOfComposite": false
