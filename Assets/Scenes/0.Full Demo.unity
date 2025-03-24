@@ -678,7 +678,7 @@ GameObject:
   - component: {fileID: 103690463}
   - component: {fileID: 103690465}
   - component: {fileID: 103690464}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Text Button Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1620,7 +1620,7 @@ GameObject:
   - component: {fileID: 231294006}
   - component: {fileID: 231294008}
   - component: {fileID: 231294007}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Left HexR Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3270,7 +3270,7 @@ GameObject:
   - component: {fileID: 459549931}
   - component: {fileID: 459549933}
   - component: {fileID: 459549932}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Header
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3456,7 +3456,7 @@ GameObject:
   - component: {fileID: 509257213}
   - component: {fileID: 509257215}
   - component: {fileID: 509257214}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10239,7 +10239,7 @@ GameObject:
   - component: {fileID: 937194259}
   - component: {fileID: 937194258}
   - component: {fileID: 937194257}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Right Bluetooth Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10712,7 +10712,7 @@ GameObject:
   - component: {fileID: 996380111}
   - component: {fileID: 996380110}
   - component: {fileID: 996380109}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Left Bluetooth Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26968,7 +26968,7 @@ GameObject:
   - component: {fileID: 1393170624}
   - component: {fileID: 1393170626}
   - component: {fileID: 1393170625}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -32145,7 +32145,7 @@ GameObject:
   - component: {fileID: 1483927311}
   - component: {fileID: 1483927310}
   - component: {fileID: 1483927309}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -33575,7 +33575,7 @@ GameObject:
   - component: {fileID: 1788863076}
   - component: {fileID: 1788863075}
   - component: {fileID: 1788863074}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34128,7 +34128,7 @@ GameObject:
   - component: {fileID: 1866201308}
   - component: {fileID: 1866201307}
   - component: {fileID: 1866201306}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Text Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34635,7 +34635,7 @@ GameObject:
   - component: {fileID: 1905882832}
   - component: {fileID: 1905882834}
   - component: {fileID: 1905882833}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Right HexR Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -35552,7 +35552,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2058512841}
   - component: {fileID: 2058512842}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Audio
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -35767,7 +35767,7 @@ GameObject:
   - component: {fileID: 2085391999}
   - component: {fileID: 2085392001}
   - component: {fileID: 2085392000}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Top
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -35925,7 +35925,7 @@ GameObject:
   - component: {fileID: 2093269596}
   - component: {fileID: 2093269595}
   - component: {fileID: 2093269594}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Ver
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -37455,7 +37455,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8981355531345757476}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.0052748485, y: -0.081543475, z: -0.026631046, w: 0.9963}
+  m_LocalRotation: {x: 0.36711386, y: -0.08558935, z: 0.005742475, w: 0.92621213}
   m_LocalPosition: {x: -6.6340218, y: -2.511058e-13, z: 1.4124701e-13}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -37463,7 +37463,7 @@ Transform:
   - {fileID: 6290707936217394265}
   - {fileID: 8970807861134362541}
   m_Father: {fileID: 6226610586101316982}
-  m_LocalEulerAnglesHint: {x: -0.851, y: -9.336, z: -2.993}
+  m_LocalEulerAnglesHint: {x: 42.924, y: -12.167, z: -4.088}
 --- !u!1 &278190207869051294
 GameObject:
   m_ObjectHideFlags: 0
@@ -40791,6 +40791,14 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 5410922237156258382, guid: 5eccbf4be2c00e94689ee8062e4e7276, type: 3}
+      propertyPath: m_AttachTransform
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5410922237156258382, guid: 5eccbf4be2c00e94689ee8062e4e7276, type: 3}
+      propertyPath: m_RayOriginTransform
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 5586660804787756557, guid: 5eccbf4be2c00e94689ee8062e4e7276, type: 3}
       propertyPath: m_Layer
       value: 3
@@ -40899,6 +40907,14 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 6554766135523409559, guid: 5eccbf4be2c00e94689ee8062e4e7276, type: 3}
+      propertyPath: m_Target
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6554766135523409559, guid: 5eccbf4be2c00e94689ee8062e4e7276, type: 3}
+      propertyPath: m_AimTargetObject
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 6718466768875895893, guid: 5eccbf4be2c00e94689ee8062e4e7276, type: 3}
       propertyPath: m_Layer
       value: 3
@@ -40928,6 +40944,10 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7577993320488278971, guid: 5eccbf4be2c00e94689ee8062e4e7276, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7720849789280207954, guid: 5eccbf4be2c00e94689ee8062e4e7276, type: 3}
       propertyPath: m_Layer
       value: 3
       objectReference: {fileID: 0}
@@ -40995,6 +41015,14 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 8639170942151209137, guid: 5eccbf4be2c00e94689ee8062e4e7276, type: 3}
+      propertyPath: m_Target
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8639170942151209137, guid: 5eccbf4be2c00e94689ee8062e4e7276, type: 3}
+      propertyPath: m_AimTargetObject
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 8687780824280470336, guid: 5eccbf4be2c00e94689ee8062e4e7276, type: 3}
       propertyPath: m_Layer
       value: 3
@@ -41024,7 +41052,13 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 7990873189708867121, guid: 5eccbf4be2c00e94689ee8062e4e7276, type: 3}
+    - {fileID: 2580910706292915105, guid: 5eccbf4be2c00e94689ee8062e4e7276, type: 3}
+    - {fileID: 3809949224003560883, guid: 5eccbf4be2c00e94689ee8062e4e7276, type: 3}
+    - {fileID: 4366385756155017274, guid: 5eccbf4be2c00e94689ee8062e4e7276, type: 3}
+    - {fileID: 7990873191126656718, guid: 5eccbf4be2c00e94689ee8062e4e7276, type: 3}
+    - {fileID: 5224629633635038180, guid: 5eccbf4be2c00e94689ee8062e4e7276, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 7990873191187716717, guid: 5eccbf4be2c00e94689ee8062e4e7276, type: 3}
       insertIndex: -1
@@ -46639,8 +46673,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 2.8916652, y: 1.722098, z: 1.806766}
-  m_Center: {x: 0.4085484, y: -0.23776971, z: 0.76083577}
+  m_Size: {x: 3.3469915, y: 2.2273576, z: 1.973163}
+  m_Center: {x: 0.71846074, y: -0.4904008, z: 0.677642}
 --- !u!135 &3969806368555794070
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -46746,6 +46780,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4362588652042865633}
   - component: {fileID: 4362588652042865634}
+  - component: {fileID: 4362588652042865635}
   m_Layer: 0
   m_Name: Nimble_IV_05
   m_TagString: Untagged
@@ -47214,6 +47249,33 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!54 &4362588652042865635
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4017448290195476827}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 2
+  m_Constraints: 0
+  m_CollisionDetection: 2
 --- !u!1 &4397907138777754702
 GameObject:
   m_ObjectHideFlags: 0
@@ -49486,14 +49548,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5097197180285612650}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.003244264, y: -0.09132696, z: 0.053888027, w: 0.9943565}
+  m_LocalRotation: {x: 0.014399364, y: -0.20090385, z: 0.02793362, w: 0.9791068}
   m_LocalPosition: {x: -7.199942, y: 0, z: -5.062617e-16}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 257590740067661991}
   m_Father: {fileID: 7546965345546372970}
-  m_LocalEulerAnglesHint: {x: 0.934, y: -10.445, z: 6.119}
+  m_LocalEulerAnglesHint: {x: 2.259, y: -23.136, z: 2.806}
 --- !u!4 &6247304205769059619
 Transform:
   m_ObjectHideFlags: 0
@@ -55517,14 +55579,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1786457063527262144}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.04829183, y: 0.0673881, z: 0.494159, w: 0.86540955}
+  m_LocalRotation: {x: -0.08108018, y: 0.14283925, z: 0.53429735, w: 0.82918596}
   m_LocalPosition: {x: -4.4798217, y: -4.713836e-16, z: 7.0402017e-16}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6226610586101316982}
   m_Father: {fileID: 1688545427994931667}
-  m_LocalEulerAnglesHint: {x: -8.638, y: 3.997, z: 59.152}
+  m_LocalEulerAnglesHint: {x: -16.684, y: 9.024, z: 64.267}
 --- !u!4 &7553384391732640731
 Transform:
   m_ObjectHideFlags: 0

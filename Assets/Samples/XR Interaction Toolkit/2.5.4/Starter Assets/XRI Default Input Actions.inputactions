@@ -591,6 +591,17 @@
                 },
                 {
                     "name": "",
+                    "id": "edfb4e31-e44c-4b5d-af82-ad6dcfe601c5",
+                    "path": "<HandInteraction>{LeftHand}/trackingState",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Tracking State",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "28df8d2f-b563-4377-bd11-6c8932ee591c",
                     "path": "<MetaAimHand>{LeftHand}/devicePosition",
                     "interactions": "",
@@ -1535,6 +1546,17 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Generic XR Controller",
+                    "action": "Tracking State",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "05f80e2a-aca5-4efd-bd49-53dccce6d84f",
+                    "path": "<HandInteraction>{RightHand}/trackingState",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
                     "action": "Tracking State",
                     "isComposite": false,
                     "isPartOfComposite": false
