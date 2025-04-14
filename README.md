@@ -15,6 +15,10 @@
    
 3. **Switch to Android platform in build settings.**
 
+### Adding HexR to your projects:
+1. **Copy the Plugins folder from this project to your new project.**
+
+2. **Copy the HexRAssets folder from this project to your new project.**
 ---
 
 <details>
