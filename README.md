@@ -1,20 +1,25 @@
 # HexR Unity Integration (Uses Open XR) ℹ️
 
-## Installation
+## 🚀 Getting Started
+
+### QuickLinks:
+- For projects using **`Meta OVR`**, refer to the official [HexR Developer Tutorial (Meta OVR)](https://github.com/MicrotubeTechnologies/HexR-Developer-Tutorial-Meta-OVR).
+- For Pico headset compatability, refer to the pico branch in the official [HexR-developer-tutorial-XR](https://github.com/MicrotubeTechnologies/HexR-developer-tutorial-XR).
+- For plugin in **`Python`**, refer to the official [HaptGlovePython](https://github.com/MicrotubeTechnologies/HexR-developer-tutorial-XR](https://github.com/MicrotubeTechnologies/HaptGlovePython/tree/main)).
 
 ### Prerequisites:
-- Ensure you are using **Unity 2021.3.26f1** or newer.
-- For projects using **Meta OVR**, refer to the official [HexR Developer Tutorial (Meta OVR)](https://github.com/MicrotubeTechnologies/HexR-Developer-Tutorial-Meta-OVR).
-- For projects using **Pico Headsets**, refer to the Pico-Version branch.
-   
+- ✅ Minimum Unity version **Unity 2021.3.26f1**.
+- Uses the **`HaptGlove`**  and **`ArduinoBluetoothApiLocal`** plugin.
+    
 ### Steps to Get Started:
-1. **Clone this repository:**
-   https://github.com/MicrotubeTechnologies/HexR-developer-tutorial-XR
+1. **Clone this repository:** [HexR-developer-tutorial-XR](https://github.com/MicrotubeTechnologies/HexR-developer-tutorial-XR).
 
 2. **Open the HexR Developer Tutorial project in Unity.**
    
 3. **Switch to Android platform in build settings.**
-
+   
+4. **Navigate to the Scene folder to explore the different tutorial scene.**
+   
 ### Adding HexR to your projects:
 1. **Copy the Plugins folder from this project to your new project.**
 
@@ -22,8 +27,50 @@
 ---
 
 <details>
-  <summary>🔍 HexR Code Structure</summary>
+  <summary>🔍 HaptGlove Plugin Structure</summary>
 
+## 🧤 **`HaptGlove` Plugin Overview**
+
+The **`HaptGlove`** script contains the core logic for interacting with the glove, including applying haptics/vibrations and handling various Bluetooth-related functions.
+
+The **`HexR`** system is built on top of the `HaptGlove` plugin. The breakdown below highlights its core components, designed to help you integrate or develop your own projects using our foundational methods.
+
+---
+
+## **`HaptGloveHandler` Class**
+
+This is the **primary controller** for calling functions to interface with the HexR glove.
+
+⚠️ **Note:** You’ll need to create **two instances** of this class by attaching it to two separate GameObjects in your Unity scene — one for each hand. Each instance manages the haptics and Bluetooth connection independently.
+
+📦 **Namespace:** `using HaptGlove;`
+
+---
+
+### 📡 Bluetooth-Related Functions
+
+| Function           | Description                                                                 |
+|--------------------|-----------------------------------------------------------------------------|
+| `BTConnection()`   | Initiates Bluetooth connection with the glove device.                      |
+| `GetAirPressure()` | Returns `int[]` representing air pressure data for each finger (0–5).      |
+| `GetBatteryLevel()`| Returns a `float` representing the glove's current battery level.          |
+| `BTSend(byte[] data)` | Sends raw `byte[]` data to the device (used to trigger/stop haptics).     |
+
+---
+
+### 🎛 Haptics-Related Functions
+
+| Function           | Description                                                                 | Input Parameters                                                                                   |
+|--------------------|-----------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------|
+| `HEXRPressure()`    | Triggers haptic pressure; supports multiple fingers via array input.        | - `finger`: Use `haptics.Finger` enum (e.g., `Thumb`, `Index`)<br>- `state`: `true`/`false`<br>- `intensity`: 0.1–1.0<br>- `speed`: 0.1–1.0 |
+| `HEXRVibration()`   | Triggers vibration effects; supports multiple fingers via array input.      | - `finger`: Use `haptics.Finger` enum<br>- `state`: `true`/`false`<br>- `frequency`: 0.1–2.0<br>- `intensity`: 0.1–1.0<br>- `peakRatio`: 0.2–0.8<br>- `speed`: 0.1–1.0 |
+
+</details>
+
+<details>
+  <summary>🧩 HexR Code Structure</summary>
+
+### The **`HexR`** system is built on top of the `HaptGlove` plugin, to simplify and improve the experience of using the HexR glove.
 ### Learn more about the HexR code structure and architecture 💡
 
 <details>
