@@ -36921,7 +36921,7 @@ MonoBehaviour:
   TypeOfHaptics: 0
   HapticStrenngthValue: 0.5
   VibrationsFrequencyValue: 29.4
-  HapticPressure: 10
+  HapticPressure: 0.5
   InTimer: 0.4
   OutTimer: 0
   HeartBeatPressure: 40
