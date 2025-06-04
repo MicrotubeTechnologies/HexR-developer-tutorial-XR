@@ -235,12 +235,13 @@ namespace HexR
             else
             {
                 Haptics.Finger[] AllFingers = new Haptics.Finger[] { Haptics.Finger.Thumb, Haptics.Finger.Index, Haptics.Finger.Middle, Haptics.Finger.Ring, Haptics.Finger.Pinky, Haptics.Finger.Palm };
-
+                Debug.Log("Remove");
                 float[] TheFrequency = new float[] { 0f, 0f, 0f, 0f, 0f, 0f };
                 float[] ThePressure = new float[] { 0f, 0f, 0f, 0f, 0f, 0f };
                 bool[] FingerToTrigger = new bool[] { false, false, false, false, false, false };
                 byte[] btData = gloveHandler.haptics.HEXRVibration(AllFingers, FingerToTrigger, TheFrequency, ThePressure);
                 gloveHandler.BTSend(btData);
+                ResetFingerBool();
             }
         }
 
@@ -345,6 +346,7 @@ namespace HexR
                 bool[] FingerToTrigger = new bool[] { false, false, false, false, false, false };
                 byte[] btData = gloveHandler.haptics.HEXRVibration(AllFingers, FingerToTrigger, TheFrequency, ThePressure);
                 gloveHandler.BTSend(btData);
+                ResetFingerBool();
             }
         }
 
