@@ -75,7 +75,7 @@ This is the **primary controller** for calling functions to interface with the H
 <details>
   <summary>🧩 HexR Code Structure</summary>
 
-### The **`HexR`** system is built on top of the `HaptGlove` plugin, to simplify and improve the experience of using the HexR glove.
+### The **`HexR`** system is built on top of the `HaptGlove` plugin to simplify and improve the experience of using the HexR glove.
 ### Learn more about the HexR code structure and architecture 💡
 
 <details>
@@ -94,18 +94,22 @@ If a custom hand structure is used, you will have to recreate the `PhysicsHandTr
 </details>
 
 <details>
-  <summary>2. HexR Overall Manager (HaptGloveManager)</summary>
+  <summary>2. HexR Bluetooth Connection Manager (HaptGloveManager + HaptGloveUI)</summary>
 
-#### The `HaptGloveManager` simplifies the setup process.  
+#### The `HaptGloveManager` and HaptGloveUI handle the Bluetooth connection using the HexR plugins.  
+- Call the function ConnectRightBT() or ConnectLeftBT() to intitiate right or left HexR connection.
+- The OnConnected, OnConnectionFail, and OnDisconnected events can be found in HaptGloveManager and can be edited to suit your programme needs.
+
+#### Unity inspector set up.  
 - In the inspector, ensure the XR framework is set to OpenXR and click the **"Auto Set Up HexR"** button.
-- If Set up is successfull, there should be no missing links in the inspector for HexR main, Left Hand Physics and Right hand Physics.
+- If the setup is successful, there should be no missing links in the inspector for HexR main, Left Hand Physics, and Right Hand Physics.
 - Check the debug log to ensure the setup is successful. 
 
 ![Setup Image](https://github.com/user-attachments/assets/f09f713f-fa81-484e-8646-bbe830ecce35)
 
 #### HaptGloveManager Settings:
 - **XR Framework:**  
-  - Do select only the OpenXR Framework as there will be missing assets if meta OVR is selected, for projects using Meta OVR refer to the meta developer tutorial in the link above.
+  - Do select only the OpenXR Framework, as there will be missing assets if Meta OVR is selected. For projects using Meta OVR, refer to the meta developer tutorial in the link above.
 
 - **HexR Hand Menu:**  
   - The hand menu 
@@ -116,25 +120,25 @@ If a custom hand structure is used, you will have to recreate the `PhysicsHandTr
   <summary>3. Haptics Controller (PressureTrackerMain)</summary>
 
 #### The `PressureTrackerMain` script contains all of the functions to trigger haptics.
-#### There is 6 Channels in the HexR glove allowing haptics to be triggered for each finger and the palm
+#### There are 6 Channels in the HexR glove, allowing haptics to be triggered for each finger and the palm
 
 - Overview
   - Functions are categorized by **single-channel** or **multi-channel** triggers.
-  - Haptics intensity range from 0.1 (no haptics) to 1 (Max haptics).
+  - Haptics intensity ranges from 0.1 (no haptics) to 1 (Max haptics).
   - Refer to the demo scene to see examples of how these functions are used.
 
 - Function : IsHandNear()
   - This is use to check if the user left or right hand is grabbing or near the target object, so that haptics is correctly triggered at the right timme and by the right hand.
     
 - Function : CustomSingleHaptics ( Haptics.Finger finger, bool states, float intensity, float speed, bool ByPassHandCheck )
-  - Haptics.Finger = which finger is to be triggered: index,middle,ring,pinky,thumb,palm
+  - Haptics.Finger = which finger is to be triggered: index, middle, ring, pinky, thumb ,palm
   - states : true = haptics in , false = haptics out
   - intensity : 0.1 - 1 , min haptics - max haptics
   - speed : 0.1 - 1 , slowly increase haptics vs fast increase haptics
   - ByPassHandCheck : true = will trigger haptics without checking IsHandNear()
 
 - Function : CustomSingleVibrations(Haptics.Finger finger, bool states, float intensity, float frequency, bool ByPassHandCheck)
-  - Haptics.Finger = which finger is to be triggered: index,middle,ring,pinky,thumb,palm
+  - Haptics.Finger = which finger is to be triggered: index, middle, ring, pinky, thumb, palm 
   - states : true = haptics in , false = haptics out
   - frequency : 0.1 - 40.0 
   - intensity : 0.1 - 1 , min haptics - max haptics
@@ -145,7 +149,7 @@ If a custom hand structure is used, you will have to recreate the `PhysicsHandTr
   <summary>4. HexR Grab and Pinch (HexRGrabbable)</summary>
 
 #### The `HexRGrabbable` script enables objects to be picked up by the HexR hands.
-#### This is optional as you can also use the grab/pinch provided by **OpenXR**, however the haptics trigger and physics of grab will be different. Give both a try to see which is more suitable for you.
+#### This is optional as you can also use the grab/pinch provided by **OpenXR**, however, the haptics trigger and physics of grab will be different. Give both a try to see which is more suitable for you.
 To set up `HexRGrabbable`:
 1. Ensure the object has a **Collider (Trigger)** and **Rigidbody** attached to the same GameObject.
 2. Since the interaction is physics-based, adjust the size of the collider to improve grab/pinch behavior.
@@ -164,7 +168,7 @@ To set up `HexRGrabbable`:
 - **Haptic Slider:**  
   Controls the strength of the haptic feedback during grab or pinch.  
   - `0`: No haptics  
-  - `60`: Maximum haptics strength
+  - `60`: Maximum haptic strength
 
 - **On Grab Event:**  
   Trigger an event when the object is grabbed or pinched.
