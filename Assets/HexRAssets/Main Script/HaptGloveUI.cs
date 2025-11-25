@@ -50,8 +50,11 @@ namespace HexR
 
         public void ConnectLeftBT()
         {
+/*            LeftBtText.text = "Entered";
             RevokePermissions();
-            CheckAndRequestPermissions();
+            LeftBtText.text += " 2";
+            CheckAndRequestPermissions();*/
+            LeftBtText.text += " 2";
             isLeftHandControlled = true;
             LeftBtText.text = "Searching for device...";
             LeftHandPhysics.GetComponent<HaptGloveHandler>().BTConnection();

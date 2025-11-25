@@ -39912,9 +39912,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   whichHand: 0
+  BuildPlatform: 0
   batteryState: 0
   sourcePres: 80
-  deviceName: HaptGloveAR Right
+  targetDeviceName: HaptGloveAR Right
   btText: 
   btSendText: 
   hapticsInteratableLayers: 
@@ -47895,7 +47896,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   XRFramework: 0
-  isQuest: 1
+  isQuest: 0
   leftHand: {fileID: 1162483658308215278}
   rightHand: {fileID: 4100039038845173196}
   HandMenu: {fileID: 666941226}
@@ -48481,9 +48482,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   whichHand: 1
+  BuildPlatform: 0
   batteryState: 0
   sourcePres: 80
-  deviceName: HaptGloveAR Right
+  targetDeviceName: HaptGloveAR Right
   btText: 
   btSendText: 
   hapticsInteratableLayers: 
