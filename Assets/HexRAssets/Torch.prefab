@@ -14812,7 +14812,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7437178831600777086}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3fe47f648692e4345b8a35a04099f33e, type: 3}
+  m_Script: {fileID: 11500000, guid: cd4f9e56769dd934fa4896747d05d127, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   RightHandPhysics: {fileID: 0}
@@ -14927,7 +14927,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7621961757928261649}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c677bb85324600a4194553564a52e7f5, type: 3}
+  m_Script: {fileID: 11500000, guid: 182911c9fa462f340aa196f3bb1482fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   TypeOfGrab: 1

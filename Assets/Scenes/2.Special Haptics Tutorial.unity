@@ -1175,7 +1175,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 611335209}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3fe47f648692e4345b8a35a04099f33e, type: 3}
+  m_Script: {fileID: 11500000, guid: cd4f9e56769dd934fa4896747d05d127, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   RightHandPhysics: {fileID: 969211296}
@@ -1672,7 +1672,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 849954011}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3fe47f648692e4345b8a35a04099f33e, type: 3}
+  m_Script: {fileID: 11500000, guid: cd4f9e56769dd934fa4896747d05d127, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   RightHandPhysics: {fileID: 969211296}
@@ -1885,7 +1885,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da24b5f209a2ac745974f0e56908afcd, type: 3}
+  m_Script: {fileID: 11500000, guid: 160a2dfad9d8f29488ba8f2cd3bfedf1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &969211296 stripped
@@ -2493,7 +2493,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1160064608}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3fe47f648692e4345b8a35a04099f33e, type: 3}
+  m_Script: {fileID: 11500000, guid: cd4f9e56769dd934fa4896747d05d127, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   RightHandPhysics: {fileID: 969211296}
