@@ -116,7 +116,7 @@ namespace Unity.XR.OpenXR.Features.PICOSupport
 #if UNITY_6000
                 SubsystemManager.GetSubsystems(s_InputSubsystems);
 #else
-                SubsystemManager.GetInstances(s_InputSubsystems);
+                SubsystemManager.GetSubsystems(s_InputSubsystems);
 #endif
                 if (s_InputSubsystems.Count > 0)
                 {
