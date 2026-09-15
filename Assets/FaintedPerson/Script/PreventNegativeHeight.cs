@@ -20,7 +20,7 @@ public class PreventNegativeHeight : MonoBehaviour
             transform.position = pos;
 
             // Stop downward movement
-            rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
+            rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
         }
     }
 }

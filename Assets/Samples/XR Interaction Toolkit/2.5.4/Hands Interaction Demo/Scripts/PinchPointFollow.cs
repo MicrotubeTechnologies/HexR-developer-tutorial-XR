@@ -1,3 +1,5 @@
+using UnityEngine.XR.Interaction.Toolkit.Interactors;
+
 #if XR_HANDS_1_2_OR_NEWER
 using Unity.XR.CoreUtils;
 using Unity.XR.CoreUtils.Bindings;
