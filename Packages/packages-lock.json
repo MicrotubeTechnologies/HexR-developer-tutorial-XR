@@ -6,15 +6,6 @@
       "source": "embedded",
       "dependencies": {}
     },
-    "com.microtube.hexr": {
-      "version": "https://github.com/MicrotubeTechnologies/com.microtube.hexr.git#v0.3.0",
-      "depth": 0,
-      "source": "git",
-      "dependencies": {
-        "com.unity.textmeshpro": "3.0.7"
-      },
-      "hash": "97f5e19e3423c9c5d381fd284dae089ba9fe339c"
-    },
     "com.unity.burst": {
       "version": "2.0.0",
       "depth": 2,
