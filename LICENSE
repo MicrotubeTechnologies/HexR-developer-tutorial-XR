@@ -1,0 +1,57 @@
+MIT License
+
+Copyright (c) 2026 Microtube Technologies
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+---
+
+NOTE: This license covers Microtube Technologies' own work in this repository
+-- the tutorial scenes under Assets/Scenes/, the demo scripts under
+Assets/HexRAssets/Custom Assets/ and Assets/FaintedPerson/Script/, the project
+configuration, and the documentation.
+
+It does NOT cover:
+
+  - com.microtube.hexr                 -- the HexR package, pulled in by
+    Packages/manifest.json rather than vendored here. It carries its own
+    LICENSE and THIRD-PARTY-NOTICES.md, including third-party binaries that
+    are not sublicensed here.
+  - Packages/Unity OpenXR Integration
+    SDK-1.4.0-20250407/               -- PICO's Unity OpenXR Integration SDK,
+    redistributed under PICO's own developer terms. Proprietary; not MIT.
+  - Packages/com.microsoft.mrtk.
+    graphicstools.unity/              -- Microsoft's MRTK Graphics Tools,
+    MIT (Microsoft Corporation), with two local patches marked
+    "Local patch:" in source. See THIRD-PARTY-NOTICES.md for why.
+  - Assets/Gameobjects/               -- 3D models, textures and materials
+    used by the demo scenes, including
+    org.mixedrealitytoolkit.extendedassets (Microsoft, BSD 3-Clause). The
+    remaining packs are third-party assets whose redistribution status is
+    UNRESOLVED.
+  - Assets/FaintedPerson/RobotSphere/ -- third-party asset, redistribution
+    status UNRESOLVED.
+  - Assets/UnityTechnologies/         -- Unity Technologies' Effect Examples.
+  - Assets/TextMesh Pro/              -- Unity Technologies' TextMesh Pro
+    essentials and examples, under the Unity Companion License.
+  - Assets/Samples/                   -- imported samples from
+    com.unity.xr.interaction.toolkit and com.unity.xr.hands, under the Unity
+    Companion License.
+
+See THIRD-PARTY-NOTICES.md for the full list and their respective terms.

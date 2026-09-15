@@ -1,19 +1,83 @@
-# HexR Unity Integration (Uses Open XR) ℹ️
+# HexR Unity Integration — OpenXR / PICO ℹ️
+
+The reference project for building HexR haptic glove applications for **PICO**
+headsets. It runs on OpenXR, so the same project is the starting point for any
+OpenXR runtime; PICO is what it is configured and tested for.
+
+> **Using a Meta Quest?** Go to the
+> [HexR Developer Tutorial (Meta OVR)](https://github.com/MicrotubeTechnologies/HexR-Developer-Tutorial-Meta-OVR)
+> instead. That project uses Meta's Interaction SDK rather than OpenXR.
 
 ## Installation
 
-### Prerequisites:
-- Ensure you are using **Unity 2021.3.26f1** or newer.
-- For projects using **Meta OVR**, refer to the official [HexR Developer Tutorial (Meta OVR)](https://github.com/MicrotubeTechnologies/HexR-Developer-Tutorial-Meta-OVR).
-- Learn more about Pico unity integration, refer to the official [Pico developer website](https://developer.picoxr.com/resources/)
-  
-### Steps to Get Started:
-1. **Clone this repository:**
-   https://github.com/MicrotubeTechnologies/HexR-developer-tutorial-XR
+### Prerequisites
 
-2. **Open the HexR Developer Tutorial project in Unity.**
-   
-3. **Switch to Android platform in build settings.**
+- **Unity 6000.6.0f1.** This is the version the project is saved with. Unity
+  projects migrate forward only, so an older editor cannot open it.
+- **Git on your `PATH`.** The HexR glove code is not vendored here — it is
+  pulled from
+  [`com.microtube.hexr`](https://github.com/MicrotubeTechnologies/com.microtube.hexr)
+  by `Packages/manifest.json`, and Unity shells out to `git` to fetch it. If
+  Package Manager reports it cannot resolve the package, this is almost always
+  why.
+- **A PICO headset in developer mode**, and the gloves paired — see
+  [On-device setup](#on-device-setup) below.
+
+### Steps to get started
+
+1. **Clone this repository.**
+
+   ```
+   git clone https://github.com/MicrotubeTechnologies/HexR-developer-tutorial-XR
+   ```
+
+2. **Open it in Unity 6000.6.0f1.** First open takes a while: Unity fetches
+   `com.microtube.hexr` and imports the project.
+
+3. **Switch to the Android platform** in Build Settings if it is not already.
+
+4. **Open `Assets/Scenes/0.Full Demo.unity`** — the scene with everything in
+   it. The numbered tutorial scenes below each isolate one idea.
+
+### What is already configured
+
+You should not need to change any of this, but it is what makes the project a
+PICO project rather than a generic OpenXR one:
+
+| Setting | Value |
+| --- | --- |
+| XR plug-in provider (Android) | OpenXR |
+| OpenXR features (Android) | PICO Support, PICO OpenXR Features, the four PICO controller profiles, Hand Tracking Subsystem, Hand Interaction Profile |
+| PICO OpenXR plugin | `Packages/Unity OpenXR IntegrationSDK-1.4.0-20250407/` (v1.4.1), vendored because PICO does not publish it to any registry |
+| Target architecture | ARM64 (PICO is ARM64 only) |
+| Scripting backend | IL2CPP |
+| Hand tracking | enabled in `Assets/Resources/PICOProjectSetting.asset` |
+
+To add HexR to a *different* PICO project rather than starting from this one,
+install the package by git URL and follow the PICO section of the
+[package README](https://github.com/MicrotubeTechnologies/com.microtube.hexr#pico).
+
+### On-device setup
+
+The gloves talk to the headset over Bluetooth LE, which needs permissions that
+cannot be granted from Unity:
+
+1. In the headset: **Settings → Apps → [this app] → Permissions**, and allow
+   **Nearby devices** and **Location**. BLE scanning returns nothing without
+   both, and the failure looks exactly like broken hardware.
+2. Power on both gloves before pressing Connect in the app.
+
+> [!NOTE]
+> **If the gloves pair but no haptics fire**, the first thing to try is turning
+> off **Quest BLE Buffering** on the `HexRManager` component. It selects a
+> Bluetooth write-buffering strategy inside the closed-source `HaptGlove.dll`,
+> it ships on, and it has only ever been tested on Quest — its behaviour on
+> PICO is genuinely unknown.
+
+The second thing to check is that the object you are touching has a
+`ProximityCheck`. On OpenXR that is the *only* source of "a hand is near", and
+without one `IsHandNear()` is false forever and haptics silently never fire.
+See *Determine if hand is near* under **HexR Code Structure** below.
 
 ---
 
@@ -38,29 +102,55 @@ If a custom hand structure is used, you will have to recreate the `PhysicsHandTr
 </details>
 
 <details>
-  <summary>2. HexR Overall Manager (HaptGloveManager)</summary>
+  <summary>2. HexR Overall Manager (HexRManager)</summary>
 
-#### The `HaptGloveManager` simplifies the setup process.  
-- In the inspector, ensure the XR framework is set to OpenXR and click the **"Auto Set Up HexR"** button.
-- If Set up is successfull, there should be no missing links in the inspector for HexR main, Left Hand Physics and Right hand Physics.
-- Check the debug log to ensure the setup is successful. 
+#### `HexRManager` is the entry point — one per project, on the HexR rig.
+
+It owns both gloves' `HaptGloveHandler`s, the Bluetooth connect flow, and the
+scene wiring. It is a singleton and survives scene loads.
+
+In a project built from this repo it is already in every scene. When setting up
+a **new** scene or project, the flow is menu-driven:
+
+1. **HexR → HexR Tools → Project Setup** — pick **PICO** and install anything it
+   reports missing. It detects the PICO OpenXR plugin and links to the download
+   if it is absent; it cannot install that one for you, because PICO does not
+   publish it to a registry.
+2. Add a hand-tracking rig — an XR Origin with `com.unity.xr.hands`. The package
+   does not create one.
+3. **HexR → Create HexR Rig → Open XR (Quest, PICO, SteamVR)**.
+4. **HexR → Add Pressure Controller**, then **HexR → Auto Setup Scene**.
+5. **HexR → Validate Scene Setup** — this is the one that tells you what is
+   still wrong, including a missing `ProximityCheck`.
+
+If setup succeeded there are no missing links in the inspector for HexR Main,
+Left Hand Physics and Right Hand Physics.
 
 ![Setup Image](https://github.com/user-attachments/assets/f09f713f-fa81-484e-8646-bbe830ecce35)
 
-#### HaptGloveManager Settings:
-- **XR Framework:**  
-  - Do select only the OpenXR Framework as there will be missing assets if meta OVR is selected, for projects using Meta OVR refer to the meta developer tutorial in the link above.
+#### HexRManager settings
 
-- **HexR Hand Menu:**  
-  - The hand menu 
-  
+- **XR Framework** — leave on **OpenXR**. This names a *hand-joint naming
+  convention*, not a headset: OpenXR covers Unity XR Hands on any OpenXR
+  runtime, PICO included. There is deliberately no PICO option. `MetaOVR` is
+  for Meta's Interaction SDK skeleton and will not find the hands in this
+  project.
+- **Quest BLE Buffering** (`isQuest`) — ships **on**. Selects a Bluetooth
+  write-buffering strategy inside `HaptGlove.dll`. Untested on PICO; the first
+  thing to turn off if the gloves connect but stay silent.
+- **Right / Left Hand Physics** — the two `HaptGloveHandler` objects. Auto Setup
+  finds these by name, so don't rename them.
+- **HexR Hand Menu** — the wrist-mounted panel carrying the Connect buttons and
+  the Bluetooth/pump indicators. Auto Setup wires its buttons to
+  `HexRManager.ConnectLeftBT` / `ConnectRightBT`.
+
 </details>
 
 <details>
   <summary>3. Haptics Controller (PressureTrackerMain)</summary>
 
 #### The `PressureTrackerMain` script contains all of the functions to trigger haptics.
-#### There is 6 Channels in the HexR glove allowing haptics to be triggered for each finger and the palm
+#### There are 6 channels in the HexR glove allowing haptics to be triggered for each finger and the palm
 
 - Overview
   - Functions are categorized by **single-channel** or **multi-channel** triggers.
@@ -68,7 +158,7 @@ If a custom hand structure is used, you will have to recreate the `PhysicsHandTr
   - Refer to the demo scene to see examples of how these functions are used.
 
 - Function : IsHandNear()
-  - This is use to check if the user left or right hand is grabbing or near the target object, so that haptics is correctly triggered at the right timme and by the right hand.
+  - This is use to check if the user left or right hand is grabbing or near the target object, so that haptics is correctly triggered at the right time and by the right hand.
     
 - Function : CustomSingleHaptics ( Haptics.Finger finger, bool states, float intensity, float speed, bool ByPassHandCheck )
   - Haptics.Finger = which finger is to be triggered: index,middle,ring,pinky,thumb,palm
@@ -171,9 +261,9 @@ To set up `SpecialHaptics`:
 <details>
 <summary> Demo Scene : 1. Basic Tutorial </summary>
  
-## **Demo Scene : 1. Basic Tutorial **
+## Demo scene 1 — Basic Tutorial
 
-#### The **Basic Tutorial ** demo scene contains the implementation to grab and pinch object using HexR grabbing and pinching.
+#### The **Basic Tutorial** demo scene contains the implementation to grab and pinch object using HexR grabbing and pinching.
 
 ![image](https://github.com/user-attachments/assets/a5ecd879-2c42-4e4b-a056-69a30dbceaec)
 
@@ -198,7 +288,7 @@ To set up `SpecialHaptics`:
 <details>
 <summary> Demo Scene : 2. Special Haptics </summary>
  
-## **  Demo Scene : 2. Special Haptics Tutorial ⛲ **
+## Demo scene 2 — Special Haptics ⛲
 
 #### The **Special Haptics Tutorial** demo scene contains the haptics implementations for using triggers and colliders to trigger haptics. 
 #### There is a haptic zone in the fountain, Heart and rain clouds.
@@ -213,7 +303,7 @@ To set up `SpecialHaptics`:
 <details>
 <summary> Demo Scene : 3. Button </summary>
  
-## **  Demo Scene : 3. Button  **
+## Demo scene 3 — Button
 
 #### The **Button Tutorial** demo scene contains the haptics implementations by using event trigger. 
 #### The haptics function are triggered by the interactable Events in XR simple Interactable in each buttons.
@@ -225,6 +315,31 @@ To set up `SpecialHaptics`:
 
 </details>
 
+## Demo scene 0 — Full Demo
 
+The scene the build opens with, and the only one that shows everything working
+together: the grab and pinch demos, the medical/CPR scenario with the squeezable
+heart, the fountain and rain haptic zones, the push button, and the hand menu.
 
- 
+Start here to see what the gloves can do, then use the numbered scenes below to
+see how one piece is built.
+
+> [!NOTE]
+> This scene's HexR rig is unpacked rather than a prefab instance, so edits to
+> `HexR Main (Open XR)` in the package do not propagate into it. Prefer the
+> numbered tutorial scenes when you want a rig that tracks the package.
+
+## Demo scene — Use Interaction Tutorial
+
+Demonstrates `HexRUsable`: triggering haptics when an object is *used* (a
+trigger pulled, a tool activated) rather than merely grabbed. The torch is the
+worked example.
+
+---
+
+## Licence
+
+MIT for Microtube Technologies' own work. The demo art, the PICO SDK, MRTK and
+the Unity sample content are third-party and are **not** all redistributable —
+see [`LICENSE`](LICENSE) and [`THIRD-PARTY-NOTICES.md`](THIRD-PARTY-NOTICES.md)
+before reusing anything from this repository.
