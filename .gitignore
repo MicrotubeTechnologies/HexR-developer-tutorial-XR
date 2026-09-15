@@ -70,3 +70,17 @@ crashlytics-build.properties
 # Temporary auto-generated Android Assets
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
+
+# Unity scratch that the stock template misses
+.utmp/
+/TempAssembly.dll
+/[Aa]ssets/[Rr]esources/PerformanceTestRun*.json
+/[Aa]ssets/[Rr]esources/PerformanceTestRun*.json.meta
+/[Aa]ssets/[Ss]treamingAssets/RuntimeActionBindings.json
+/[Aa]ssets/[Ss]treamingAssets/RuntimeActionBindings.json.meta
+
+# Editors and OS
+.vscode/
+.DS_Store
+Thumbs.db
+desktop.ini
