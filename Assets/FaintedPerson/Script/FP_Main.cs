@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class FP_Main : MonoBehaviour
 {
@@ -24,16 +25,25 @@ public class FP_Main : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Desktop shortcuts for stepping through the dialogue without a headset. Read from the
+        // Input System directly rather than UnityEngine.Input, which throws once Active Input
+        // Handling is "Input System Package (New)" -- required, because "Both" is not supported
+        // on Android. Keyboard.current is null on device, where there is no keyboard.
+        Keyboard keyboard = Keyboard.current;
+        if (keyboard == null)
+        {
+            return;
+        }
 
-        if (Input.GetKey(KeyCode.Q))
+        if (keyboard.qKey.isPressed)
         {
             StartCoroutine(StartDialogue());
         }
-        if (Input.GetKey(KeyCode.W))
+        if (keyboard.wKey.isPressed)
         {
             TextThree();
         }
-        if (Input.GetKey(KeyCode.E))
+        if (keyboard.eKey.isPressed)
         {
             TextFour();
         }
@@ -100,7 +110,7 @@ public class FP_Main : MonoBehaviour
         // Wait for the specified delay time
         yield return new WaitForSeconds(1f);
         // Add a callback after the first text is displayed
-        typewriterEffect.ShowText("First, place your index and middle finger near his nose and mouth to check if he’s breathing. Hold it steady for a few seconds.");
+        typewriterEffect.ShowText("First, place your index and middle finger near his nose and mouth to check if heï¿½s breathing. Hold it steady for a few seconds.");
         audioSource.clip = Clip3;
         audioSource.Play();
         while (audioSource.isPlaying) // Wait until the audio stops
@@ -132,7 +142,7 @@ public class FP_Main : MonoBehaviour
         }
 
         heartRateCollider.Restartbool();
-        string TheText = "Okay, great! He’s breathing, so we’ll focus on his pulse next. Now, gently place two fingers on his wrist to feel for a pulse. I’ll analyze it for you.";
+        string TheText = "Okay, great! Heï¿½s breathing, so weï¿½ll focus on his pulse next. Now, gently place two fingers on his wrist to feel for a pulse. Iï¿½ll analyze it for you.";
         typewriterEffect.ShowText(TheText);
         audioSource.clip = Clip5;
         audioSource.Play();
@@ -150,7 +160,7 @@ public class FP_Main : MonoBehaviour
             yield return null; // Wait for the next frame without starting another coroutine
         }
 
-        string TheText = "Analyzing now... Processing vital signs... and 85 BPM—that’s within a normal range. It seems like his heart is stable for now. I’ve already called for an ambulance. Thank you for your assistance.";
+        string TheText = "Analyzing now... Processing vital signs... and 85 BPMï¿½thatï¿½s within a normal range. It seems like his heart is stable for now. Iï¿½ve already called for an ambulance. Thank you for your assistance.";
         typewriterEffect.ShowText(TheText);
         HeartRateParticle.layer = 0;
         audioSource.clip = Clip6;

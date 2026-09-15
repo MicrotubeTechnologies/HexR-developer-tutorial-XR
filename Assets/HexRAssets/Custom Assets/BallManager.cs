@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class BallManager : MonoBehaviour
 {
@@ -16,7 +17,11 @@ public class BallManager : MonoBehaviour
     }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.P))
+        // Desktop shortcut for testing the effect without a glove. Reads the Input System
+        // directly rather than UnityEngine.Input, which throws once Active Input Handling is
+        // "Input System Package (New)" -- required, because "Both" is not supported on Android.
+        // Keyboard.current is null on a headset, where there is no keyboard to read.
+        if (Keyboard.current != null && Keyboard.current.pKey.wasPressedThisFrame)
         {
             StartCoroutine(TransitionMaterial());
         }
