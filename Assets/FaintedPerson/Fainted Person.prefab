@@ -7033,7 +7033,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: HaptGloveUIOpenXR, Assembly-CSharp
+        m_TargetAssemblyTypeName: HexR.HaptGloveUI, Assembly-CSharp
         m_MethodName: ConnectLeftBT
         m_Mode: 1
         m_Arguments:

@@ -2856,9 +2856,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   whichHand: 1
+  BuildPlatform: 0
   batteryState: 0
   sourcePres: 80
-  deviceName: HaptGloveAR Right
+  targetDeviceName: HaptGloveAR Right
   btText: 
   btSendText: 
   hapticsInteratableLayers: 
@@ -3159,9 +3160,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   whichHand: 0
+  BuildPlatform: 0
   batteryState: 0
   sourcePres: 80
-  deviceName: HaptGloveAR Right
+  targetDeviceName: HaptGloveAR Left
   btText: 
   btSendText: 
   hapticsInteratableLayers: 

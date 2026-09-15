@@ -649,7 +649,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2098701241}
-        m_TargetAssemblyTypeName: HexR.HaptGloveUIOpenXR, Assembly-CSharp
+        m_TargetAssemblyTypeName: HexR.HaptGloveUI, Assembly-CSharp
         m_MethodName: ConnectRightBT
         m_Mode: 1
         m_Arguments:
@@ -876,7 +876,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: HexR.HaptGloveUIOpenXR, Assembly-CSharp
+        m_TargetAssemblyTypeName: HexR.HaptGloveUI, Assembly-CSharp
         m_MethodName: ConnectRightBT
         m_Mode: 1
         m_Arguments:
@@ -4593,7 +4593,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2098701241}
-        m_TargetAssemblyTypeName: HexR.HaptGloveUIOpenXR, Assembly-CSharp
+        m_TargetAssemblyTypeName: HexR.HaptGloveUI, Assembly-CSharp
         m_MethodName: ConnectLeftBT
         m_Mode: 1
         m_Arguments:

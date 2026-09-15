@@ -68,11 +68,18 @@ cannot be granted from Unity:
 2. Power on both gloves before pressing Connect in the app.
 
 > [!NOTE]
-> **If the gloves pair but no haptics fire**, the first thing to try is turning
-> off **Quest BLE Buffering** on the `HexRManager` component. It selects a
-> Bluetooth write-buffering strategy inside the closed-source `HaptGlove.dll`,
-> it ships on, and it has only ever been tested on Quest — its behaviour on
-> PICO is genuinely unknown.
+> **If the gloves pair but no haptics fire**, the first thing to try is
+> flipping **Quest BLE Buffering** on the `HexRManager` component. It selects a
+> Bluetooth write-buffering strategy inside the closed-source `HaptGlove.dll`
+> and has only ever been tested on Quest — its behaviour on PICO is genuinely
+> unknown.
+>
+> The scenes in this repo currently disagree on it, which is useful for testing
+> but worth knowing before you debug: **`0.Full Demo` has it OFF**, and the
+> numbered tutorial scenes have it **ON** (they use
+> `Assets/HexRAssets/Main Prefab/HexR Main (Open XR).prefab`, which ships with
+> it on). If haptics work in one scene and not another, check this before
+> assuming anything else. Once PICO behaviour is known, set both the same way.
 
 The second thing to check is that the object you are touching has a
 `ProximityCheck`. On OpenXR that is the *only* source of "a hand is near", and
